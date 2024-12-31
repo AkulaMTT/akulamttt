@@ -88,7 +88,6 @@
             border: none;
             border-radius: 5px;
             font-size: 1.2em;
-            cursor: pointer;
         }
         .hero button:hover {
             background-color: #ec971f;
@@ -166,33 +165,6 @@
         .contact-form button:hover {
             background-color: #003d80;
         }
-        .learn-more-section {
-            display: none;
-            padding: 40px 20px;
-            background-color: #fff;
-            text-align: left;
-            max-width: 800px;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-        .learn-more-section h2 {
-            text-align: center;
-        }
-        #back-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #0056b3;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #back-to-top:hover {
-            background-color: #003d80;
-        }
         footer {
             background-color: #003d80;
             color: #fff;
@@ -240,7 +212,7 @@
     <div class="hero">
         <h2>Expert Care, Seamless Journeys</h2>
         <p>Discover affordable, high-quality healthcare and travel services in beautiful Turkey.</p>
-        <button id="learn-more">Learn More</button>
+        <button>Learn More</button>
     </div>
     <section class="section" id="services">
         <h2>Our Services</h2>
@@ -297,94 +269,40 @@
         </table>
         <p>Trust Akula MTT to guide you every step of the way, combining world-class medical care with the cultural richness and beauty of Turkey.</p>
     </section>
-    <section class="learn-more-section" id="learn-more-content">
-        <h2>Welcome to Akula MTT: Your Gateway to World-Class Medical Care in Turkey</h2>
-        <p>At Akula MTT, we specialize in providing UK and European patients with seamless access to top-tier medical services in Turkey, partnering with the prestigious Medicana Health Group. With years of expertise in medical tourism, our mission is to ensure that every patient receives exceptional care, from the moment they inquire about our services to their return home fully satisfied with their treatment journey.</p>
-        <h3>Why Choose Akula MTT?</h3>
-        <h4>Comprehensive Services</h4>
-        <p>We understand that navigating healthcare abroad can be challenging. That’s why we offer end-to-end solutions tailored to meet each patient’s unique needs:</p>
-        <ul>
-            <li><strong>Airport Transfers:</strong> We provide VIP airport pick-up and drop-off services, ensuring a smooth transition upon arrival and departure.</li>
-            <li><strong>Accommodation:</strong> We assist in booking comfortable and convenient hotels, ranging from budget-friendly to luxury options.</li>
-            <li><strong>Hospital Appointments:</strong> All medical appointments are pre-arranged with the best specialists, eliminating wait times.</li>
-            <li><strong>Follow-Up Care:</strong> After treatment, we coordinate follow-ups to ensure a full recovery.</li>
-            <li><strong>Flexible Packages:</strong> Choose from comprehensive packages or hospital-only services, depending on your preference.</li>
-        </ul>
-        <h4>Partnering with Medicana Health Group</h4>
-        <p>Medicana Health Group, one of Turkey’s leading healthcare providers, is renowned for its state-of-the-art facilities and a wide range of specialized medical services. With over 30 years of experience, the group operates multiple hospitals across Turkey, including the esteemed Medicana International Istanbul Hospital.</p>
-        <p>Key features of Medicana International Istanbul Hospital:</p>
-        <ul>
-            <li>Advanced medical technologies.</li>
-            <li>Departments equipped with cutting-edge facilities for a variety of specialties.</li>
-            <li>Compliance with Joint Commission International (JCI) accreditation standards, ensuring global healthcare quality.</li>
-        </ul>
-        <h3>Our Medical Services</h3>
-        <p>Medicana Health Group offers an extensive range of medical specialties, including but not limited to:</p>
-        <ul>
-            <li>Cardiology and Cardiovascular Surgery</li>
-            <li>Neurology and Neurosurgery</li>
-            <li>Orthopedics and Traumatology</li>
-            <li>Oncology</li>
-            <li>Plastic, Reconstructive, and Aesthetic Surgery</li>
-            <li>Gynecology and Obstetrics</li>
-            <li>Urology</li>
-            <li>In Vitro Fertilization (IVF)</li>
-            <li>General Surgery</li>
-        </ul>
-        <p>All departments are staffed by experienced professionals dedicated to providing patient-centered care.</p>
-        <h3>Specialized Centers at Medicana</h3>
-        <h4>Advanced Oncology Unit</h4>
-        <p>Offers comprehensive cancer treatments, including radiation oncology with IMRT and LINAC technologies.</p>
-        <h4>Bone Marrow Transplantation Center</h4>
-        <p>Established in 2020 with reliable biological protection standards.</p>
-        <h4>Organ Transplantation Center</h4>
-        <p>Specializes in kidney and liver transplants.</p>
-        <h4>IVF Center</h4>
-        <p>Utilizes advanced reproductive techniques for successful pregnancies.</p>
-        <h3>What Sets Us Apart?</h3>
-        <h4>Personalized Treatment Plans</h4>
-        <p>Once you complete our online contact form and upload your medical reports, our team will assess your needs and provide a detailed cost breakdown. This includes:</p>
-        <ul>
-            <li>All necessary diagnostic tests (e.g., X-rays, ultrasounds, blood tests).</li>
-            <li>Consultation with specialists.</li>
-            <li>Comprehensive treatment plans.</li>
-        </ul>
-        <h4>Affordable Pricing</h4>
-        <p>We provide transparent pricing with no hidden fees. Example costs for certain procedures:</p>
-        <ul>
-            <li>Gallbladder removal: £3,000 - £5,000.</li>
-            <li>Kidney stone treatment: £2,500 - £4,500.</li>
-            <li>Plastic surgery (e.g., rhinoplasty): £3,000 - £6,000.</li>
-        </ul>
-        <p><em>Note: Prices exclude travel and accommodation.</em></p>
-        <h4>VIP Services</h4>
-        <p>Opt for our full VIP package, which includes:</p>
-        <ul>
-            <li>Personalized chauffeur service.</li>
-            <li>Luxury hotel stays.</li>
-            <li>Dedicated support throughout your stay.</li>
-        </ul>
-        <h4>Hospital-Only Packages</h4>
-        <p>For patients preferring to manage their own travel and accommodation, we ensure seamless hospital coordination and appointments.</p>
-        <h3>How It Works</h3>
-        <ol>
-            <li>Contact Us: Fill out our online contact form at <a href="https://akulamtt.com/">Akula MTT Website</a>, including your medical history and reports.</li>
-            <li>Receive a Plan: Our team of experts will analyze your information and provide a tailored treatment package.</li>
-            <li>Book Your Journey: Once you approve the plan, we handle all logistics, from airport transfers to hospital appointments.</li>
-            <li>Undergo Treatment: Experience world-class care at Medicana Health Group.</li>
-            <li>Post-Treatment Support: Benefit from continuous follow-up care to ensure your recovery is on track.</li>
-        </ol>
-        <h3>Why Turkey for Medical Tourism?</h3>
-        <p>Turkey has become a leading destination for medical tourism due to its:</p>
-        <ul>
-            <li>Advanced healthcare infrastructure.</li>
-            <li>Highly qualified medical professionals.</li>
-            <li>Competitive pricing compared to Europe and the UK.</li>
-            <li>Rich cultural heritage, offering a unique recovery experience.</li>
-        </ul>
-        <h3>Our Commitment to Excellence</h3>
-        <p>At Akula MTT, we prioritize:</p>
-        <ul>
-            <li>Safety and Quality: All treatments adhere to international standards.</li>
-            <li>Transparency: Clear communication and upfront pricing.</li>
-            <li>Patient Satisfaction:
+    <section class="section" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-form">
+            <h3>Let us assist you with your health inquiry</h3>
+            <p>Please provide your details and requirements below. Our professional medical staff will get back to you with a comprehensive quotation and assistance plan.</p>
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+
+                <label for="inquiry">Brief Information:</label>
+                <textarea id="inquiry" name="inquiry" rows="6" placeholder="Tell us about your inquiry, medical needs, or any specific requirements..."></textarea>
+
+                <label for="medical-report">Upload Medical Report (Optional):</label>
+                <input type="file" id="medical-report" name="medical-report">
+
+                <label for="services">Additional Services:</label>
+                <select id="services" name="services">
+                    <option value="full-package">Full Package (Medical + Travel + Hotel + Transport)</option>
+                    <option value="medical-only">Medical Help Only</option>
+                    <option value="custom">Custom Package</option>
+                </select>
+
+                <button type="submit">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Akula MTT. All rights reserved.</p>
+    </footer>
+</body>
+</html>
