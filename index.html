@@ -16,14 +16,15 @@
         header {
             background-color: #0056b3;
             color: #fff;
-            padding: 20px 0;
+            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
         header h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: 2em;
             flex-grow: 1;
             text-align: center;
         }
@@ -35,12 +36,13 @@
             display: flex;
             justify-content: center;
             background-color: #003d80;
-            padding: 10px 0;
+            padding: 10px;
+            flex-wrap: wrap;
         }
         nav a {
             color: #fff;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 10px;
             font-weight: bold;
         }
         nav a:hover {
@@ -108,11 +110,32 @@
             background-color: #003d80;
             color: #fff;
             text-align: center;
-            padding: 20px 0;
+            padding: 20px;
             margin-top: 20px;
         }
         footer p {
             margin: 0;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+            header h1 {
+                text-align: center;
+                margin: 10px 0;
+            }
+            nav {
+                flex-direction: column;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+            .services {
+                flex-direction: column;
+            }
+            .service {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
