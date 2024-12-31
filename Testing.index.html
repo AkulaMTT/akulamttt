@@ -69,7 +69,7 @@
             bottom: 0;
             z-index: 1;
         }
-        .hero h2, .hero p, .hero button {
+        .hero h2, .hero p {
             position: relative;
             z-index: 2;
             margin-top: 0;
@@ -80,18 +80,6 @@
         }
         .hero p {
             font-size: 1.5em;
-        }
-        .hero button {
-            background-color: #f0ad4e;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        .hero button:hover {
-            background-color: #ec971f;
         }
         .section {
             padding: 40px 20px;
@@ -228,7 +216,6 @@
     <div class="hero">
         <h2>Expert Care, Seamless Journeys</h2>
         <p>Discover affordable, high-quality healthcare and travel services in beautiful Turkey.</p>
-        <button onclick="scrollToLearnMore()">Learn More</button>
     </div>
     <section class="section" id="services">
         <h2>Our Services</h2>
@@ -252,7 +239,7 @@
     </section>
     <section class="about-section" id="about">
         <h2>About Us</h2>
-        <p>At Akula MTT, we are committed to ensuring our patients receive exceptional medical care in collaboration with one of Turkey's most renowned healthcare providers, Medicana International Istanbul.</p>
+        <p>At Akula MTT, we are committed to ensuring our patients receive exceptional medical care in collaboration with one of Turkey's most renowned healthcare providers, Medicana International Ist[...]
         <p>When you choose Akula MTT, you gain access to:</p>
         <ul>
             <li><strong>Full Support:</strong> From your arrival at the airport to your departure, we handle everything, ensuring a seamless experience.</li>
@@ -287,7 +274,7 @@
         
         <h1>Welcome to Akula MTT: Your Gateway to World-Class Medical Care in Turkey</h1>
         <h2>Why Choose Akula MTT?</h2>
-        <p>At Akula MTT, we specialize in providing UK and European patients with seamless access to top-tier medical services in Turkey, partnering with the prestigious Medicana Health Group. With years of expertise in medical tourism, our mission is to ensure that every patient receives exceptional care, from the moment they inquire about our services to their return home fully satisfied with their treatment journey.</p>
+        <p>At Akula MTT, we specialize in providing UK and European patients with seamless access to top-tier medical services in Turkey, partnering with the prestigious Medicana Health Group. With ye[...]
 
         <h3>Comprehensive Services</h3>
         <ul>
@@ -331,7 +318,7 @@
         <h2>What Sets Us Apart?</h2>
         <ul>
             <li><strong>Personalized Treatment Plans:</strong> Detailed cost breakdowns based on uploaded medical reports.</li>
-            <li><strong>Affordable Pricing:</strong> Transparent pricing for procedures like gallbladder removal (£3,000-£5,000), kidney stone treatment (£2,500-£4,500), and plastic surgery (£3,000-£6,000).</li>
+            <li><strong>Affordable Pricing:</strong> Transparent pricing for procedures like gallbladder removal (£3,000-£5,000), kidney stone treatment (£2,500-£4,500), and plastic surgery (£3,0[...]
             <li><strong>VIP Services:</strong> Full packages with personalized chauffeurs, luxury hotel stays, and more.</li>
             <li><strong>Hospital-Only Packages:</strong> Seamless coordination for patients handling their own travel and accommodation.</li>
         </ul>
@@ -346,7 +333,7 @@
         </ol>
 
         <h2>Why Turkey for Medical Tourism?</h2>
-        <p>Turkey is a leading destination for medical tourism, offering advanced healthcare infrastructure, highly qualified professionals, competitive pricing, and a rich cultural recovery experience.</p>
+        <p>Turkey is a leading destination for medical tourism, offering advanced healthcare infrastructure, highly qualified professionals, competitive pricing, and a rich cultural recovery experienc[...]
 
         <h2>Our Commitment to Excellence</h2>
         <p>At Akula MTT, we prioritize safety, quality, transparency, and patient satisfaction. Let us handle the details so you can focus on your well-being.</p>
@@ -363,26 +350,20 @@
             <form action="/submit" method="post" enctype="multipart/form-data">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" placeholder="Your Name" required>
-
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" required>
-
                 <label for="phone">Phone Number:</label>
                 <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
-
                 <label for="inquiry">Brief Information:</label>
                 <textarea id="inquiry" name="inquiry" rows="6" placeholder="Tell us about your inquiry, medical needs, or any specific requirements..."></textarea>
-
                 <label for="medical-report">Upload Medical Report (Optional):</label>
                 <input type="file" id="medical-report" name="medical-report">
-
                 <label for="services">Additional Services:</label>
                 <select id="services" name="services">
                     <option value="full-package">Full Package (Medical + Travel + Hotel + Transport)</option>
                     <option value="medical-only">Medical Help Only</option>
                     <option value="custom">Custom Package</option>
                 </select>
-
                 <button type="submit">Submit Inquiry</button>
             </form>
         </div>
@@ -391,9 +372,9 @@
         <p>&copy; 2024 Akula MTT. All rights reserved.</p>
     </footer>
     <script>
-        function scrollToLearnMore() {
-            document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-        }
-
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>
