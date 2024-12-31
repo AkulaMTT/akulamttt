@@ -123,6 +123,33 @@
             max-width: 100%;
             border-radius: 5px;
         }
+        .contact-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #003d80;
+        }
         footer {
             background-color: #003d80;
             color: #fff;
@@ -186,7 +213,7 @@
                 <p>Seamless travel arrangements from start to finish.</p>
             </div>
             <div class="service">
-                <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/Luxurious%20and%20comfortable%20hotel%20room%20with%20warm.webp" alt="Accommodation">
+                <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/Medical%20tourism%20website.%20with%20friendly%20doctors%20%20copy.webp" alt="Accommodation">
                 <h3>Accommodation</h3>
                 <p>Comfortable stays tailored to your needs.</p>
             </div>
@@ -195,6 +222,36 @@
     <section class="section" id="about">
         <h2>About Us</h2>
         <p>At Akula MTT, we specialize in connecting international patients with top-tier medical care and travel services in Turkey. Our mission is to make healthcare accessible, affordable, and hassle-free.</p>
+    </section>
+    <section class="section" id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-form">
+            <form action="/submit" method="post" enctype="multipart/form-data">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+
+                <label for="inquiry">Brief Information:</label>
+                <textarea id="inquiry" name="inquiry" rows="4" placeholder="Tell us about your inquiry..."></textarea>
+
+                <label for="medical-report">Upload Medical Report (Optional):</label>
+                <input type="file" id="medical-report" name="medical-report">
+
+                <label for="services">Additional Services:</label>
+                <select id="services" name="services">
+                    <option value="full-package">Full Package (Medical + Travel + Hotel + Transport)</option>
+                    <option value="medical-only">Medical Help Only</option>
+                    <option value="custom">Custom Package</option>
+                </select>
+
+                <button type="submit">Submit Inquiry</button>
+            </form>
+        </div>
     </section>
     <footer>
         <p>&copy; 2024 Akula MTT. All rights reserved.</p>
