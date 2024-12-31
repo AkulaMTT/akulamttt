@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Akula MTT - Your trusted partner in medical tourism and travel to Turkey. Expert care, seamless journeys.">
+    <title>Akula MTT | Medical Tourism & Travel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            flex-grow: 1;
+            text-align: center;
+        }
+        header img {
+            max-width: 150px;
+            margin-left: 20px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #003d80;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 10px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-image: url('https://via.placeholder.com/1920x600');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .hero button {
+            background-color: #f0ad4e;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .hero button:hover {
+            background-color: #ec971f;
+        }
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+        .section p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .services {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        .service {
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1 1 calc(30% - 40px);
+            box-sizing: border-box;
+            max-width: 320px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .service img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        footer {
+            background-color: #003d80;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        footer p {
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+            header h1 {
+                text-align: center;
+                margin: 10px 0;
+            }
+            nav {
+                flex-direction: column;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+            .services {
+                flex-direction: column;
+            }
+            .service {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/2.png" alt="Akula MTT Logo">
+        <h1>Akula MTT</h1>
+        <p>Medical Tourism & Travel</p>
+    </header>
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="hero">
+        <h2>Expert Care, Seamless Journeys</h2>
+        <p>Discover affordable, high-quality healthcare and travel services in beautiful Turkey.</p>
+        <button>Learn More</button>
+    </div>
+    <section class="section" id="services">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service">
+                <img src="https://via.placeholder.com/300x200" alt="Service 1">
+                <h3>Medical Procedures</h3>
+                <p>World-class healthcare with expert specialists.</p>
+            </div>
+            <div class="service">
+                <img src="https://via.placeholder.com/300x200" alt="Service 2">
+                <h3>Travel Assistance</h3>
+                <p>Seamless travel arrangements from start to finish.</p>
+            </div>
+            <div class="service">
+                <img src="https://via.placeholder.com/300x200" alt="Service 3">
+                <h3>Accommodation</h3>
+                <p>Comfortable stays tailored to your needs.</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="about">
+        <h2>About Us</h2>
+        <p>At Akula MTT, we specialize in connecting international patients with top-tier medical care and travel services in Turkey. Our mission is to make healthcare accessible, affordable, and hassle-free while showcasing the beauty of Turkey.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Akula MTT. All rights reserved.</p>
+    </footer>
+</body>
+</html>
