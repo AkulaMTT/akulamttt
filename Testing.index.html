@@ -81,6 +81,18 @@
         .hero p {
             font-size: 1.5em;
         }
+        .hero button {
+            background-color: #f0ad4e;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .hero button:hover {
+            background-color: #ec971f;
+        }
         .section {
             padding: 40px 20px;
             text-align: center;
@@ -216,6 +228,7 @@
     <div class="hero">
         <h2>Expert Care, Seamless Journeys</h2>
         <p>Discover affordable, high-quality healthcare and travel services in beautiful Turkey.</p>
+        <button onclick="scrollToAbout()">Learn More</button>
     </div>
     <section class="section" id="services">
         <h2>Our Services</h2>
@@ -372,6 +385,10 @@
         <p>&copy; 2024 Akula MTT. All rights reserved.</p>
     </footer>
     <script>
+        function scrollToAbout() {
+            document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+        }
+
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
