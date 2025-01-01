@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -14,15 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message .= "Inquiry: $inquiry\n";
     $message .= "Services: $services\n";
 
-    $headers = "From: $email\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        if (mail($to, $subject, $message, $headers)) {
+        $mail = new PHPMailer(true);
+        try {
+            $mail->setFrom($email, $name);
+            $mail->addAddress($to);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+
+            $mail->send();
             echo "Your inquiry has been sent successfully.";
-        } else {
-            echo "There was an error sending your inquiry. Please try again later.";
+        } catch (Exception $e) {
+            echo "There was an error sending your inquiry. Please try again later. Mailer Error: " . $mail->ErrorInfo;
         }
     } else {
         echo "Invalid email address. Please provide a valid email.";
