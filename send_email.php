@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $phone = htmlspecialchars($_POST['phone']);
     $inquiry = htmlspecialchars($_POST['inquiry']);
     $services = htmlspecialchars($_POST['services']);
@@ -14,12 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message .= "Inquiry: $inquiry\n";
     $message .= "Services: $services\n";
 
-    $headers = "From: $email";
+    $headers = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    if (mail($to, $subject, $message, $headers)) {
-        echo "Your inquiry has been sent successfully.";
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (mail($to, $subject, $message, $headers)) {
+            echo "Your inquiry has been sent successfully.";
+        } else {
+            echo "There was an error sending your inquiry. Please try again later.";
+        }
     } else {
-        echo "There was an error sending your inquiry. Please try again later.";
+        echo "Invalid email address. Please provide a valid email.";
     }
 } else {
     echo "Invalid request method.";
