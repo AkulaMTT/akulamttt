@@ -390,11 +390,14 @@
     <footer>
         <p>&copy; 2024 Akula MTT. All rights reserved.</p>
     </footer>
-    <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        document.addEventListener('scroll', function() {
-            var backToTopButton = document.querySelector('.back-to-top');
-            if (window.scrollY > 300) {
-                backToTopButton.style.display =
+</body>
+<script>
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.onscroll = function() {
+        var button = document.querySelector('.back-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            button.style.display = 'block';
+        } else {
+            button.style
