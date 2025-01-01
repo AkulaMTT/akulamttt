@@ -22,7 +22,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $mail = new PHPMailer(true);
         try {
-            $mail->setFrom($email, $name);
+            // SMTP configuration
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'your-email@gmail.com'; // Your Gmail address
+            $mail->Password = 'your-email-password'; // Your Gmail password or app-specific password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            $mail->setFrom('your-email@gmail.com', $name);
             $mail->addAddress($to);
             $mail->Subject = $subject;
             $mail->Body = $message;
