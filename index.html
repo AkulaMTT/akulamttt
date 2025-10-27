@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Meta Description for new business -->
-    <meta name="description" content="The Ultimate Entrepreneur's Profitability Calculator - A bilingual financial modeling tool for e-commerce, dropshippers, and digital entrepreneurs.">
-    <title>The Ultimate Entrepreneur's Profitability Calculator</title>
+    <!-- Updated Meta Description for new brand -->
+    <meta name="description" content="Akula MTT - The Ultimate Entrepreneur's Profitability Calculator. A bilingual financial modeling tool for e-commerce, dropshippers, and digital entrepreneurs.">
+    <title>Akula MTT - Entrepreneur's Profitability Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- NEW: Add Cairo font for Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+        /* NEW: Apply Cairo font when in Arabic */
+        html[lang="ar"] body {
+            font-family: 'Cairo', sans-serif;
         }
         .feature-card {
             @apply bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow;
@@ -32,8 +38,9 @@
 
         /* Back to Top button styling */
         .back-to-top {
-            @apply hidden fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity z-50;
+            @apply hidden fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity z-50 transition-all duration-300;
         }
+        /* NEW: RTL support for Back to Top */
         html[lang="ar"] .back-to-top {
             @apply right-auto left-5;
         }
@@ -44,23 +51,36 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-800">Profitability Calculator</h1>
-            <a href="calculator.html" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Launch App
+            <!-- NEW: Logo and Brand Name -->
+            <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
+                <!-- NEW: Inline SVG Logo -->
+                <svg class_="""w-8 h-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3.633 1.342c.813-1.306 2.76-1.306 3.573 0l6.61 10.61-3.573 5.735-6.61-10.61L3.633 1.342Zm16.734 0c.813-1.306 2.76-1.306 3.573 0l-3.037 4.873-3.573-4.873h3.037Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M12.93 17.687c.813-1.306 2.76-1.306 3.573 0l3.037 4.873h-3.037l-3.573-4.873Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M13.743 1.342c-.813-1.306-2.76-1.306-3.573 0L3.56 12.01l3.573 5.735 6.61-10.61L13.743 1.342Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-2xl font-bold text-gray-800" data-key="appName">Akula MTT</span>
             </a>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <!-- NEW: Language Toggle Button -->
+                <button id="langToggle" class="text-sm font-medium text-gray-600 hover:text-blue-600" data-key="navToggleLang">Switch to Arabic</button>
+                <a href="calculator.html" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-key="navLaunchApp">
+                    Launch App
+                </a>
+            </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="bg-white pt-20 pb-24">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6" data-key="heroTitle">
                 The Ultimate Entrepreneur's Profitability Calculator
             </h2>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10" data-key="heroSubtitle">
                 An all-in-one bilingual financial modeling tool for e-commerce owners, dropshippers, and digital entrepreneurs. Move beyond simple calculations to model your entire business.
             </p>
-            <a href="calculator.html" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+            <a href="calculator.html" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg" data-key="heroCta">
                 Start Planning Your Profits
             </a>
         </div>
@@ -69,31 +89,31 @@
     <!-- Core Planning Features -->
     <section id="features" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h3 class="section-title">Core Planning Features</h3>
+            <h3 class="section-title" data-key="featuresTitle">Core Planning Features</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Dynamic Profit Targeting</h4>
-                    <p class="text-gray-600">Set your profit goal "Per Day," "Per Month," or "Per Year" and watch the entire dashboard update instantly.</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature1Title">Dynamic Profit Targeting</h4>
+                    <p class="text-gray-600" data-key="feature1Desc">Set your profit goal "Per Day," "Per Month," or "Per Year" and watch the entire dashboard update instantly.</p>
                 </div>
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Dual-Currency System</h4>
-                    <p class="text-gray-600">Seamlessly manage finances in USD and a second, user-selectable currency (e.g., LYD, TRY, EUR, SAR).</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature2Title">Dual-Currency System</h4>
+                    <p class="text-gray-600" data-key="feature2Desc">Seamlessly manage finances in USD and a second, user-selectable currency (e.g., LYD, TRY, EUR, SAR).</p>
                 </div>
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Bidirectional Currency Inputs</h4>
-                    <p class="text-gray-600">Enter a cost in USD to see its secondary equivalent, or enter in your secondary currency to see the USD value.</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature3Title">Bidirectional Currency Inputs</h4>
+                    <p class="text-gray-600" data-key="feature3Desc">Enter a cost in USD to see its secondary equivalent, or enter in your secondary currency to see the USD value.</p>
                 </div>
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Granular Per-Unit Costing</h4>
-                    <p class="text-gray-600">Model every component of your product cost, including Cost of Goods, Packaging, Shipping, and Exporting.</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature4Title">Granular Per-Unit Costing</h4>
+                    <p class="text-gray-600" data-key="feature4Desc">Model every component of your product cost, including Cost of Goods, Packaging, Shipping, and Exporting.</p>
                 </div>
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Flexible Cost Allocation</h4>
-                    <p class="text-gray-600">Instantly model "Customer pays for Shipping" scenarios by simply checking a box, removing that cost from your calculation.</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature5Title">Flexible Cost Allocation</h4>
+                    <p class="text-gray-600" data-key="feature5Desc">Instantly model "Customer pays for Shipping" scenarios by simply checking a box, removing that cost from your calculation.</p>
                 </div>
                 <div class="feature-card">
-                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Fixed & Variable Overheads</h4>
-                    <p class="text-gray-600">Account for all monthly expenses, from fixed website domains to variable marketing budgets on Facebook, Google, and TikTok.</p>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3" data-key="feature6Title">Fixed & Variable Overheads</h4>
+                    <p class="text-gray-600" data-key="feature6Desc">Account for all monthly expenses, from fixed website domains to variable marketing budgets on Facebook, Google, and TikTok.</p>
                 </div>
             </div>
         </div>
@@ -102,32 +122,30 @@
     <!-- AI-Powered Sourcing & Analysis -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <h3 class="section-title">AI-Powered Sourcing & Analysis
-                <span class="block text-lg font-normal text-gray-600 mt-2">Powered by Gemini</span>
+            <h3 class="section-title" data-key="aiTitle">AI-Powered Sourcing & Analysis
+                <span class="block text-lg font-normal text-gray-600 mt-2" data-key="aiSubtitle">Powered by Gemini</span>
             </h3>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <!-- NEW SVG Icon for AI Sourcing -->
                     <div class="bg-gray-100 rounded-lg shadow-lg mb-6 p-8 flex items-center justify-center aspect-video">
                         <svg class="w-24 h-24 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                           <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.75l-3.75 3.75-3.75-3.75M14.25 11.5l-3.75 3.75-3.75-3.75" />
                         </svg>
                     </div>
-                    <h4 class="text-2xl font-semibold text-gray-900 mb-4">AI Product Sourcing</h4>
-                    <p class="text-gray-600 mb-4">Don't know your costs? Just enter a "Product Search Term." The AI will use Google Search to find real, current wholesale pricing from sites like Alibaba and DHGate.</p>
-                    <p class="text-gray-600">It presents a list of options with estimated costs and source links. You can then click "Select" to automatically populate the "Cost of Goods" field in the calculator.</p>
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-4" data-key="aiSourcingTitle">AI Product Sourcing</h4>
+                    <p class="text-gray-600 mb-4" data-key="aiSourcingDesc1">Don't know your costs? Just enter a "Product Search Term." The AI will use Google Search to find real, current wholesale pricing from sites like Alibaba and DHGate.</p>
+                    <p class="text-gray-600" data-key="aiSourcingDesc2">It presents a list of options with estimated costs and source links. You can then click "Select" to automatically populate the "Cost of Goods" field in the calculator.</p>
                 </div>
                 <div>
-                    <!-- NEW SVG Icon for AI Analysis -->
                     <div class="bg-gray-100 rounded-lg shadow-lg mb-6 p-8 flex items-center justify-center aspect-video">
                         <svg class="w-24 h-24 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                         </svg>
                     </div>
-                    <h4 class="text-2xl font-semibold text-gray-900 mb-4">AI Pricing & Margin Analysis</h4>
-                    <p class="text-gray-600 mb-4">Already have your product? Enter your product, cost, and selling price. The AI will perform an in-depth analysis of your profit margin and health.</p>
-                    <p class="text-gray-600">It provides expert commentary, suggests three alternative pricing strategies (e.g., Bundle, Decoy), and even generates a compelling product description for your store.</p>
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-4" data-key="aiAnalysisTitle">AI Pricing & Margin Analysis</h4>
+                    <p class="text-gray-600 mb-4" data-key="aiAnalysisDesc1">Already have your product? Enter your product, cost, and selling price. The AI will perform an in-depth analysis of your profit margin and health.</p>
+                    <p class="text-gray-600" data-key="aiAnalysisDesc2">It provides expert commentary, suggests three alternative pricing strategies (e.g., Bundle, Decoy), and even generates a compelling product description for your store.</p>
                 </div>
             </div>
         </div>
@@ -136,24 +154,24 @@
     <!-- Results Dashboard Section -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
-            <h3 class="section-title">Your Comprehensive Results Dashboard</h3>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center -mt-8 mb-12">
+            <h3 class="section-title" data-key="resultsTitle">Your Comprehensive Results Dashboard</h3>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center -mt-8 mb-12" data-key="resultsSubtitle">
                 The right-hand dashboard provides an instant, real-time summary of your entire business model.
             </p>
             <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="text-xl font-semibold text-gray-900 mb-4">Key Metrics</h4>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><span class="font-semibold">Units to Sell:</span> The exact number you must sell to achieve your profit goal.</li>
-                            <li><span class="font-semibold">Per-Unit Breakdown:</span> A clear summary of your Selling Price, Total Cost, and Net Profit per unit.</li>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4" data-key="resultsMetricsTitle">Key Metrics</h4>
+                        <ul class="space-y-2 text-gray-700 ltr:list-disc ltr:list-inside rtl:list-['-_'] rtl:pr-4">
+                            <li><span class="font-semibold" data-key="resultsMetric1Title">Units to Sell:</span> <span data-key="resultsMetric1Desc">The exact number you must sell to achieve your profit goal.</span></li>
+                            <li><span class="font-semibold" data-key="resultsMetric2Title">Per-Unit Breakdown:</span> <span data-key="resultsMetric2Desc">A clear summary of your Selling Price, Total Cost, and Net Profit per unit.</span></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-xl font-semibold text-gray-900 mb-4">Financial Projections</h4>
-                        <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li><span class="font-semibold">Monthly & Yearly Forecasts:</span> See your Total Revenue, Total Costs, and Net Profit.</li>
-                            <li><span class="font-semibold">Operational Budgeting:</span> Instantly see your "Monthly Order Investment" and "Total Monthly Budget" needed to operate.</li>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4" data-key="resultsProjectionsTitle">Financial Projections</h4>
+                        <ul class="space-y-2 text-gray-700 ltr:list-disc ltr:list-inside rtl:list-['-_'] rtl:pr-4">
+                            <li><span class="font-semibold" data-key="resultsProjection1Title">Monthly & Yearly Forecasts:</span> <span data-key="resultsProjection1Desc">See your Total Revenue, Total Costs, and Net Profit.</span></li>
+                            <li><span class="font-semibold" data-key="resultsProjection2Title">Operational Budgeting:</span> <span data-key="resultsProjection2Desc">Instantly see your "Monthly Order Investment" and "Total Monthly Budget" needed to operate.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -161,11 +179,11 @@
         </div>
     </section>
 
-    <!-- NEW: Contact Section (from old site) -->
+    <!-- Contact Section -->
     <section class="py-20 bg-white" id="contact">
         <div class="container mx-auto px-6">
-            <h3 class="section-title">Contact Us</h3>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center -mt-8 mb-12">
+            <h3 class="section-title" data-key="contactTitle">Contact Us</h3>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center -mt-8 mb-12" data-key="contactSubtitle">
                 Have questions, feedback, or a feature request? Let us know!
             </p>
             <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-lg shadow-lg">
@@ -173,39 +191,37 @@
                 <form action="https://formspree.io/f/mwpprrkw" method="post" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label for="name" class="form-label">Name:</label>
-                            <input type="text" id="name" name="name" placeholder="Your Name" required class="form-input">
+                            <label for="name" class="form-label" data-key="formName">Name:</label>
+                            <input type="text" id="name" name="name" data-key-placeholder="formNamePlaceholder" placeholder="Your Name" required class="form-input">
                         </div>
                         <div>
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="Your Email" required class="form-input">
+                            <label for="email" class="form-label" data-key="formEmail">Email:</label>
+                            <input type="email" id="email" name="email" data-key-placeholder="formEmailPlaceholder" placeholder="Your Email" required class="form-input">
                         </div>
                     </div>
                     <div class="mb-6">
-                        <label for="phone" class="form-label">Phone Number:</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required class="form-input">
+                        <label for="phone" class="form-label" data-key="formPhone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" data-key-placeholder="formPhonePlaceholder" placeholder="Your Phone Number" required class="form-input">
                     </div>
                     <div class="mb-6">
-                        <label for="inquiry" class="form-label">Message:</label>
-                        <textarea id="inquiry" name="inquiry" rows="6" placeholder="Tell us about your inquiry, feedback, or feature request..." class="form-textarea"></textarea>
+                        <label for="inquiry" class="form-label" data-key="formMessage">Message:</label>
+                        <textarea id="inquiry" name="inquiry" rows="6" data-key-placeholder="formMessagePlaceholder" placeholder="Tell us about your inquiry, feedback, or feature request..." class="form-textarea"></textarea>
                     </div>
                     <div class="mb-6">
-                        <!-- Updated for new business -->
-                        <label for="business-plan" class="form-label">Upload File (Optional):</label>
+                        <label for="business-plan" class="form-label" data-key="formFile">Upload File (Optional):</label>
                         <input type="file" id="business-plan" name="business-plan" class="form-input">
                     </div>
                     <div class="mb-6">
-                        <!-- Updated for new business -->
-                        <label for="services" class="form-label">Inquiry Type:</label>
+                        <label for="services" class="form-label" data-key="formInquiryType">Inquiry Type:</label>
                         <select id="services" name="services" class="form-select">
-                            <option value="feature-request">Feature Request</option>
-                            <option value="calculator-feedback">Calculator Feedback</option>
-                            <option value="general-inquiry">General Inquiry</option>
-                            <option value="custom">Custom</option>
+                            <option value="feature-request" data-key="formOptionFeature">Feature Request</option>
+                            <option value="calculator-feedback" data-key="formOptionFeedback">Calculator Feedback</option>
+                            <option value="general-inquiry" data-key="formOptionGeneral">General Inquiry</option>
+                            <option value="custom" data-key="formOptionCustom">Custom</option>
                         </select>
                     </div>
                     <div>
-                        <button type="submit" class="form-button">Submit Inquiry</button>
+                        <button type="submit" class="form-button" data-key="formButton">Submit Inquiry</button>
                     </div>
                 </form>
             </div>
@@ -215,13 +231,13 @@
     <!-- Final CTA -->
     <section class="bg-blue-700 py-20">
         <div class="container mx-auto px-6 text-center">
-            <h3 class="text-4xl font-bold text-white mb-6">
+            <h3 class="text-4xl font-bold text-white mb-6" data-key="ctaTitle">
                 Ready to find your profit target?
             </h3>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto mb-10">
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto mb-10" data-key="ctaSubtitle">
                 Stop guessing and start planning. Use the calculator to find exactly how many units you need to sell to reach your financial goals.
             </p>
-            <a href="calculator.html" class="bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+            <a href="calculator.html" class="bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg" data-key="ctaButton">
                 Launch the Free Calculator
             </a>
         </div>
@@ -230,8 +246,8 @@
     <!-- Footer -->
     <footer class="bg-gray-800 py-8">
         <div class="container mx-auto px-6 text-center text-gray-400">
-            <p>&copy; 2025 Entrepreneur's Profitability Calculator. All rights reserved.</p>
-            <!-- NEW: Social Icons (from old site) -->
+            <p data-key="footerCopyright">&copy; 2025 Akula MTT. All rights reserved.</p>
+            <!-- Social Icons -->
             <div class="flex justify-center space-x-6 mt-4">
                 <a href="https://www.instagram.com/akulamttt/" target="_blank" class="text-gray-400 hover:text-white" aria-label="Instagram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -247,14 +263,14 @@
         </div>
     </footer>
 
-    <!-- NEW: Back to Top Button (from old site) -->
-    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to Top">
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()" data-key-aria="backToTopAria">
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
         </svg>
     </button>
     
-    <!-- NEW: Tawk.to Script (from old site) -->
+    <!-- Tawk.to Script -->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
         (function(){
@@ -265,30 +281,218 @@
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
         })();
-    </script>
+    </script> 
     <!--End of Tawk.to Script-->
 
-    <!-- NEW: Back to Top JavaScript -->
+    <!-- Back to Top JavaScript -->
     <script>
         const backToTopButton = document.querySelector('.back-to-top');
         
-        window.onscroll = () => {
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                backToTopButton.style.display = "block";
-                backToTopButton.style.opacity = "1";
-            } else {
-                backToTopButton.style.opacity = "0";
-                setTimeout(() => {
-                    if (document.body.scrollTop <= 100 && document.documentElement.scrollTop <= 100) {
-                         backToTopButton.style.display = "none";
-                    }
-                }, 300); // Match transition duration
-            }
-        };
+        if (backToTopButton) {
+            window.onscroll = () => {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backToTopButton.style.display = "block";
+                    backToTopButton.style.opacity = "1";
+                } else {
+                    backToTopButton.style.opacity = "0";
+                    setTimeout(() => {
+                        if (document.body.scrollTop <= 100 && document.documentElement.scrollTop <= 100) {
+                             backToTopButton.style.display = "none";
+                        }
+                    }, 300); // Match transition duration
+                }
+            };
+        }
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    </script>
+
+    <!-- NEW: Bilingual Toggle JavaScript -->
+    <script>
+        const translations = {
+            en: {
+                appName: "Akula MTT",
+                navLaunchApp: "Launch App",
+                navToggleLang: "Switch to Arabic",
+                heroTitle: "The Ultimate Entrepreneur's Profitability Calculator",
+                heroSubtitle: "An all-in-one bilingual financial modeling tool for e-commerce owners, dropshippers, and digital entrepreneurs. Move beyond simple calculations to model your entire business.",
+                heroCta: "Start Planning Your Profits",
+                featuresTitle: "Core Planning Features",
+                feature1Title: "Dynamic Profit Targeting",
+                feature1Desc: "Set your profit goal \"Per Day,\" \"Per Month,\" or \"Per Year\" and watch the entire dashboard update instantly.",
+                feature2Title: "Dual-Currency System",
+                feature2Desc: "Seamlessly manage finances in USD and a second, user-selectable currency (e.g., LYD, TRY, EUR, SAR).",
+                feature3Title: "Bidirectional Currency Inputs",
+                feature3Desc: "Enter a cost in USD to see its secondary equivalent, or enter in your secondary currency to see the USD value.",
+                feature4Title: "Granular Per-Unit Costing",
+                feature4Desc: "Model every component of your product cost, including Cost of Goods, Packaging, Shipping, and Exporting.",
+                feature5Title: "Flexible Cost Allocation",
+                feature5Desc: "Instantly model \"Customer pays for Shipping\" scenarios by simply checking a box, removing that cost from your calculation.",
+                feature6Title: "Fixed & Variable Overheads",
+                feature6Desc: "Account for all monthly expenses, from fixed website domains to variable marketing budgets on Facebook, Google, and TikTok.",
+                aiTitle: "AI-Powered Sourcing & Analysis",
+                aiSubtitle: "Powered by Gemini",
+                aiSourcingTitle: "AI Product Sourcing",
+                aiSourcingDesc1: "Don't know your costs? Just enter a \"Product Search Term.\" The AI will use Google Search to find real, current wholesale pricing from sites like Alibaba and DHGate.",
+                aiSourcingDesc2: "It presents a list of options with estimated costs and source links. You can then click \"Select\" to automatically populate the \"Cost of Goods\" field in the calculator.",
+                aiAnalysisTitle: "AI Pricing & Margin Analysis",
+                aiAnalysisDesc1: "Already have your product? Enter your product, cost, and selling price. The AI will perform an in-depth analysis of your profit margin and health.",
+                aiAnalysisDesc2: "It provides expert commentary, suggests three alternative pricing strategies (e.g., Bundle, Decoy), and even generates a compelling product description for your store.",
+                resultsTitle: "Your Comprehensive Results Dashboard",
+                resultsSubtitle: "The right-hand dashboard provides an instant, real-time summary of your entire business model.",
+                resultsMetricsTitle: "Key Metrics",
+                resultsMetric1Title: "Units to Sell:",
+                resultsMetric1Desc: "The exact number you must sell to achieve your profit goal.",
+                resultsMetric2Title: "Per-Unit Breakdown:",
+                resultsMetric2Desc: "A clear summary of your Selling Price, Total Cost, and Net Profit per unit.",
+                resultsProjectionsTitle: "Financial Projections",
+                resultsProjection1Title: "Monthly & Yearly Forecasts:",
+                resultsProjection1Desc: "See your Total Revenue, Total Costs, and Net Profit.",
+                resultsProjection2Title: "Operational Budgeting:",
+                resultsProjection2Desc: "Instantly see your \"Monthly Order Investment\" and \"Total Monthly Budget\" needed to operate.",
+                contactTitle: "Contact Us",
+                contactSubtitle: "Have questions, feedback, or a feature request? Let us know!",
+                formName: "Name:",
+                formNamePlaceholder: "Your Name",
+                formEmail: "Email:",
+                formEmailPlaceholder: "Your Email",
+                formPhone: "Phone Number:",
+                formPhonePlaceholder: "Your Phone Number",
+                formMessage: "Message:",
+                formMessagePlaceholder: "Tell us about your inquiry, feedback, or feature request...",
+                formFile: "Upload File (Optional):",
+                formInquiryType: "Inquiry Type:",
+                formOptionFeature: "Feature Request",
+                formOptionFeedback: "Calculator Feedback",
+                formOptionGeneral: "General Inquiry",
+                formOptionCustom: "Custom",
+                formButton: "Submit Inquiry",
+                ctaTitle: "Ready to find your profit target?",
+                ctaSubtitle: "Stop guessing and start planning. Use the calculator to find exactly how many units you need to sell to reach your financial goals.",
+                ctaButton: "Launch the Free Calculator",
+                footerCopyright: "&copy; 2025 Akula MTT. All rights reserved.",
+                backToTopAria: "Back to Top"
+            },
+            ar: {
+                appName: "عقولة MTT",
+                navLaunchApp: "تشغيل الآلة الحاسبة",
+                navToggleLang: "Switch to English",
+                heroTitle: "الحاسبة المثالية لربحية رواد الأعمال",
+                heroSubtitle: "أداة نمذجة مالية شاملة ثنائية اللغة لأصحاب المتاجر الإلكترونية، والدروب شيبر، ورواد الأعمال الرقميين. تجاوز الحسابات البسيطة إلى نمذجة عملك بالكامل.",
+                heroCta: "ابدأ تخطيط أرباحك",
+                featuresTitle: "ميزات التخطيط الأساسية",
+                feature1Title: "استهداف ديناميكي للأرباح",
+                feature1Desc: "حدد هدف ربحك \"يوميًا\" أو \"شهريًا\" أو \"سنويًا\" وشاهد لوحة المعلومات بأكملها تتحدث فورًا.",
+                feature2Title: "نظام عملة مزدوج",
+                feature2Desc: "أدر أموالك بسلاسة بالدولار الأمريكي وعملة ثانية يختارها المستخدم (مثل الدينار الليبي، الليرة التركية، اليورو، الريال السعودي).",
+                feature3Title: "إدخالات عملة ثنائية الاتجاه",
+                feature3Desc: "أدخل تكلفة بالدولار لرؤية المعادل بالعملة الثانوية، أو أدخل بعملتك الثانوية لرؤية القيمة بالدولار.",
+                feature4Title: "احتساب دقيق لتكاليف الوحدة",
+                feature4Desc: "قم بنمذجة كل مكون من مكونات تكلفة منتجك، بما في ذلك تكلفة البضائع، التغليف، الشحن، والتصدير.",
+                feature5Title: "توزيع مرن للتكاليف",
+                feature5Desc: "قم بنمذجة سيناريوهات \"العميل يدفع للشحن\" على الفور بمجرد تحديد المربع، وإزالة هذه التكلفة من حساباتك.",
+                feature6Title: "النفقات الثابتة والمتغيرة",
+                feature6Desc: "احسب جميع النفقات الشهرية، من نطاقات الموقع الثابتة إلى ميزانيات التسويق المتغيرة على فيسبوك، جوجل، وتيك توك.",
+                aiTitle: "التوريد والتحليل المدعوم بالذكاء الاصطناعي",
+                aiSubtitle: "مدعوم بـ Gemini",
+                aiSourcingTitle: "توريد المنتجات بالذكاء الاصطناعي",
+                aiSourcingDesc1: "لا تعرف تكاليفك؟ فقط أدخل \"مصطلح بحث عن المنتج\". سيستخدم الذكاء الاصطناعي بحث جوجل للعثور على أسعار جملة حقيقية وحالية من مواقع مثل علي بابا.",
+                aiSourcingDesc2: "يعرض قائمة من الخيارات مع التكاليف المقدرة وروابط المصدر. يمكنك بعد ذلك النقر فوق \"تحديد\" لملء حقل \"تكلفة البضائع\" في الحاسبة تلقائيًا.",
+                aiAnalysisTitle: "تحليل التسعير وهامش الربح بالذكاء الاصطناعي",
+                aiAnalysisDesc1: "هل لديك منتجك بالفعل؟ أدخل منتجك، تكلفته، وسعر بيعه. سيقوم الذكاء الاصطناعي بإجراء تحليل متعمق لهامش الربح وصحته.",
+                aiAnalysisDesc2: "يقدم تعليقات خبيرة، ويقترح ثلاث استراتيجيات تسعير بديلة (مثل التسعير الحزمي، التسعير الخادع)، وحتى ينشئ وصف منتج جذاب لمتجرك.",
+                resultsTitle: "لوحة نتائجك الشاملة",
+                resultsSubtitle: "تقدم لوحة المعلومات اليمنى ملخصًا فوريًا وفي الوقت الفعلي لنموذج عملك بأكمله.",
+                resultsMetricsTitle: "المقاييس الرئيسية",
+                resultsMetric1Title: "الوحدات المطلوب بيعها:",
+                resultsMetric1Desc: "الرقم الدقيق الذي يجب عليك بيعه لتحقيق هدف ربحك.",
+                resultsMetric2Title: "تفاصيل كل وحدة:",
+                resultsMetric2Desc: "ملخص واضح لسعر البيع، التكلفة الإجمالية، وصافي الربح لكل وحدة.",
+                resultsProjectionsTitle: "التوقعات المالية",
+                resultsProjection1Title: "التوقعات الشهرية والسنوية:",
+                resultsProjection1Desc: "شاهد إجمالي إيراداتك، إجمالي التكاليف، وصافي الربح.",
+                resultsProjection2Title: "الميزانية التشغيلية:",
+                resultsProjection2Desc: "شاهد على الفور \"استثمار الطلب الشهري\" و \"الميزانية الشهرية الإجمالية\" اللازمة للتشغيل.",
+                contactTitle: "اتصل بنا",
+                contactSubtitle: "هل لديك أسئلة، ملاحظات، أو طلب ميزة؟ دعنا نعرف!",
+                formName: "الاسم:",
+                formNamePlaceholder: "اسمك",
+                formEmail: "البريد الإلكتروني:",
+                formEmailPlaceholder: "بريدك الإلكتروني",
+                formPhone: "رقم الهاتف:",
+                formPhonePlaceholder: "رقم هاتفك",
+                formMessage: "الرسالة:",
+                formMessagePlaceholder: "أخبرنا عن استفسارك، ملاحظاتك، أو طلب الميزة...",
+                formFile: "تحميل ملف (اختياري):",
+                formInquiryType: "نوع الاستفسار:",
+                formOptionFeature: "طلب ميزة",
+                formOptionFeedback: "ملاحظات على الحاسبة",
+                formOptionGeneral: "استفسار عام",
+                formOptionCustom: "مخصص",
+                formButton: "إرسال الاستفسار",
+                ctaTitle: "هل أنت مستعد لإيجاد هدف ربحك؟",
+                ctaSubtitle: "توقف عن التخمين وابدأ التخطيط. استخدم الحاسبة لتجد بالضبط كم عدد الوحدات التي تحتاج لبيعها للوصول إلى أهدافك المالية.",
+                ctaButton: "تشغيل الحاسبة المجانية",
+                footerCopyright: "© 2025 عقولة MTT. جميع الحقوق محفوظة.",
+                backToTopAria: "العودة إلى الأعلى"
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function updateLanguage() {
+            const langData = translations[currentLanguage];
+            
+            // Set page direction and lang
+            document.documentElement.lang = currentLanguage;
+            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+
+            // Update all elements with data-key
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (langData[key]) {
+                    element.innerHTML = langData[key];
+                }
+            });
+
+            // Update all elements with data-key-placeholder
+            document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-key-placeholder');
+                if (langData[key]) {
+                    element.placeholder = langData[key];
+                }
+            });
+
+            // Update all elements with data-key-aria
+            document.querySelectorAll('[data-key-aria]').forEach(element => {
+                const key = element.getAttribute('data-key-aria');
+                if (langData[key]) {
+                    element.setAttribute('aria-label', langData[key]);
+                }
+            });
+
+            // Update toggle button text
+            const toggleButton = document.getElementById('langToggle');
+            if (toggleButton) {
+                toggleButton.innerText = langData.navToggleLang;
+            }
+        }
+
+        function toggleLanguage() {
+            currentLanguage = (currentLanguage === 'en') ? 'ar' : 'en';
+            updateLanguage();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggleButton = document.getElementById('langToggle');
+            if (langToggleButton) {
+                langToggleButton.addEventListener('click', toggleLanguage);
+            }
+            // Initialize language on load
+            updateLanguage();
+        });
     </script>
 
 </body>
