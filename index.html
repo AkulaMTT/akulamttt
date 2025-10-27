@@ -19,7 +19,8 @@
         
         /* Styles for Back to Top button in Arabic */
         html[lang="ar"] .back-to-top {
-            @apply right-auto left-5;
+            right: auto;
+            left: 1.25rem; /* 1.25rem == Tailwind's '5' unit */
         }
     </style>
 </head>
@@ -28,7 +29,7 @@
     <!-- Header --><header class="bg-white shadow-sm sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
-                <!-- Logo Image - Adjusted size --><img src="https://akulamtt.com/Akula%20MTT%20Logo.png" alt="Akula MTT Logo" class="w-14 h-14"> 
+                <!-- Logo Image - Adjusted size --><img src="https://akulamtt.com/Akula%20MTT%20Logo.png" alt="Akula MTT Logo" class="w-20 h-20"> 
                 <div class="flex flex-col items-start rtl:items-end">
                     <span class="text-2xl font-bold text-gray-800" data-key="appName">Akula MTT</span>
                     <span class="text-sm text-gray-500" data-key="appTagline">Minds for Metrics, Trends & Targets</span>
@@ -359,7 +360,7 @@
                 feature3Desc: "أدخل تكلفة بالدولار لرؤية معادلها بالعملة الثانوية، أو أدخلها بعملتك الثانوية لرؤية قيمتها بالدولار.",
                 feature4Title: "تكاليف مفصلة لكل وحدة",
                 feature4Desc: "قم بنمذجة كل مكون من مكونات تكلفة منتجك، بما في ذلك تكلفة البضائع، التغليف، الشحن، والتصدير.",
-                feature5Title: "تخصيص مرن للتكاليف",
+                feature5Title: "تخصيص مرن للتكالIF:",
                 feature5Desc: "قم بنمذجة سيناريوهات \"العميل يدفع للشحن\" فورًا بمجرد تحديد مربع، لإزالة تلك التكلفة من حساباتك.",
                 feature6Title: "نفقات ثابتة ومتغيرة",
                 feature6Desc: "احسب جميع النفقات الشهرية، من نطاقات الموقع الثابتة إلى ميزانيات التسويق المتغيرة على فيسبوك، جوجل، وتيك توك.",
@@ -369,7 +370,7 @@
                 aiSourcingDesc1: "لا تعرف تكاليفك؟ فقط أدخل \"مصطلح بحث المنتج\". سيستخدم الذكاء الاصطناعي بحث جوجل للعثور على أسعار جملة حقيقية وحالية من مواقع مثل Alibaba و DHGate.",
                 aiSourcingDesc2: "يعرض قائمة بالخيارات مع التكاليف المقدرة وروابط المصدر. يمكنك بعد ذلك النقر فوق \"تحديد\" لملء حقل \"تكلفة البضائع\" في الحاسبة تلقائيًا.",
                 aiAnalysisTitle: "تحليل التسعير والهامش بالذكاء الاصطناعي",
-                aiAnalysisDesc1: "هل لديك منتجك بالفعل؟ أدخل منتجك، تكلفتك، وسعر البيع. سيقوم الذكاء الاصطناعي بإجراء تحليل متعمق لهامش ربحك وصحته.",
+                aiAnalysisDesc1: "هل لديك منتجك بالفعل؟ أدخل منتجك، تكلFTك، وسعر البيع. سيقوم الذكاء الاصطناعي بإجراء تحليل متعمق لهامش ربحك وصحته.",
                 aiAnalysisDesc2: "يقدم تعليقات خبيرة، ويقترح ثلاث استراتيجيات تسعير بديلة (مثل: الحزمة، الطعم)، وحتى ينشئ وصف منتج جذاب لمتجرك.",
                 resultsTitle: "لوحة نتائجك الشاملة",
                 resultsSubtitle: "توفر لوحة التحكم اليمنى ملخصًا فوريًا وفي الوقت الفعلي لنموذج عملك بأكمله.",
