@@ -1,421 +1,296 @@
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6775234749e2fd8dfe0153c1/1iggp3k34';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Akula MTT - Your trusted partner in medical tourism and travel to Türkiye. Expert care, seamless journeys.">
-    <title>Akula MTT | Medical Tourism & Travel</title>
+    <!-- Updated Meta Description for new business -->
+    <meta name="description" content="The Ultimate Entrepreneur's Profitability Calculator - A bilingual financial modeling tool for e-commerce, dropshippers, and digital entrepreneurs.">
+    <title>The Ultimate Entrepreneur's Profitability Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Inter', sans-serif;
         }
-        header {
-            background-color: #0056b3;
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        .feature-card {
+            @apply bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-            flex-grow: 1;
-            text-align: center;
+        .section-title {
+            @apply text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12;
         }
-        header img {
-            max-width: 150px;
-            margin-left: 20px;
+        
+        /* Form styling */
+        .form-label {
+            @apply block text-sm font-medium text-gray-700 mb-1;
         }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #003d80;
-            padding: 10px;
-            flex-wrap: wrap;
+        .form-input, .form-textarea, .form-select {
+            @apply w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
         }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 10px;
-            font-weight: bold;
+        .form-button {
+            @apply w-full bg-blue-600 text-white font-bold text-lg px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg;
         }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-            background-image: url('https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/Website%20panel%20.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #fff;
-            position: relative;
-            min-height: 400px;
-        }
-        .hero::before {
-            content: "";
-            background: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-        }
-        .hero h2, .hero p, .hero button {
-            position: relative;
-            z-index: 2;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-        .hero h2 {
-            font-size: 3em;
-        }
-        .hero p {
-            font-size: 1.5em;
-        }
-        .hero button {
-            background-color: #f0ad4e;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        .hero button:hover {
-            background-color: #ec971f;
-        }
-        .section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .section p {
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-        .services {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-        .service {
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            padding: 20px;
-            border-radius: 5px;
-            flex: 1 1 calc(33% - 40px);
-            box-sizing: border-box;
-            max-width: 300px;
-        }
-        .service img {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-        .about-section {
-            text-align: left;
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            text-align: left;
-        }
-        .contact-form h3 {
-            margin-top: 0;
-        }
-        .contact-form label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        .contact-form input, .contact-form textarea, .contact-form select, .contact-form button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box.
-        }
-        .contact-form button {
-            background-color: #0056b3;
-            color: #fff;
-            border: none;
-            cursor: pointer.
-        }
-        .contact-form button:hover {
-            background-color: #003d80;
-        }
+
+        /* Back to Top button styling */
         .back-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #0056b3;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
+            @apply hidden fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity z-50;
         }
-        .back-to-top:hover {
-            background: #003d80;
-        }
-        footer {
-            background-color: #003d80;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        footer p {
-            margin: 0;
-        }
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-            }
-            header h1 {
-                text-align: center;
-                margin: 10px 0;
-            }
-            nav {
-                flex-direction: column;
-            }
-            nav a {
-                margin: 5px 0;
-            }
-            .services {
-                flex-direction: column.
-            }
-            .service {
-                max-width: 100%.
-            }
+        html[lang="ar"] .back-to-top {
+            @apply right-auto left-5;
         }
     </style>
 </head>
-<body>
-    <header>
-        <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/2.png" alt="Akula MTT Logo">
-        <h1>Akula MTT</h1>
-        <p>Medical Tourism & Travel</p>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">Profitability Calculator</h1>
+            <a href="calculator.html" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Launch App
+            </a>
+        </nav>
     </header>
-    <nav>
-        <a href="#services">Services</a>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <div class="hero">
-        <h2>Expert Care, Seamless Journeys</h2>
-        <p>Discover affordable, high-quality healthcare and travel services in beautiful Türkiye.</p>
-    </div>
-    <section class="section" id="services">
-        <h2>Our Services</h2>
-        <div class="services">
-            <div class="service">
-                <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/Medical%20tourism%20website.%20with%20friendly%20doctors%20%20copy.webp" alt="Medical Procedures">
-                <h3>Medical Procedures</h3>
-                <p>World-class healthcare with expert specialists.</p>
-            </div>
-            <div class="service">
-                <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/main/luxurious%20airport%20pickup%20service%2C%20showcasing%20a.webp" alt="Travel Assistance">
-                <h3>Travel Assistance</h3>
-                <p>Seamless travel arrangements from start to finish.</p>
-            </div>
-            <div class="service">
-                <img src="https://raw.githubusercontent.com/AkulaMTT/akulamttt/refs/heads/main/Luxurious%20and%20comfortable%20hotel%20room%20with%20warm.webp" alt="Accommodation">
-                <h3>Accommodation</h3>
-                <p>Comfortable stays tailored to your needs.</p>
+
+    <!-- Hero Section -->
+    <section class="bg-white pt-20 pb-24">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6">
+                The Ultimate Entrepreneur's Profitability Calculator
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                An all-in-one bilingual financial modeling tool for e-commerce owners, dropshippers, and digital entrepreneurs. Move beyond simple calculations to model your entire business.
+            </p>
+            <a href="calculator.html" class="bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                Start Planning Your Profits
+            </a>
+        </div>
+    </section>
+
+    <!-- Core Planning Features -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="section-title">Core Planning Features</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Dynamic Profit Targeting</h4>
+                    <p class="text-gray-600">Set your profit goal "Per Day," "Per Month," or "Per Year" and watch the entire dashboard update instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Dual-Currency System</h4>
+                    <p class="text-gray-600">Seamlessly manage finances in USD and a second, user-selectable currency (e.g., LYD, TRY, EUR, SAR).</p>
+                </div>
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Bidirectional Currency Inputs</h4>
+                    <p class="text-gray-600">Enter a cost in USD to see its secondary equivalent, or enter in your secondary currency to see the USD value.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Granular Per-Unit Costing</h4>
+                    <p class="text-gray-600">Model every component of your product cost, including Cost of Goods, Packaging, Shipping, and Exporting.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Flexible Cost Allocation</h4>
+                    <p class="text-gray-600">Instantly model "Customer pays for Shipping" scenarios by simply checking a box, removing that cost from your calculation.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Fixed & Variable Overheads</h4>
+                    <p class="text-gray-600">Account for all monthly expenses, from fixed website domains to variable marketing budgets on Facebook, Google, and TikTok.</p>
+                </div>
             </div>
         </div>
     </section>
-    <section class="about-section" id="about">
-        <h2>About Us</h2>
-        <p>At Akula MTT, we are committed to ensuring our patients receive exceptional medical care in collaboration with one of Türkiye's most renowned healthcare providers, Medicana International Istanbul.</p>
-        <p>When you choose Akula MTT, you gain access to:</p>
-        <ul>
-            <li><strong>Full Support:</strong> From your arrival at the airport to your departure, we handle everything, ensuring a seamless experience.</li>
-            <li><strong>VIP-Level Service:</strong> Personalized assistance with hospital appointments, accommodations, and transportation.</li>
-            <li><strong>Tourist Opportunities:</strong> If medically feasible, explore Istanbul and other beautiful destinations in Türkiye during your recovery.</li>
-            <li><strong>Quality Assurance:</strong> We oversee every aspect of your care to ensure you receive world-class treatment and address any concerns promptly.</li>
-        </ul>
-        <p>Examples of common procedures and cost estimates:</p>
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr style="background-color: #0056b3; color: #fff;">
-                <th style="padding: 10px; border: 1px solid #ddd;">Procedure</th>
-                <th style="padding: 10px; border: 1px solid #ddd;">Estimated Cost Range (£)</th>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #ddd;">Knee Replacement</td>
-                <td style="padding: 10px; border: 1px solid #ddd;">5,000 - 7,000</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #ddd;">Hip Replacement</td>
-                <td style="padding: 10px; border: 1px solid #ddd;">6,000 - 8,000</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #ddd;">Breast Augmentation</td>
-                <td style="padding: 10px; border: 1px solid #ddd;">3,500 - 5,000</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #ddd;">Rhinoplasty</td>
-                <td style="padding: 10px; border: 1px solid #ddd;">3,000 - 4,500</td>
-            </tr>
-        </table>
-        <p>Trust Akula MTT to guide you every step of the way, combining world-class medical care with the cultural richness and beauty of Türkiye.</p>
-    </section>
-    <section id="learn-more" class="about-section">
-        <h1>Akula MTT: Your Gateway to World-Class Medical Care in Türkiye</h1>
-        <h2>Why Choose Akula MTT?</h2>
-        <p>At Akula MTT, we specialize in providing UK and European patients with seamless access to top-tier medical services in Türkiye, partnering with the prestigious Medicana Health Group. With years of expertise in medical tourism, our mission is to ensure that every patient receives exceptional care, from the moment they inquire about our services to their return home fully satisfied with their treatment journey.</p>
 
-        <h3>Comprehensive Services</h3>
-        <ul>
-            <li><strong>Airport Transfers:</strong> VIP airport pick-up and drop-off services for a smooth transition.</li>
-            <li><strong>Accommodation:</strong> Assistance with comfortable and convenient hotel bookings.</li>
-            <li><strong>Hospital Appointments:</strong> Pre-arranged consultations with top specialists.</li>
-            <li><strong>Follow-Up Care:</strong> Coordinated follow-ups for a full recovery.</li>
-            <li><strong>Flexible Packages:</strong> Options for comprehensive or hospital-only services.</li>
-        </ul>
-
-        <h3>Partnering with Medicana Health Group</h3>
-        <p>Medicana Health Group, one of Türkiye’s leading healthcare providers, offers state-of-the-art facilities and a wide range of specialized medical services. Key features include:</p>
-        <ul>
-            <li>Advanced medical technologies.</li>
-            <li>Cutting-edge departments for various specialties.</li>
-            <li>Compliance with Joint Commission International (JCI) accreditation standards.</li>
-        </ul>
-
-        <h2>Our Medical Services</h2>
-        <p>Medicana Health Group provides extensive medical specialties, including:</p>
-        <ul>
-            <li>Cardiology and Cardiovascular Surgery</li>
-            <li>Neurology and Neurosurgery</li>
-            <li>Orthopedics and Traumatology</li>
-            <li>Oncology</li>
-            <li>Plastic Surgery</li>
-            <li>Gynecology and Obstetrics</li>
-            <li>Urology</li>
-            <li>In Vitro Fertilization (IVF)</li>
-            <li>General Surgery</li>
-        </ul>
-
-        <h3>Specialized Centers at Medicana</h3>
-        <ul>
-            <li><strong>Advanced Oncology Unit:</strong> Comprehensive cancer treatments with IMRT and LINAC technologies.</li>
-            <li><strong>Bone Marrow Transplantation Center:</strong> Reliable biological protection standards.</li>
-            <li><strong>Organ Transplantation Center:</strong> Specializing in kidney and liver transplants.</li>
-            <li><strong>IVF Center:</strong> Advanced reproductive techniques for successful pregnancies.</li>
-        </ul>
-
-        <h2>What Sets Us Apart?</h2>
-        <ul>
-            <li><strong>Personalized Treatment Plans:</strong> Detailed cost breakdowns based on uploaded medical reports.</li>
-            <li><strong>Affordable Pricing:</strong> Transparent pricing for procedures like gallbladder removal (£3,000-£5,000), kidney stone treatment (£2,500-£4,500), and plastic surgery (£3,000-£6,000).</li>
-            <li><strong>VIP Services:</strong> Full packages with personalized chauffeurs, luxury hotel stays, and more.</li>
-            <li><strong>Hospital-Only Packages:</strong> Seamless coordination for patients handling their own travel and accommodation.</li>
-        </ul>
-
-        <h2>How It Works</h2>
-        <ol>
-            <li><strong>Contact Us:</strong> Fill out our online contact form with medical history and reports.</li>
-            <li><strong>Receive a Plan:</strong> Get a tailored treatment package from our experts.</li>
-            <li><strong>Book Your Journey:</strong> Approve the plan, and we handle the logistics.</li>
-            <li><strong>Undergo Treatment:</strong> Experience world-class care at Medicana Health Group.</li>
-            <li><strong>Post-Treatment Support:</strong> Benefit from continuous follow-ups.</li>
-        </ol>
-
-        <h2>Why Turkey for Medical Tourism?</h2>
-        <p>Türkiye is a leading destination for medical tourism, offering advanced healthcare infrastructure, highly qualified professionals, competitive pricing, and a rich cultural recovery experience.</p>
-
-        <h2>Our Commitment to Excellence</h2>
-        <p>At Akula MTT, we prioritize safety, quality, transparency, and patient satisfaction. Let us handle the details so you can focus on your well-being.</p>
-
-        <h2>Get Started Today!</h2>
-        <p><a href="#contact">Contact us</a> to begin your journey to better health. Visit <a href="https://akulamtt.com">akulamtt.com</a> for more information.</p>
-    </section>
-    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
-    <section class="section" id="contact">
-        <h2>Contact Us</h2>
-        <div class="contact-form">
-            <h3>Let us assist you with your health inquiry</h3>
-            <p>Please provide your details and requirements below. Our professional medical staff will get back to you with a comprehensive quotation and assistance plan.</p>
-            <form action="https://formspree.io/f/mwpprrkw" method="post" enctype="multipart/form-data">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Your Email" required>
-
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
-
-                <label for="inquiry">Brief Information:</label>
-                <textarea id="inquiry" name="inquiry" rows="6" placeholder="Tell us about your inquiry, medical needs, or any specific requirements..."></textarea>
-
-                <label for="medical-report">Upload Medical Report (Optional):</label>
-                <input type="file" id="medical-report" name="medical-report">
-
-                <label for="services">Additional Services:</label>
-                <select id="services" name="services">
-                    <option value="full-package">Full Package (Medical + Travel + Hotel + Transport)</option>
-                    <option value="medical-only">Medical Help Only</option>
-                    <option value="custom">Custom Package</option>
-                </select>
-
-                <button type="submit">Submit Inquiry</button>
-            </form>
+    <!-- AI-Powered Sourcing & Analysis -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="section-title">AI-Powered Sourcing & Analysis
+                <span class="block text-lg font-normal text-gray-600 mt-2">Powered by Gemini</span>
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <!-- NEW SVG Icon for AI Sourcing -->
+                    <div class="bg-gray-100 rounded-lg shadow-lg mb-6 p-8 flex items-center justify-center aspect-video">
+                        <svg class="w-24 h-24 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 7.75l-3.75 3.75-3.75-3.75M14.25 11.5l-3.75 3.75-3.75-3.75" />
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-4">AI Product Sourcing</h4>
+                    <p class="text-gray-600 mb-4">Don't know your costs? Just enter a "Product Search Term." The AI will use Google Search to find real, current wholesale pricing from sites like Alibaba and DHGate.</p>
+                    <p class="text-gray-600">It presents a list of options with estimated costs and source links. You can then click "Select" to automatically populate the "Cost of Goods" field in the calculator.</p>
+                </div>
+                <div>
+                    <!-- NEW SVG Icon for AI Analysis -->
+                    <div class="bg-gray-100 rounded-lg shadow-lg mb-6 p-8 flex items-center justify-center aspect-video">
+                        <svg class="w-24 h-24 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-semibold text-gray-900 mb-4">AI Pricing & Margin Analysis</h4>
+                    <p class="text-gray-600 mb-4">Already have your product? Enter your product, cost, and selling price. The AI will perform an in-depth analysis of your profit margin and health.</p>
+                    <p class="text-gray-600">It provides expert commentary, suggests three alternative pricing strategies (e.g., Bundle, Decoy), and even generates a compelling product description for your store.</p>
+                </div>
+            </div>
         </div>
     </section>
-   <footer>
-        <p>&copy; 2024 Akula MTT. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://www.instagram.com/akulamttt/" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 30px; height: 30px;">
+
+    <!-- Results Dashboard Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="section-title">Your Comprehensive Results Dashboard</h3>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center -mt-8 mb-12">
+                The right-hand dashboard provides an instant, real-time summary of your entire business model.
+            </p>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">Key Metrics</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><span class="font-semibold">Units to Sell:</span> The exact number you must sell to achieve your profit goal.</li>
+                            <li><span class="font-semibold">Per-Unit Breakdown:</span> A clear summary of your Selling Price, Total Cost, and Net Profit per unit.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold text-gray-900 mb-4">Financial Projections</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li><span class="font-semibold">Monthly & Yearly Forecasts:</span> See your Total Revenue, Total Costs, and Net Profit.</li>
+                            <li><span class="font-semibold">Operational Budgeting:</span> Instantly see your "Monthly Order Investment" and "Total Monthly Budget" needed to operate.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Contact Section (from old site) -->
+    <section class="py-20 bg-white" id="contact">
+        <div class="container mx-auto px-6">
+            <h3 class="section-title">Contact Us</h3>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center -mt-8 mb-12">
+                Have questions, feedback, or a feature request? Let us know!
+            </p>
+            <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-lg shadow-lg">
+                <!-- Using your existing Formspree endpoint -->
+                <form action="https://formspree.io/f/mwpprrkw" method="post" enctype="multipart/form-data">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required class="form-input">
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required class="form-input">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone" class="form-label">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required class="form-input">
+                    </div>
+                    <div class="mb-6">
+                        <label for="inquiry" class="form-label">Message:</label>
+                        <textarea id="inquiry" name="inquiry" rows="6" placeholder="Tell us about your inquiry, feedback, or feature request..." class="form-textarea"></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <!-- Updated for new business -->
+                        <label for="business-plan" class="form-label">Upload File (Optional):</label>
+                        <input type="file" id="business-plan" name="business-plan" class="form-input">
+                    </div>
+                    <div class="mb-6">
+                        <!-- Updated for new business -->
+                        <label for="services" class="form-label">Inquiry Type:</label>
+                        <select id="services" name="services" class="form-select">
+                            <option value="feature-request">Feature Request</option>
+                            <option value="calculator-feedback">Calculator Feedback</option>
+                            <option value="general-inquiry">General Inquiry</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="form-button">Submit Inquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="bg-blue-700 py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-4xl font-bold text-white mb-6">
+                Ready to find your profit target?
+            </h3>
+            <p class="text-lg text-blue-100 max-w-2xl mx-auto mb-10">
+                Stop guessing and start planning. Use the calculator to find exactly how many units you need to sell to reach your financial goals.
+            </p>
+            <a href="calculator.html" class="bg-white text-blue-700 font-bold text-lg px-8 py-4 rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+                Launch the Free Calculator
             </a>
-            <a href="https://x.com/AkulaMTTT" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Twitter_bird_logo_2022.svg" alt="x" style="width: 30px; height: 30px;">
-            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2025 Entrepreneur's Profitability Calculator. All rights reserved.</p>
+            <!-- NEW: Social Icons (from old site) -->
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://www.instagram.com/akulamttt/" target="_blank" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.315 2.066M8.61 2.066c-.334 0-.663.013-1.002.04c-1.381.1-2.75.334-4.004.804A5.964 5.964 0 0 0 .804 6.611a5.965 5.965 0 0 0-.764 4.004C.013 11.94 0 12.268 0 12.603s.013.663.04 1.002c.1 1.381.334 2.75.804 4.004a5.965 5.965 0 0 0 3.709 3.709c1.254.47 2.623.704 4.004.804.339.027.668.04 1.002.04s.663-.013 1.002-.04c1.381-.1 2.75-.334 4.004-.804a5.965 5.965 0 0 0 3.709-3.709c.47-1.254.704-2.623.804-4.004.027-.339.04-.668.04-1.002s-.013-.663-.04-1.002c-.1-1.381-.334-2.75-.804-4.004A5.965 5.965 0 0 0 17.39.804C16.136.334 14.767.1 13.386.04 13.047.013 12.718 0 12.383 0h-.768ZM8.04 12.603c0-2.484 2.01-4.494 4.494-4.494s4.494 2.01 4.494 4.494S15.018 17.1 12.534 17.1s-4.494-2.01-4.494-4.497Zm1.124 0c0 1.863 1.507 3.37 3.37 3.37s3.37-1.507 3.37-3.37s-1.507-3.37-3.37-3.37s-3.37 1.507-3.37 3.37ZM17.302 8.167a1.124 1.124 0 1 0 0-2.248 1.124 1.124 0 0 0 0 2.248Z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="https://x.com/AkulaMTTT" target="_blank" class="text-gray-400 hover:text-white" aria-label="X (formerly Twitter)">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25ZM17.072 19.5h1.57l-5.83-7.75L6.908 4.5h-1.57l5.83 7.75L17.072 19.5Z" />
+                    </svg>
+                </a>
+            </div>
         </div>
     </footer>
+
+    <!-- NEW: Back to Top Button (from old site) -->
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to Top">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+    
+    <!-- NEW: Tawk.to Script (from old site) -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/6775234749e2fd8dfe0153c1/1iggp3k34';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- NEW: Back to Top JavaScript -->
     <script>
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.onscroll = () => {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+                backToTopButton.style.opacity = "1";
+            } else {
+                backToTopButton.style.opacity = "0";
+                setTimeout(() => {
+                    if (document.body.scrollTop <= 100 && document.documentElement.scrollTop <= 100) {
+                         backToTopButton.style.display = "none";
+                    }
+                }, 300); // Match transition duration
+            }
+        };
+
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    </script>
 
-        // Start of Tawk.to Script
-        var Tawk_API=Tawk_API||
+</body>
+</html>
+
