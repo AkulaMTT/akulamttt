@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Meta Description for new brand -->
     <meta name="description" content="Akula MTT - The Ultimate Entrepreneur's Profitability Calculator. A bilingual financial modeling tool for e-commerce, dropshippers, and digital entrepreneurs.">
     <title>Akula MTT - Entrepreneur's Profitability Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- NEW: Add Cairo font for Arabic -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* NEW: Apply Cairo font when in Arabic */
         html[lang="ar"] body {
             font-family: 'Cairo', sans-serif;
         }
@@ -40,7 +37,6 @@
         .back-to-top {
             @apply hidden fixed bottom-5 right-5 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity z-50 transition-all duration-300;
         }
-        /* NEW: RTL support for Back to Top */
         html[lang="ar"] .back-to-top {
             @apply right-auto left-5;
         }
@@ -48,21 +44,19 @@
 </head>
 <body class="bg-gray-50">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
+    <!-- Header --><header class="bg-white shadow-sm sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- NEW: Logo and Brand Name -->
             <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
-                <!-- NEW: Inline SVG Logo -->
-                <svg class_="""w-8 h-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3.633 1.342c.813-1.306 2.76-1.306 3.573 0l6.61 10.61-3.573 5.735-6.61-10.61L3.633 1.342Zm16.734 0c.813-1.306 2.76-1.306 3.573 0l-3.037 4.873-3.573-4.873h3.037Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M12.93 17.687c.813-1.306 2.76-1.306 3.573 0l3.037 4.873h-3.037l-3.573-4.873Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M13.743 1.342c-.813-1.306-2.76-1.306-3.573 0L3.56 12.01l3.573 5.735 6.61-10.61L13.743 1.342Z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-2xl font-bold text-gray-800" data-key="appName">Akula MTT</span>
+                <!-- NEW: Logo Image --><img src="https://framerusercontent.com/images/k83t7pD4gRz2vM.png" alt="Akula MTT Logo" class="w-10 h-10">
+                <div class="flex flex-col items-start rtl:items-end">
+                    <span class="text-2xl font-bold text-gray-800" data-key="appName">Akula MTT</span>
+                    <span class="text-sm text-gray-500" data-key="appTagline">Minds for Metrics, Trends & Targets</span>
+                </div>
             </a>
             <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                <!-- NEW: Language Toggle Button -->
+                <!-- NEW: Navigation Links --><a href="#features" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block" data-key="navAbout">About Us</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block" data-key="navContact">Contact Us</a>
+                
                 <button id="langToggle" class="text-sm font-medium text-gray-600 hover:text-blue-600" data-key="navToggleLang">Switch to Arabic</button>
                 <a href="calculator.html" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-key="navLaunchApp">
                     Launch App
@@ -71,8 +65,7 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-white pt-20 pb-24">
+    <!-- Hero Section --><section class="bg-white pt-20 pb-24">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6" data-key="heroTitle">
                 The Ultimate Entrepreneur's Profitability Calculator
@@ -86,8 +79,7 @@
         </div>
     </section>
 
-    <!-- Core Planning Features -->
-    <section id="features" class="py-20 bg-gray-50">
+    <!-- Core Planning Features --><section id="features" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <h3 class="section-title" data-key="featuresTitle">Core Planning Features</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -119,8 +111,7 @@
         </div>
     </section>
 
-    <!-- AI-Powered Sourcing & Analysis -->
-    <section class="py-20 bg-white">
+    <!-- AI-Powered Sourcing & Analysis --><section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <h3 class="section-title" data-key="aiTitle">AI-Powered Sourcing & Analysis
                 <span class="block text-lg font-normal text-gray-600 mt-2" data-key="aiSubtitle">Powered by Gemini</span>
@@ -151,11 +142,10 @@
         </div>
     </section>
 
-    <!-- Results Dashboard Section -->
-    <section class="py-20 bg-gray-50">
+    <!-- Results Dashboard Section --><section class="py-20 bg-gray-50">
         <div class="container mx-auto px-6">
             <h3 class="section-title" data-key="resultsTitle">Your Comprehensive Results Dashboard</h3>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center -mt-8 mb-12" data-key="resultsSubtitle">
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-12" data-key="resultsSubtitle">
                 The right-hand dashboard provides an instant, real-time summary of your entire business model.
             </p>
             <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl">
@@ -179,15 +169,13 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="py-20 bg-white" id="contact">
+    <!-- Contact Section --><section class="py-20 bg-white" id="contact">
         <div class="container mx-auto px-6">
             <h3 class="section-title" data-key="contactTitle">Contact Us</h3>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center -mt-8 mb-12" data-key="contactSubtitle">
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto text-center mb-12" data-key="contactSubtitle">
                 Have questions, feedback, or a feature request? Let us know!
             </p>
             <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-lg shadow-lg">
-                <!-- Using your existing Formspree endpoint -->
                 <form action="https://formspree.io/f/mwpprrkw" method="post" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
@@ -228,8 +216,7 @@
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="bg-blue-700 py-20">
+    <!-- Final CTA --><section class="bg-blue-700 py-20">
         <div class="container mx-auto px-6 text-center">
             <h3 class="text-4xl font-bold text-white mb-6" data-key="ctaTitle">
                 Ready to find your profit target?
@@ -243,12 +230,10 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 py-8">
+    <!-- Footer --><footer class="bg-gray-800 py-8">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p data-key="footerCopyright">&copy; 2025 Akula MTT. All rights reserved.</p>
-            <!-- Social Icons -->
-            <div class="flex justify-center space-x-6 mt-4">
+            <!-- Social Icons --><div class="flex justify-center space-x-6 mt-4">
                 <a href="https://www.instagram.com/akulamttt/" target="_blank" class="text-gray-400 hover:text-white" aria-label="Instagram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd" d="M12.315 2.066M8.61 2.066c-.334 0-.663.013-1.002.04c-1.381.1-2.75.334-4.004.804A5.964 5.964 0 0 0 .804 6.611a5.965 5.965 0 0 0-.764 4.004C.013 11.94 0 12.268 0 12.603s.013.663.04 1.002c.1 1.381.334 2.75.804 4.004a5.965 5.965 0 0 0 3.709 3.709c1.254.47 2.623.704 4.004.804.339.027.668.04 1.002.04s.663-.013 1.002-.04c1.381-.1 2.75-.334 4.004-.804a5.965 5.965 0 0 0 3.709-3.709c.47-1.254.704-2.623.804-4.004.027-.339.04-.668.04-1.002s-.013-.663-.04-1.002c-.1-1.381-.334-2.75-.804-4.004A5.965 5.965 0 0 0 17.39.804C16.136.334 14.767.1 13.386.04 13.047.013 12.718 0 12.383 0h-.768ZM8.04 12.603c0-2.484 2.01-4.494 4.494-4.494s4.494 2.01 4.494 4.494S15.018 17.1 12.534 17.1s-4.494-2.01-4.494-4.497Zm1.124 0c0 1.863 1.507 3.37 3.37 3.37s3.37-1.507 3.37-3.37s-1.507-3.37-3.37-3.37s-3.37 1.507-3.37 3.37ZM17.302 8.167a1.124 1.124 0 1 0 0-2.248 1.124 1.124 0 0 0 0 2.248Z" clip-rule="evenodd" />
@@ -263,15 +248,13 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()" data-key-aria="backToTopAria">
+    <!-- Back to Top Button --><button class="back-to-top" onclick="scrollToTop()" data-key-aria="backToTopAria">
         <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
         </svg>
     </button>
     
-    <!-- Tawk.to Script -->
-    <script type="text/javascript">
+    <!-- Tawk.to Script --><script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
         (function(){
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -282,10 +265,7 @@
         s0.parentNode.insertBefore(s1,s0);
         })();
     </script> 
-    <!--End of Tawk.to Script-->
-
-    <!-- Back to Top JavaScript -->
-    <script>
+    <!--End of Tawk.to Script--><!-- Back to Top JavaScript --><script>
         const backToTopButton = document.querySelector('.back-to-top');
         
         if (backToTopButton) {
@@ -297,204 +277,5 @@
                     backToTopButton.style.opacity = "0";
                     setTimeout(() => {
                         if (document.body.scrollTop <= 100 && document.documentElement.scrollTop <= 100) {
-                             backToTopButton.style.display = "none";
-                        }
-                    }, 300); // Match transition duration
-                }
-            };
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
-
-    <!-- NEW: Bilingual Toggle JavaScript -->
-    <script>
-        const translations = {
-            en: {
-                appName: "Akula MTT",
-                navLaunchApp: "Launch App",
-                navToggleLang: "Switch to Arabic",
-                heroTitle: "The Ultimate Entrepreneur's Profitability Calculator",
-                heroSubtitle: "An all-in-one bilingual financial modeling tool for e-commerce owners, dropshippers, and digital entrepreneurs. Move beyond simple calculations to model your entire business.",
-                heroCta: "Start Planning Your Profits",
-                featuresTitle: "Core Planning Features",
-                feature1Title: "Dynamic Profit Targeting",
-                feature1Desc: "Set your profit goal \"Per Day,\" \"Per Month,\" or \"Per Year\" and watch the entire dashboard update instantly.",
-                feature2Title: "Dual-Currency System",
-                feature2Desc: "Seamlessly manage finances in USD and a second, user-selectable currency (e.g., LYD, TRY, EUR, SAR).",
-                feature3Title: "Bidirectional Currency Inputs",
-                feature3Desc: "Enter a cost in USD to see its secondary equivalent, or enter in your secondary currency to see the USD value.",
-                feature4Title: "Granular Per-Unit Costing",
-                feature4Desc: "Model every component of your product cost, including Cost of Goods, Packaging, Shipping, and Exporting.",
-                feature5Title: "Flexible Cost Allocation",
-                feature5Desc: "Instantly model \"Customer pays for Shipping\" scenarios by simply checking a box, removing that cost from your calculation.",
-                feature6Title: "Fixed & Variable Overheads",
-                feature6Desc: "Account for all monthly expenses, from fixed website domains to variable marketing budgets on Facebook, Google, and TikTok.",
-                aiTitle: "AI-Powered Sourcing & Analysis",
-                aiSubtitle: "Powered by Gemini",
-                aiSourcingTitle: "AI Product Sourcing",
-                aiSourcingDesc1: "Don't know your costs? Just enter a \"Product Search Term.\" The AI will use Google Search to find real, current wholesale pricing from sites like Alibaba and DHGate.",
-                aiSourcingDesc2: "It presents a list of options with estimated costs and source links. You can then click \"Select\" to automatically populate the \"Cost of Goods\" field in the calculator.",
-                aiAnalysisTitle: "AI Pricing & Margin Analysis",
-                aiAnalysisDesc1: "Already have your product? Enter your product, cost, and selling price. The AI will perform an in-depth analysis of your profit margin and health.",
-                aiAnalysisDesc2: "It provides expert commentary, suggests three alternative pricing strategies (e.g., Bundle, Decoy), and even generates a compelling product description for your store.",
-                resultsTitle: "Your Comprehensive Results Dashboard",
-                resultsSubtitle: "The right-hand dashboard provides an instant, real-time summary of your entire business model.",
-                resultsMetricsTitle: "Key Metrics",
-                resultsMetric1Title: "Units to Sell:",
-                resultsMetric1Desc: "The exact number you must sell to achieve your profit goal.",
-                resultsMetric2Title: "Per-Unit Breakdown:",
-                resultsMetric2Desc: "A clear summary of your Selling Price, Total Cost, and Net Profit per unit.",
-                resultsProjectionsTitle: "Financial Projections",
-                resultsProjection1Title: "Monthly & Yearly Forecasts:",
-                resultsProjection1Desc: "See your Total Revenue, Total Costs, and Net Profit.",
-                resultsProjection2Title: "Operational Budgeting:",
-                resultsProjection2Desc: "Instantly see your \"Monthly Order Investment\" and \"Total Monthly Budget\" needed to operate.",
-                contactTitle: "Contact Us",
-                contactSubtitle: "Have questions, feedback, or a feature request? Let us know!",
-                formName: "Name:",
-                formNamePlaceholder: "Your Name",
-                formEmail: "Email:",
-                formEmailPlaceholder: "Your Email",
-                formPhone: "Phone Number:",
-                formPhonePlaceholder: "Your Phone Number",
-                formMessage: "Message:",
-                formMessagePlaceholder: "Tell us about your inquiry, feedback, or feature request...",
-                formFile: "Upload File (Optional):",
-                formInquiryType: "Inquiry Type:",
-                formOptionFeature: "Feature Request",
-                formOptionFeedback: "Calculator Feedback",
-                formOptionGeneral: "General Inquiry",
-                formOptionCustom: "Custom",
-                formButton: "Submit Inquiry",
-                ctaTitle: "Ready to find your profit target?",
-                ctaSubtitle: "Stop guessing and start planning. Use the calculator to find exactly how many units you need to sell to reach your financial goals.",
-                ctaButton: "Launch the Free Calculator",
-                footerCopyright: "&copy; 2025 Akula MTT. All rights reserved.",
-                backToTopAria: "Back to Top"
-            },
-            ar: {
-                appName: "عقولة MTT",
-                navLaunchApp: "تشغيل الآلة الحاسبة",
-                navToggleLang: "Switch to English",
-                heroTitle: "الحاسبة المثالية لربحية رواد الأعمال",
-                heroSubtitle: "أداة نمذجة مالية شاملة ثنائية اللغة لأصحاب المتاجر الإلكترونية، والدروب شيبر، ورواد الأعمال الرقميين. تجاوز الحسابات البسيطة إلى نمذجة عملك بالكامل.",
-                heroCta: "ابدأ تخطيط أرباحك",
-                featuresTitle: "ميزات التخطيط الأساسية",
-                feature1Title: "استهداف ديناميكي للأرباح",
-                feature1Desc: "حدد هدف ربحك \"يوميًا\" أو \"شهريًا\" أو \"سنويًا\" وشاهد لوحة المعلومات بأكملها تتحدث فورًا.",
-                feature2Title: "نظام عملة مزدوج",
-                feature2Desc: "أدر أموالك بسلاسة بالدولار الأمريكي وعملة ثانية يختارها المستخدم (مثل الدينار الليبي، الليرة التركية، اليورو، الريال السعودي).",
-                feature3Title: "إدخالات عملة ثنائية الاتجاه",
-                feature3Desc: "أدخل تكلفة بالدولار لرؤية المعادل بالعملة الثانوية، أو أدخل بعملتك الثانوية لرؤية القيمة بالدولار.",
-                feature4Title: "احتساب دقيق لتكاليف الوحدة",
-                feature4Desc: "قم بنمذجة كل مكون من مكونات تكلفة منتجك، بما في ذلك تكلفة البضائع، التغليف، الشحن، والتصدير.",
-                feature5Title: "توزيع مرن للتكاليف",
-                feature5Desc: "قم بنمذجة سيناريوهات \"العميل يدفع للشحن\" على الفور بمجرد تحديد المربع، وإزالة هذه التكلفة من حساباتك.",
-                feature6Title: "النفقات الثابتة والمتغيرة",
-                feature6Desc: "احسب جميع النفقات الشهرية، من نطاقات الموقع الثابتة إلى ميزانيات التسويق المتغيرة على فيسبوك، جوجل، وتيك توك.",
-                aiTitle: "التوريد والتحليل المدعوم بالذكاء الاصطناعي",
-                aiSubtitle: "مدعوم بـ Gemini",
-                aiSourcingTitle: "توريد المنتجات بالذكاء الاصطناعي",
-                aiSourcingDesc1: "لا تعرف تكاليفك؟ فقط أدخل \"مصطلح بحث عن المنتج\". سيستخدم الذكاء الاصطناعي بحث جوجل للعثور على أسعار جملة حقيقية وحالية من مواقع مثل علي بابا.",
-                aiSourcingDesc2: "يعرض قائمة من الخيارات مع التكاليف المقدرة وروابط المصدر. يمكنك بعد ذلك النقر فوق \"تحديد\" لملء حقل \"تكلفة البضائع\" في الحاسبة تلقائيًا.",
-                aiAnalysisTitle: "تحليل التسعير وهامش الربح بالذكاء الاصطناعي",
-                aiAnalysisDesc1: "هل لديك منتجك بالفعل؟ أدخل منتجك، تكلفته، وسعر بيعه. سيقوم الذكاء الاصطناعي بإجراء تحليل متعمق لهامش الربح وصحته.",
-                aiAnalysisDesc2: "يقدم تعليقات خبيرة، ويقترح ثلاث استراتيجيات تسعير بديلة (مثل التسعير الحزمي، التسعير الخادع)، وحتى ينشئ وصف منتج جذاب لمتجرك.",
-                resultsTitle: "لوحة نتائجك الشاملة",
-                resultsSubtitle: "تقدم لوحة المعلومات اليمنى ملخصًا فوريًا وفي الوقت الفعلي لنموذج عملك بأكمله.",
-                resultsMetricsTitle: "المقاييس الرئيسية",
-                resultsMetric1Title: "الوحدات المطلوب بيعها:",
-                resultsMetric1Desc: "الرقم الدقيق الذي يجب عليك بيعه لتحقيق هدف ربحك.",
-                resultsMetric2Title: "تفاصيل كل وحدة:",
-                resultsMetric2Desc: "ملخص واضح لسعر البيع، التكلفة الإجمالية، وصافي الربح لكل وحدة.",
-                resultsProjectionsTitle: "التوقعات المالية",
-                resultsProjection1Title: "التوقعات الشهرية والسنوية:",
-                resultsProjection1Desc: "شاهد إجمالي إيراداتك، إجمالي التكاليف، وصافي الربح.",
-                resultsProjection2Title: "الميزانية التشغيلية:",
-                resultsProjection2Desc: "شاهد على الفور \"استثمار الطلب الشهري\" و \"الميزانية الشهرية الإجمالية\" اللازمة للتشغيل.",
-                contactTitle: "اتصل بنا",
-                contactSubtitle: "هل لديك أسئلة، ملاحظات، أو طلب ميزة؟ دعنا نعرف!",
-                formName: "الاسم:",
-                formNamePlaceholder: "اسمك",
-                formEmail: "البريد الإلكتروني:",
-                formEmailPlaceholder: "بريدك الإلكتروني",
-                formPhone: "رقم الهاتف:",
-                formPhonePlaceholder: "رقم هاتفك",
-                formMessage: "الرسالة:",
-                formMessagePlaceholder: "أخبرنا عن استفسارك، ملاحظاتك، أو طلب الميزة...",
-                formFile: "تحميل ملف (اختياري):",
-                formInquiryType: "نوع الاستفسار:",
-                formOptionFeature: "طلب ميزة",
-                formOptionFeedback: "ملاحظات على الحاسبة",
-                formOptionGeneral: "استفسار عام",
-                formOptionCustom: "مخصص",
-                formButton: "إرسال الاستفسار",
-                ctaTitle: "هل أنت مستعد لإيجاد هدف ربحك؟",
-                ctaSubtitle: "توقف عن التخمين وابدأ التخطيط. استخدم الحاسبة لتجد بالضبط كم عدد الوحدات التي تحتاج لبيعها للوصول إلى أهدافك المالية.",
-                ctaButton: "تشغيل الحاسبة المجانية",
-                footerCopyright: "© 2025 عقولة MTT. جميع الحقوق محفوظة.",
-                backToTopAria: "العودة إلى الأعلى"
-            }
-        };
-
-        let currentLanguage = 'en';
-
-        function updateLanguage() {
-            const langData = translations[currentLanguage];
-            
-            // Set page direction and lang
-            document.documentElement.lang = currentLanguage;
-            document.documentElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
-
-            // Update all elements with data-key
-            document.querySelectorAll('[data-key]').forEach(element => {
-                const key = element.getAttribute('data-key');
-                if (langData[key]) {
-                    element.innerHTML = langData[key];
-                }
-            });
-
-            // Update all elements with data-key-placeholder
-            document.querySelectorAll('[data-key-placeholder]').forEach(element => {
-                const key = element.getAttribute('data-key-placeholder');
-                if (langData[key]) {
-                    element.placeholder = langData[key];
-                }
-            });
-
-            // Update all elements with data-key-aria
-            document.querySelectorAll('[data-key-aria]').forEach(element => {
-                const key = element.getAttribute('data-key-aria');
-                if (langData[key]) {
-                    element.setAttribute('aria-label', langData[key]);
-                }
-            });
-
-            // Update toggle button text
-            const toggleButton = document.getElementById('langToggle');
-            if (toggleButton) {
-                toggleButton.innerText = langData.navToggleLang;
-            }
-        }
-
-        function toggleLanguage() {
-            currentLanguage = (currentLanguage === 'en') ? 'ar' : 'en';
-            updateLanguage();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const langToggleButton = document.getElementById('langToggle');
-            if (langToggleButton) {
-                langToggleButton.addEventListener('click', toggleLanguage);
-            }
-            // Initialize language on load
-            updateLanguage();
-        });
-    </script>
-
-</body>
-</html>
+                             back
 
