@@ -178,8 +178,9 @@
                     <p class="text-sm text-gray-500 mb-4" data-key="hintProductCosts">Enter details for your average product. You can enter in USD or your secondary currency.</p>
 
                     <div class="mb-4 col-span-1 md:col-span-2">
-                        <label for="productSearchInput" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelProductSearch">Search Product to Source</label>
+                        <label for="productSearchInput" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelProductSearch">Product Name or Keyword</label> <!-- Changed Label -->
                         <input type="text" id="productSearchInput" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 'waterproof bluetooth speaker', 'SKU12345'" data-key-placeholder="hintProductSearch">
+                         <p class="text-xs text-gray-500 mt-1" data-key="hintProductSearchDetail">Used for AI Sourcing, Analysis, and Marketing Ideas.</p> <!-- Added detail hint -->
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -260,11 +261,16 @@
                         <p class="text-xs text-gray-500 mt-1" data-key="hintTransactionFee">Calculated as a percentage of the *selling price*.</p>
                     </div>
 
-                    <div class="col-span-1 md:col-span-2 mt-4">
+                    <!-- AI Buttons Container -->
+                    <div class="col-span-1 md:col-span-2 mt-6 space-y-3">
                          <button id="geminiAnalyzeButton" class="w-full bg-gradient-to-r from-purple-500 to-blue-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:from-purple-600 hover:to-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"></path><path d="M12 3v1a.5.5 0 0 0 .5.5H13a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5Z"></path><path d="M12 21v-1a.5.5 0 0 0-.5-.5H11a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5Z"></path><path d="M3 12h1a.5.5 0 0 0 .5-.5V11a.5.5 0 0 0-.5-.5H3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5Z"></path><path d="M21 12h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5Z"></path><path d="m18.364 5.636.707-.707a.5.5 0 0 0 0-.707l-.707-.707a.5.5 0 0 0-.707 0l-.707.707a.5.5 0 0 0 0 .707l.707.707a.5.5 0 0 0 .707 0Z"></path><path d="m5.636 18.364.707-.707a.5.5 0 0 0 0-.707l-.707-.707a.5.5 0 0 0-.707 0l-.707.707a.5.5 0 0 0 0 .707l.707.707a.5.5 0 0 0 .707 0Z"></path><path d="m18.364 18.364-.707.707a.5.5 0 0 0 0 .707l.707.707a.5.5 0 0 0 .707 0l.707-.707a.5.5 0 0 0 0-.707l-.707-.707a.5.5 0 0 0-.707 0Z"></path><path d="m5.636 5.636-.707.707a.5.5 0 0 0 0 .707l.707.707a.5.5 0 0 0 .707 0l.707-.707a.5.5 0 0 0 0-.707L6.343 4.93a.5.5 0 0 0-.707 0Z"></path></svg>
-                            <span data-key="buttonGeminiSearch">✨ Search Sourcing Sites & Analyze</span>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-code"><path d="m9 9-2 2 2 2"/><path d="m13 13 2-2-2-2"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                             <span data-key="buttonGeminiSearch">✨ Search Sourcing Sites & Analyze Pricing</span> <!-- Updated Text -->
                         </button>
+                         <button id="geminiMarketingButton" class="w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:from-teal-600 hover:to-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                             <span data-key="buttonGeminiMarketing">✨ Generate Marketing Ideas</span> <!-- New Button -->
+                         </button>
                     </div>
                 </div>
 
@@ -632,9 +638,11 @@
                 statusApiKeySaved: "API Key saved in browser.",
                 statusApiKeyNotSaved: "No key saved. AI features require a key outside Canvas.",
                 linkGetApiKey: "Get your free API Key from Google AI Studio",
-                labelProductSearch: "Search Product to Source",
+                labelProductSearch: "Product Name or Keyword", // Updated label
                 hintProductSearch: "e.g., 'waterproof bluetooth speaker', 'SKU12345'",
-                buttonGeminiSearch: "✨ Search Sourcing Sites & Analyze",
+                hintProductSearchDetail: "Used for AI Sourcing, Analysis, and Marketing Ideas.", // New hint
+                buttonGeminiSearch: "✨ Search Sourcing Sites & Analyze Pricing", // Updated text
+                buttonGeminiMarketing: "✨ Generate Marketing Ideas", // New button text
                 titleTargetAndCurrency: "Profit Target & Currency",
                 labelSecondaryCurrency: "Secondary Currency",
                 labelExchangeRate: "Exchange Rate (1 USD = ?)",
@@ -694,11 +702,14 @@
                 errorMessage: "Error: Your cost per unit is higher than your selling price. You are not making a profit on any sale.",
                 modalTitleAnalysis: "✨ AI Pricing Analysis & Description",
                 modalTitleSourcing: "✨ AI Product Sourcing Results",
+                modalTitleMarketing: "✨ AI Marketing Ideas", // New title
                 modalLoadingAnalysis: "Analyzing your pricing... Please wait.",
                 modalLoadingSourcing: "Searching sourcing sites... Please wait.",
+                modalLoadingMarketing: "Generating marketing ideas... Please wait.", // New loading text
                 modalError: "An error occurred. Please try again.",
-                modalInputErrorAnalysis: "Please enter Search Term, Selling Price, and Cost of Goods for the analysis.",
-                modalInputErrorSourcing: "Please enter a Product Search Term to get sourcing suggestions.",
+                modalInputErrorAnalysis: "Please enter Product Name/Keyword, Selling Price, and Cost of Goods for the analysis.", // Updated error
+                modalInputErrorSourcing: "Please enter a Product Name/Keyword to get sourcing suggestions.", // Updated error
+                modalInputErrorMarketing: "Please enter a Product Name/Keyword to generate marketing ideas.", // New error
                 buttonSelectProduct: "Select",
                 titleUnitBreakdown: "Per-Unit Profit Breakdown",
                 labelProfitPerUnit: "Net Profit per Unit",
@@ -744,6 +755,7 @@
         const geminiModal = document.getElementById('geminiModal');
         const closeModalButton = document.getElementById('closeModalButton');
         const geminiAnalyzeButton = document.getElementById('geminiAnalyzeButton');
+        const geminiMarketingButton = document.getElementById('geminiMarketingButton'); // New Button Element
         const geminiLoading = document.getElementById('geminiLoading');
         const geminiLoadingText = document.getElementById('geminiLoadingText');
         const geminiResponse = document.getElementById('geminiResponse');
@@ -763,8 +775,7 @@
         ];
         const rateInputs = ['exchangeRate', 'secondaryCurrency'];
 
-        // --- Helper Functions (getFloat, getText, getValue, isChecked, setFloat, formatCurrency, isEmpty) ---
-        // [These functions remain exactly the same as the original file]
+        // --- Helper Functions ---
         function getFloat(id) { const el = document.getElementById(id); if (!el) return 0; const value = el.value; return parseFloat(value) || 0; }
         function getText(id) { const el = document.getElementById(id); return el ? el.innerText : ''; }
         function getValue(id) { const el = document.getElementById(id); return el ? el.value : ''; }
@@ -786,13 +797,11 @@
             document.querySelectorAll('[data-key]').forEach(element => {
                 const key = element.getAttribute('data-key');
                 if (langData[key] !== undefined) {
-                    // Special handling for timeline options if needed, otherwise just set innerText/innerHTML
                     if (element.tagName === 'OPTION' && element.parentElement.id === 'targetTimeline') {
                          element.innerText = langData[key];
                     } else if (element.id === 'resultUnitsTimeline' && key.startsWith('resultTimeline')) {
                          // Skip, handled in calculate()
                     }
-                    // Handle copyright which needs innerHTML
                     else if (key === 'footerCopyright'){
                         element.innerHTML = langData[key];
                     }
@@ -850,7 +859,6 @@
         }
 
         // --- Main calculation function ---
-        // [This function remains exactly the same as the original file]
         function calculate() {
             const AVG_DAYS_IN_MONTH = 30.4375;
             const rate = getFloat('exchangeRate');
@@ -950,14 +958,12 @@
 
 
             // --- Update Breakdown and Projections ---
-            // (This part remains the same logic as before)
             document.getElementById('profitPerUnit').innerText = formatCurrency(profitPerUnit, rate, currencySymbol).usd;
             document.getElementById('breakdownSellingPrice').innerText = formatCurrency(sellingPrice, rate, currencySymbol).usd;
             document.getElementById('breakdownTotalCost').innerText = formatCurrency(totalCostPerUnit, rate, currencySymbol).usd;
 
             const monthlyRevenue = unitsPerMonth * sellingPrice;
             const monthlyCogs = unitsPerMonth * totalCostPerUnit; // Using total cost per unit
-            // Recalculate monthlyNetProfit based on unitsPerMonth and profitPerUnit, considering fixed costs
             const monthlyNetProfit = (unitsPerMonth * profitPerUnit) - totalMonthlyFixedCosts;
             let formatted;
 
@@ -967,13 +973,12 @@
             document.getElementById('projCogs').innerText = formatted.usd; document.getElementById('projCogsSecondary').innerText = formatted.secondary;
             formatted = formatCurrency(totalMonthlyFixedCosts, rate, currencySymbol);
             document.getElementById('projFixed').innerText = formatted.usd; document.getElementById('projFixedSecondary').innerText = formatted.secondary;
-            // Use the recalculated monthlyNetProfit
             formatted = formatCurrency(monthlyNetProfit, rate, currencySymbol);
             document.getElementById('projProfit').innerText = formatted.usd; document.getElementById('projProfitSecondary').innerText = formatted.secondary;
 
 
             const yearlyRevenue = monthlyRevenue * 12;
-            const yearlyNetProfit = monthlyNetProfit * 12; // Use recalculated monthly net profit
+            const yearlyNetProfit = monthlyNetProfit * 12;
             formatted = formatCurrency(yearlyRevenue, rate, currencySymbol);
             document.getElementById('projRevenueYear').innerText = formatted.usd; document.getElementById('projRevenueYearSecondary').innerText = formatted.secondary;
             formatted = formatCurrency(yearlyNetProfit, rate, currencySymbol);
@@ -991,54 +996,46 @@
 
 
         // --- Handles input in EITHER USD or Secondary field ---
-        // [This function remains exactly the same as the original file]
          function handleCurrencyInput(e) {
             const rate = getFloat('exchangeRate');
-             // If rate is 0, just recalculate without converting the other field
              if (rate === 0) { calculate(); return; }
 
             const sourceEl = e.target;
             const sourceId = sourceEl.id;
             const sourceRawValue = sourceEl.value;
 
-            // If the input is empty or ends with a decimal, clear the other field and recalculate
             if (sourceRawValue.trim() === '' || sourceRawValue.endsWith('.')) {
                 const isUsd = sourceId.endsWith('_usd');
                 const base = sourceId.replace('_usd', '').replace('_secondary', '');
                 const targetId = isUsd ? (base + '_secondary') : (base + '_usd');
                 const targetEl = document.getElementById(targetId);
-                 if (targetEl) targetEl.value = ''; // Clear the corresponding field
-                 calculate(); // Recalculate based on current values
+                 if (targetEl) targetEl.value = '';
+                 calculate();
                  return;
             }
 
-            // Proceed with conversion if input is a valid number
             const sourceValue = parseFloat(sourceRawValue) || 0;
             const isUsd = sourceId.endsWith('_usd');
             const base = sourceId.replace('_usd', '').replace('_secondary', '');
             const targetId = isUsd ? (base + '_secondary') : (base + '_usd');
             const targetEl = document.getElementById(targetId);
-            if (!targetEl) return; // Should not happen
+            if (!targetEl) return;
 
             let targetValue;
             if (isUsd) {
                 targetValue = sourceValue * rate;
             } else {
-                targetValue = sourceValue / rate; // Convert secondary to USD
+                targetValue = sourceValue / rate;
             }
 
-            // Update the corresponding field WITHOUT triggering its own input event again
             targetEl.value = targetValue.toFixed(2);
-
-            // Now, trigger the main calculation
             calculate();
         }
 
 
         // --- Handles change in Exchange Rate or Currency Dropdown ---
-        // [This function remains exactly the same as the original file]
         function handleRateChange() {
-            updateCurrencyLabels(); // Update labels first
+            updateCurrencyLabels();
             const rate = getFloat('exchangeRate');
 
             currencyFieldBases.forEach(base => {
@@ -1049,66 +1046,63 @@
                 const usdRawValue = usdEl.value;
                 const secondaryRawValue = secondaryEl.value;
 
-                // Determine which field was likely last edited or has a value
-                // Prioritize updating secondary if USD has a value (unless secondary was just edited)
-                // This logic prevents overwriting user input if they change rate after typing in secondary
                 if (usdRawValue.trim() !== '' && !usdRawValue.endsWith('.')) {
                     const usdValue = parseFloat(usdRawValue) || 0;
-                    if (rate === 0) {
-                        secondaryEl.value = ''; // Clear secondary if rate is 0
-                    } else {
-                        secondaryEl.value = (usdValue * rate).toFixed(2);
-                    }
+                    if (rate === 0) { secondaryEl.value = ''; }
+                    else { secondaryEl.value = (usdValue * rate).toFixed(2); }
                 }
-                // Only update USD from secondary if USD is empty AND secondary has a value
                 else if (usdRawValue.trim() === '' && secondaryRawValue.trim() !== '' && !secondaryRawValue.endsWith('.')) {
                     if (rate > 0) {
                          const secondaryValue = parseFloat(secondaryRawValue) || 0;
                         usdEl.value = (secondaryValue / rate).toFixed(2);
-                    } else {
-                        usdEl.value = ''; // Clear USD if rate is 0
-                    }
+                    } else { usdEl.value = ''; }
                 }
-                // If both are potentially empty or incomplete, clear secondary
                  else if (rate === 0 || usdRawValue.trim() === '' || usdRawValue.endsWith('.')) {
                     secondaryEl.value = '';
                 }
-
-
             });
-            calculate(); // Recalculate everything after syncing
+            calculate();
         }
 
 
         // --- API Key Management ---
-        // [These functions remain exactly the same as the original file]
         function saveApiKey() { const key = apiKeyInput.value.trim(); if (key) localStorage.setItem('geminiApiKey', key); else localStorage.removeItem('geminiApiKey'); apiKeyInput.value = ''; updateApiKeyStatus(); }
         function updateApiKeyStatus() { const savedKey = localStorage.getItem('geminiApiKey'); const langData = translations.en; if (!langData || !apiKeyStatus) return; if (savedKey) { apiKeyStatus.innerText = langData.statusApiKeySaved; apiKeyStatus.classList.remove('not-saved'); apiKeyStatus.classList.add('saved'); } else { apiKeyStatus.innerText = langData.statusApiKeyNotSaved; apiKeyStatus.classList.remove('saved'); apiKeyStatus.classList.add('not-saved'); } }
         function getApiKey() { return localStorage.getItem('geminiApiKey') || ""; }
 
 
         // --- Gemini AI Modal Functions ---
-        // [These functions remain exactly the same as the original file]
         function showModal() { if(geminiModal) geminiModal.classList.remove('hidden'); const modalContent = document.getElementById('geminiModalContent'); if(modalContent) modalContent.dir = 'ltr'; /* English only */ }
         function hideModal() { if(geminiModal) geminiModal.classList.add('hidden'); }
         function showLoading(isLoading, mode = 'analysis') {
             const langData = translations.en; // Use English
             if (!langData || !modalTitleHeader || !geminiLoadingText || !geminiLoading || !geminiResponse) return;
             if (isLoading) {
-                if (mode === 'sourcing') { modalTitleHeader.innerText = langData.modalTitleSourcing; geminiLoadingText.innerText = langData.modalLoadingSourcing; }
-                else { modalTitleHeader.innerText = langData.modalTitleAnalysis; geminiLoadingText.innerText = langData.modalLoadingAnalysis; }
-                geminiLoading.classList.remove('hidden'); geminiResponse.classList.add('hidden'); geminiResponse.innerHTML = '';
-            } else { geminiLoading.classList.add('hidden'); geminiResponse.classList.remove('hidden'); }
+                // Determine title and loading text based on mode
+                let titleKey = 'modalTitleAnalysis';
+                let loadingKey = 'modalLoadingAnalysis';
+                if (mode === 'sourcing') { titleKey = 'modalTitleSourcing'; loadingKey = 'modalLoadingSourcing'; }
+                else if (mode === 'marketing') { titleKey = 'modalTitleMarketing'; loadingKey = 'modalLoadingMarketing'; }
+
+                modalTitleHeader.innerText = langData[titleKey] || langData.modalTitleAnalysis; // Default to analysis
+                geminiLoadingText.innerText = langData[loadingKey] || langData.modalLoadingAnalysis; // Default to analysis
+
+                geminiLoading.classList.remove('hidden');
+                geminiResponse.classList.add('hidden');
+                geminiResponse.innerHTML = '';
+            } else {
+                geminiLoading.classList.add('hidden');
+                geminiResponse.classList.remove('hidden');
+            }
         }
         function displayGeminiError(messageKey, titleKey = 'modalError') {
             const langData = translations.en; // Use English
             if (!langData || !modalTitleHeader || !geminiResponse) return;
-            modalTitleHeader.innerText = langData[titleKey] || langData.modalError || 'Error'; showLoading(false);
+            modalTitleHeader.innerText = langData[titleKey] || langData.modalError || 'Error'; showLoading(false, 'error'); // Pass 'error' mode
             const errorMessage = langData[messageKey] || 'An unknown error occurred.'; geminiResponse.innerHTML = marked.parse(`## ${langData.modalError || 'Error'}\n\n${errorMessage}`);
         }
 
-        // --- Gemini API Call ---
-        // [This function remains exactly the same, but languageInstruction is fixed to English]
+        // --- Gemini API Call - Sourcing & Analysis ---
          async function handleGeminiAnalysis() {
             console.log("handleGeminiAnalysis called"); showModal();
             const productSearchTerm = productSearchInput.value.trim();
@@ -1158,10 +1152,17 @@
                 console.log("Entering Analysis Mode");
                 mode = 'analysis';
                 showLoading(true, 'analysis');
-                const profitPerUnit = sellingPriceValue - totalCostPerUnit; // Use calculated total cost
-                const margin = (sellingPriceValue > 0) ? (profitPerUnit / sellingPriceValue) * 100 : 0;
 
-                // Construct Analysis Prompt (ensure it doesn't get cut off)
+                // Recalculate total cost per unit *within the handler* for the prompt context
+                const packagingCostLocal = isChecked('customerPaysPackaging') ? 0 : getFloat('packagingCost_usd');
+                const shippingCostLocal = isChecked('customerPaysShipping') ? 0 : getFloat('shippingCost_usd');
+                const transactionFeePercentLocal = getFloat('transactionFee');
+                const transactionFeeLocal = (sellingPriceValue * transactionFeePercentLocal) / 100;
+                const totalCostPerUnitLocal = costOfGoodsValue + packagingCostLocal + shippingCostLocal + transactionFeeLocal;
+                const profitPerUnitLocal = sellingPriceValue - totalCostPerUnitLocal;
+                const marginLocal = (sellingPriceValue > 0) ? (profitPerUnitLocal / sellingPriceValue) * 100 : 0;
+
+                // Construct Analysis Prompt
                 systemPrompt = `Act as an expert e-commerce consultant and marketing copywriter. Analyze the user's product pricing and provide actionable feedback, alternative pricing strategies, and a compelling product description.
 
     **Analysis Task:**
@@ -1182,16 +1183,6 @@
     * Use a heading "## Product Description". Provide the generated description.
     * Be professional, encouraging, and actionable.
     ${languageInstruction}`;
-
-                // Recalculate total cost per unit *within the handler* for the prompt
-                const packagingCostLocal = isChecked('customerPaysPackaging') ? 0 : getFloat('packagingCost_usd');
-                const shippingCostLocal = isChecked('customerPaysShipping') ? 0 : getFloat('shippingCost_usd');
-                const transactionFeePercentLocal = getFloat('transactionFee');
-                const transactionFeeLocal = (sellingPriceValue * transactionFeePercentLocal) / 100;
-                const totalCostPerUnitLocal = costOfGoodsValue + packagingCostLocal + shippingCostLocal + transactionFeeLocal;
-                const profitPerUnitLocal = sellingPriceValue - totalCostPerUnitLocal;
-                const marginLocal = (sellingPriceValue > 0) ? (profitPerUnitLocal / sellingPriceValue) * 100 : 0;
-
 
                 userQuery = `My product is related to: "${productSearchTerm}".
     My current **Cost of Goods** is **$${costOfGoodsValue.toFixed(2)} USD** per unit.
@@ -1222,55 +1213,106 @@
                         });
                     }
 
-
                     if (mode === 'sourcing') {
                         addSelectButtonsToResults(); // Add buttons if it was a sourcing call
                     }
-                    showLoading(false); // Hide loading indicator
+                    showLoading(false, mode); // Hide loading indicator, pass mode
                 } else {
                      console.log("makeApiCall returned undefined...");
                      // Only hide loading if error wasn't already displayed
                      if (geminiResponse && !geminiResponse.innerHTML) {
-                        showLoading(false);
+                        showLoading(false, mode);
                      }
                 }
             } catch (error) {
                 console.error("Error caught during handleGeminiAnalysis:", error);
-                 // Only display generic error if a specific one (like API key invalid) wasn't already shown
                  const currentLangTranslations = translations.en; // Use English
                  if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
                     displayGeminiError('modalError');
                  } else {
-                    // If some content (like an API error message) is already there, just hide loading
-                    showLoading(false);
+                    showLoading(false, mode);
+                 }
+            }
+        }
+
+        // --- New Gemini API Call - Marketing Ideas ---
+        async function handleGeminiMarketing() {
+            console.log("handleGeminiMarketing called"); showModal();
+            const productSearchTerm = productSearchInput.value.trim();
+            const mode = 'marketing';
+
+            // Validation: Must have search term.
+            if (!productSearchTerm) {
+                console.error("Validation failed: Product search term is empty for marketing.");
+                displayGeminiError('modalInputErrorMarketing');
+                return;
+            }
+
+            showLoading(true, mode); // Show loading with marketing text
+            let languageInstruction = "Please respond in English."; // Fixed to English
+
+            const systemPrompt = `Act as an expert e-commerce marketing strategist. Based on the user's product, generate actionable marketing ideas suitable for an online store. Focus on:
+1.  **Target Audience:** Briefly describe the ideal customer (e.g., demographics, interests, pain points).
+2.  **Key Selling Points:** List 3-5 unique benefits or features to emphasize.
+3.  **Campaign Ideas:** Suggest 2-3 specific, creative campaign concepts (e.g., social media ad angle, email campaign theme, content marketing topic, influencer collaboration idea).
+
+Keep the response concise and formatted using Markdown headings (##) and bullet points (*). Be professional and actionable.
+${languageInstruction}`;
+
+            const userQuery = `Generate marketing ideas for the product: "${productSearchTerm}". Include target audience, key selling points, and 2-3 specific campaign concepts.`;
+
+            try {
+                const userApiKey = getApiKey();
+                console.log(`Calling API in ${mode} mode.`);
+                // Make the API call (no search grounding needed for this)
+                const generatedText = await makeApiCall(userQuery, systemPrompt, userApiKey, false);
+
+                if (generatedText) {
+                    console.log("API call successful, parsing marketing response.");
+                    marked.setOptions({ breaks: true, gfm: true });
+                    const htmlContent = marked.parse(generatedText);
+                    if(geminiResponse) geminiResponse.innerHTML = htmlContent;
+
+                    // Ensure any links open in new tabs (though less likely here)
+                     if(geminiResponse) {
+                        geminiResponse.querySelectorAll('a').forEach(link => {
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                        });
+                    }
+                    showLoading(false, mode);
+                } else {
+                     console.log("makeApiCall returned undefined for marketing...");
+                     if (geminiResponse && !geminiResponse.innerHTML) {
+                        showLoading(false, mode);
+                     }
+                }
+            } catch (error) {
+                console.error("Error caught during handleGeminiMarketing:", error);
+                 const currentLangTranslations = translations.en;
+                 if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
+                    displayGeminiError('modalError');
+                 } else {
+                    showLoading(false, mode);
                  }
             }
         }
 
 
         // --- Function to add "Select" buttons to sourcing results ---
-        // [This function remains exactly the same as the original file]
         function addSelectButtonsToResults() {
             console.log("Adding select buttons...");
             const langData = translations.en; // Use English
             if (!langData || !geminiResponse) return;
             const listItems = geminiResponse.querySelectorAll('li');
-            // Regex to find USD price like $12.34 or $1,234.56
-            const priceRegex = /\$(\d{1,3}(?:,\d{3})*(?:\.\d{2}))(?:\s*USD)?/i; // Case-insensitive USD, optional space
+            const priceRegex = /\$(\d{1,3}(?:,\d{3})*(?:\.\d{2}))(?:\s*USD)?/i;
 
             listItems.forEach((li, index) => {
-                // Ensure button isn't added multiple times if function is called again
-                if (li.querySelector('.select-product-button')) {
-                    return;
-                }
+                if (li.querySelector('.select-product-button')) return;
 
-                // Create a span to hold existing content to avoid modifying it directly when adding button
                 const contentSpan = document.createElement('span');
-                // Move all existing child nodes into the span
-                while (li.firstChild) {
-                    contentSpan.appendChild(li.firstChild);
-                }
-                li.appendChild(contentSpan); // Add the span back
+                while (li.firstChild) contentSpan.appendChild(li.firstChild);
+                li.appendChild(contentSpan);
 
                 const text = contentSpan.textContent || "";
                 const match = text.match(priceRegex);
@@ -1282,210 +1324,138 @@
                     if (!isNaN(price)) {
                         const button = document.createElement('button');
                         button.textContent = langData.buttonSelectProduct || 'Select';
-                        button.classList.add('select-product-button', 'ml-4', 'bg-green-500', 'text-white', 'text-xs', 'font-medium', 'py-1', 'px-3', 'rounded-md', 'shadow', 'hover:bg-green-600', 'transition-colors', 'flex-shrink-0'); // Add Tailwind classes directly
-                        button.dataset.price = price; // Store price in data attribute
+                        button.classList.add('select-product-button', 'ml-4', 'bg-green-500', 'text-white', 'text-xs', 'font-medium', 'py-1', 'px-3', 'rounded-md', 'shadow', 'hover:bg-green-600', 'transition-colors', 'flex-shrink-0');
+                        button.dataset.price = price;
                         button.addEventListener('click', (e) => {
-                            e.stopPropagation(); // Prevent potential parent event listeners
+                            e.stopPropagation();
                             console.log(`Select clicked, price: ${price}`);
-                            setFloat('costOfGoods_usd', price); // Update the COGS USD field
-                            hideModal(); // Close the modal
+                            setFloat('costOfGoods_usd', price);
+                            hideModal();
                         });
-                        li.appendChild(button); // Add button next to the span
+                        li.appendChild(button);
                         console.log(`  Appended button for ${price}`);
-                    } else {
-                        console.warn(`  Could not parse price from match: ${match[1]}`);
-                    }
-                } else {
-                    console.warn(`  No price found in list item text.`);
-                }
+                    } else { console.warn(`  Could not parse price from match: ${match[1]}`); }
+                } else { console.warn(`  No price found in list item text.`); }
             });
         }
 
 
         // --- Gemini API Call Implementation (makeApiCall) ---
-        // [This function remains exactly the same as the original file]
         async function makeApiCall(userQuery, systemPrompt, apiKey, useSearch = false, retries = 3, delay = 1000) {
-            const effectiveApiKey = apiKey || ""; // Use provided key or default to "" (for Canvas env)
-            /* console.log(`Using API Key: ${effectiveApiKey ? '***' + effectiveApiKey.slice(-4) : 'Env Provided'}`); */ // More accurate logging
-
-            // Use the specific model required
-             const modelName = 'gemini-2.5-flash-preview-09-2025';
+            const effectiveApiKey = apiKey || "";
+            const modelName = 'gemini-2.5-flash-preview-09-2025';
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent${effectiveApiKey ? `?key=${effectiveApiKey}` : ''}`;
-            /* console.log(`API URL: ${apiUrl}`); */
 
             const payload = {
                 contents: [{ parts: [{ text: userQuery }] }],
                 systemInstruction: { parts: [{ text: systemPrompt }] },
-                // generationConfig: { // Optional: Add safety settings, temperature etc. if needed
-                //   temperature: 0.7,
-                // }
             };
-
-            if (useSearch) {
-                 /* console.log("Adding Google Search tool."); */
-                 payload.tools = [{ "google_search": {} }];
-            }
+            if (useSearch) payload.tools = [{ "google_search": {} }];
 
             try {
-                 /* console.log("Attempting API call..."); */
                  const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                  });
-                 /* console.log(`API Status: ${response.status}`); */
-
                 const responseBody = await response.json();
-                 /* console.log("API Body Raw:", responseBody); */
-
 
                 if (!response.ok) {
                     console.error("API Error Data:", responseBody);
-                    const currentLangTranslations = translations.en; // English only
-
-                    // Handle specific errors
+                    const currentLangTranslations = translations.en;
                     if ((response.status === 400 || response.status === 403) && responseBody.error?.message?.toLowerCase().includes("api key not valid")) {
-                        console.error("Invalid API Key.");
-                        displayGeminiError('statusApiKeyNotSaved'); // Show API key error message
-                        return; // Stop execution for this error
+                        displayGeminiError('statusApiKeyNotSaved'); return;
                     }
-                    // Handle retryable errors (rate limiting, server errors)
                     else if (response.status === 429 || response.status >= 500) {
-                        console.warn(`Retryable error status: ${response.status}`);
-                        throw new Error(`Retryable error: ${response.status}`); // Trigger retry logic
+                        throw new Error(`Retryable error: ${response.status}`);
                     }
-                    // Handle other client-side errors
                      else {
                          let msg = currentLangTranslations.modalError || "An error occurred.";
-                        if (responseBody.error?.message) {
-                            msg += `<br><br><small>Details: ${responseBody.error.message}</small>`;
-                        }
-                        console.error(`Client API error: ${responseBody.error?.message || response.status}`);
-                        // Update modal directly ONLY if it's currently showing a generic error or is empty
+                        if (responseBody.error?.message) msg += `<br><br><small>Details: ${responseBody.error.message}</small>`;
                         if(geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
                             geminiResponse.innerHTML = marked.parse(`## ${currentLangTranslations.modalError || 'Error'}\n\n${msg}`);
                         }
-                        showLoading(false); // Ensure loading is hidden
-                        return; // Stop execution
+                        showLoading(false, 'error'); // Pass error mode
+                        return;
                     }
                 }
 
-                 /* console.log("API Body OK:", responseBody); */
-                 const currentLangTranslations = translations.en; // English only
                  const candidate = responseBody.candidates?.[0];
+                 const currentLangTranslations = translations.en;
 
-                // Check for missing candidate or blocking reasons
                 if (!candidate) {
-                    console.error("No candidate found in response.", responseBody);
-                    if (responseBody.promptFeedback?.blockReason) {
-                        console.warn(`Content blocked due to: ${responseBody.promptFeedback.blockReason}`);
-                        displayGeminiError(`Content blocked: ${responseBody.promptFeedback.blockReason}`);
-                    } else {
-                        // Generic error if no specific block reason
-                        displayGeminiError('modalError');
-                    }
-                    return; // Stop execution
+                    console.error("No candidate found.", responseBody);
+                    if (responseBody.promptFeedback?.blockReason) displayGeminiError(`Content blocked: ${responseBody.promptFeedback.blockReason}`);
+                    else displayGeminiError('modalError');
+                    return;
                 }
 
-                // Check finish reason
                 if (candidate.finishReason && candidate.finishReason !== "STOP") {
-                    console.warn("API call finished unexpectedly:", candidate.finishReason);
-                    // Handle safety blocks
+                    console.warn("API finishReason:", candidate.finishReason);
                     if (candidate.finishReason === 'SAFETY' && candidate.safetyRatings) {
                         const blocked = candidate.safetyRatings.find(r => r.probability !== 'NEGLIGIBLE');
                         const reason = blocked ? `due to ${blocked.category}` : 'safety';
-                        console.warn(`Content blocked ${reason}.`);
-                        displayGeminiError(`Content blocked ${reason}.`);
-                        return; // Stop execution
+                        displayGeminiError(`Content blocked ${reason}.`); return;
                     } else if (candidate.finishReason === 'RECITATION' ) {
-                         displayGeminiError('Stopped: recitation.'); // Specific message for recitation
-                         return;
+                         displayGeminiError('Stopped: recitation.'); return;
                      }
-                    // If finished for other reasons AND no text content, show error
                     if (!candidate.content?.parts?.[0]?.text) {
-                         displayGeminiError(`Stopped unexpectedly: ${candidate.finishReason}`);
-                         return;
+                         displayGeminiError(`Stopped unexpectedly: ${candidate.finishReason}`); return;
                      }
-                    // If finished for other reasons but HAS text content, proceed but log warning
                     console.warn("Proceeding despite finishReason:", candidate.finishReason);
                 }
 
-                // Check for actual text content
                 if (!candidate.content?.parts?.[0]?.text) {
-                    console.error("No text content found in candidate parts.", candidate);
-                    displayGeminiError('modalError');
-                    return; // Stop execution
+                    console.error("No text content.", candidate); displayGeminiError('modalError'); return;
                 }
 
                 let text = candidate.content.parts[0].text;
-                /* console.log("Generated Text (raw):", text); */
 
-                // Append sources if search was used
                 if (useSearch && candidate.groundingMetadata?.groundingAttributions) {
-                    const sources = candidate.groundingMetadata.groundingAttributions
-                        .map(a => a.web)
-                        .filter(w => w?.uri && w?.title); // Ensure valid sources
-
+                    const sources = candidate.groundingMetadata.groundingAttributions.map(a => a.web).filter(w => w?.uri && w?.title);
                     if (sources.length > 0) {
-                        /* console.log("Sources Found:", sources); */
-                        // Use English header for sources
                         let md = "\n\n### Sources Found:\n";
                         sources.forEach(s => {
-                            // Basic escaping for Markdown special characters in title
                             const t = (s.title || 'Source').replace(/\[/g, '\\[').replace(/]/g, '\\]');
-                            const u = s.uri || '#';
-                            md += `- [${t}](${u})\n`;
+                            md += `- [${t}](${s.uri || '#'}) \n`; // Added space before newline for better Markdown list rendering
                         });
-                        text += md; // Append sources markdown to the main text
-                    } else {
-                        console.log("Google Search tool was used, but no sources were returned in metadata.");
-                    }
+                        text += md;
+                    } else { console.log("Search used, but no sources returned."); }
                 }
-
-                return text; // Return the final text (with sources if applicable)
+                return text;
 
             } catch (error) {
-                console.error("Error during API fetch or processing:", error);
-                 const currentLangTranslations = translations.en; // English only
-
-                // Retry logic for specific error types
+                console.error("API fetch/processing error:", error);
+                 const currentLangTranslations = translations.en;
                 if (retries > 0 && error.message.includes("Retryable error")) {
-                    console.warn(`Retrying API call in ${delay}ms... (${retries} retries left)`);
+                    console.warn(`Retrying in ${delay}ms... (${retries} left)`);
                     await new Promise(resolve => setTimeout(resolve, delay));
-                    // Recurse with decremented retries and increased delay
                     return makeApiCall(userQuery, systemPrompt, apiKey, useSearch, retries - 1, delay * 2);
-                }
-                // Handle final failure after retries or non-retryable errors
-                 else {
-                    console.error("API call failed after retries or due to a non-retryable error:", error);
+                } else {
+                    console.error("API call failed after retries or non-retryable error:", error);
                      let msg = currentLangTranslations.modalError || "An error occurred.";
-                     // Add error details if not an API key error already shown
                      if(error.message && (!geminiResponse?.innerHTML || !geminiResponse.innerHTML.includes("API Key not valid"))) {
                         msg += `<br><br><small>Details: ${error.message}</small>`;
                      }
-                     // Update modal directly ONLY if it's currently showing a generic error or is empty
                     if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
                          geminiResponse.innerHTML = marked.parse(`## ${currentLangTranslations.modalError || 'Error'}\n\n${msg}`);
                     }
-                    showLoading(false); // Ensure loading indicator is hidden
-                    return; // Stop execution
+                    showLoading(false, 'error'); // Pass error mode
+                    return;
                 }
             }
         }
 
 
         // --- Download Functions ---
-        // [These functions remain exactly the same as the original file]
         function getCurrentDateString() { const date = new Date(); const year = date.getFullYear(); const month = String(date.getMonth() + 1).padStart(2, '0'); const day = String(date.getDate()).padStart(2, '0'); return `${year}-${month}-${day}`; }
-        async function generatePDF() { console.log("Generating PDF..."); const { jsPDF } = window.jspdf; const doc = new jsPDF(); const isArabic = false; const langData = translations.en; const rate = getFloat('exchangeRate'); const currencySelect = document.getElementById('secondaryCurrency'); const currencySymbol = currencySelect ? currencySelect.options[currencySelect.selectedIndex].value : 'Sec'; doc.setFont('Amiri', 'normal'); const pageHeight = doc.internal.pageSize.height; const pageWidth = doc.internal.pageSize.width; const margin = 15; const maxLineWidth = pageWidth - margin * 2; let currentY = margin; const lineSpacing = 6; const sectionSpacing = 10; const valueSpacing = 40; const addTextLine = (text, size = 10, style = 'normal', indent = 0) => { const requiredHeight = (doc.splitTextToSize(text, maxLineWidth - indent)).length * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(size); doc.setFont('Amiri', style); let xPos = margin + indent; let align = 'left'; doc.text(text, xPos, currentY, { align: align, maxWidth: maxLineWidth - indent }); currentY += requiredHeight + (lineSpacing/2); }; const addNameValuePair = (labelKey, valueUSD, valueSecondary = null, noteKey = null) => { const label = langData[labelKey] || labelKey; const note = noteKey ? `(${langData[noteKey] || noteKey})` : ''; const fullLabel = `${label} ${note}:`; const valueText = valueSecondary ? `${valueUSD} (${valueSecondary})` : valueUSD; const requiredHeight = Math.max((doc.splitTextToSize(fullLabel, maxLineWidth - valueSpacing)).length, (doc.splitTextToSize(valueText, valueSpacing)).length) * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(10); doc.setFont('Amiri', 'normal'); doc.text(fullLabel, margin, currentY, { align: 'left', maxWidth: maxLineWidth - valueSpacing - 5 }); doc.text(valueText, pageWidth - margin, currentY, { align: 'right', maxWidth: valueSpacing }); currentY += requiredHeight + (lineSpacing / 3); }; addTextLine(langData.mainTitle, 16, 'bold'); addTextLine(`${langData.labelSecondaryCurrency}: ${currencySymbol} | ${langData.labelExchangeRate}: ${rate}`, 9); currentY += sectionSpacing; addTextLine(langData.pdfInputSummaryTitle || "Inputs", 14, 'bold'); addTextLine(langData.titleTargetAndCurrency, 12, 'bold'); const targetTimelineEl = document.getElementById('targetTimeline'); const targetTimelineText = targetTimelineEl ? targetTimelineEl.options[targetTimelineEl.selectedIndex].text : ''; addNameValuePair('labelTargetProfitUsd', getValue('targetProfit_usd'), getValue('targetProfit_secondary')); addTextLine(`${langData.labelProfitTimeline}: ${targetTimelineText}`, 10); currentY += lineSpacing; addTextLine(langData.titleProductCosts, 12, 'bold'); addNameValuePair('labelSellingPriceUsd', getValue('sellingPrice_usd'), getValue('sellingPrice_secondary')); addNameValuePair('labelCostOfGoodsUsd', getValue('costOfGoods_usd'), getValue('costOfGoods_secondary')); addNameValuePair('labelPackagingCostUsd', getValue('packagingCost_usd'), getValue('packagingCost_secondary'), isChecked('customerPaysPackaging') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelShippingCostUsd', getValue('shippingCost_usd'), getValue('shippingCost_secondary'), isChecked('customerPaysShipping') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelTransactionFee', `${getValue('transactionFee')}%`); currentY += lineSpacing; addTextLine(langData.titleFixedCosts, 12, 'bold'); addNameValuePair('labelDomainCostUsd', getValue('costDomain_usd'), getValue('costDomain_secondary')); addNameValuePair('labelHostingCostUsd', getValue('costHosting_usd'), getValue('costHosting_secondary')); addNameValuePair('labelGatewayCostUsd', getValue('costGateway_usd'), getValue('costGateway_secondary')); addNameValuePair('labelAppsCostUsd', getValue('costApps_usd'), getValue('costApps_secondary')); addNameValuePair('labelExportingCostUsd', getValue('exportingCost_usd'), getValue('exportingCost_secondary'), isChecked('customerPaysExporting') ? 'pdfWaived' : 'pdfIncluded'); currentY += lineSpacing; addTextLine(langData.titleMarketingCosts, 12, 'bold'); addNameValuePair('labelAdGoogleUsd', getValue('adGoogle_usd'), getValue('adGoogle_secondary')); addNameValuePair('labelAdFacebookUsd', getValue('adFacebook_usd'), getValue('adFacebook_secondary')); addNameValuePair('labelAdTikTokUsd', getValue('adTikTok_usd'), getValue('adTikTok_secondary')); addNameValuePair('labelAdTwitterUsd', getValue('adTwitter_usd'), getValue('adTwitter_secondary')); addNameValuePair('labelAdOtherUsd', getValue('adOther_usd'), getValue('adOther_secondary')); currentY += sectionSpacing; addTextLine(langData.titleResults || "Results", 14, 'bold'); addTextLine(langData.resultHeader, 11, 'bold'); addTextLine(`${getText('resultUnits')} ${getText('resultUnitsTimeline')}`, 14, 'bold'); if (getText('resultUnitsAlt1')) addTextLine(getText('resultUnitsAlt1'), 9); if (getText('resultUnitsAlt2')) addTextLine(getText('resultUnitsAlt2'), 9); currentY += sectionSpacing; addTextLine(langData.titleUnitBreakdown, 12, 'bold'); addNameValuePair('labelSellingPrice', getText('breakdownSellingPrice')); addNameValuePair('labelTotalCostPerUnit', getText('breakdownTotalCost')); addNameValuePair('labelProfitPerUnit', getText('profitPerUnit')); currentY += sectionSpacing; addTextLine(langData.titleMonthlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenue', getText('projRevenue'), getText('projRevenueSecondary')); addNameValuePair('labelTotalCogs', getText('projCogs'), getText('projCogsSecondary')); addNameValuePair('labelTotalFixedCosts', getText('projFixed'), getText('projFixedSecondary')); addNameValuePair('labelNetProfit', getText('projProfit'), getText('projProfitSecondary')); currentY += sectionSpacing; addTextLine(langData.titleYearlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenueYear', getText('projRevenueYear'), getText('projRevenueYearSecondary')); addNameValuePair('labelNetProfitYear', getText('projProfitYear'), getText('projProfitYearSecondary')); currentY += sectionSpacing; addTextLine(langData.titleOperationalBudget, 12, 'bold'); addNameValuePair('labelOrderInvestment', getText('projOrderInvestment'), getText('projOrderInvestmentSecondary')); addNameValuePair('labelTotalBudget', getText('projTotalBudget'), getText('projTotalBudgetSecondary')); const filename = `Profitability_Report_${getCurrentDateString()}.pdf`; doc.save(filename); console.log("PDF Saved:", filename); }
+        async function generatePDF() { console.log("Generating PDF..."); const { jsPDF } = window.jspdf; const doc = new jsPDF(); const langData = translations.en; const rate = getFloat('exchangeRate'); const currencySelect = document.getElementById('secondaryCurrency'); const currencySymbol = currencySelect ? currencySelect.options[currencySelect.selectedIndex].value : 'Sec'; doc.setFont('Amiri', 'normal'); const pageHeight = doc.internal.pageSize.height; const pageWidth = doc.internal.pageSize.width; const margin = 15; const maxLineWidth = pageWidth - margin * 2; let currentY = margin; const lineSpacing = 6; const sectionSpacing = 10; const valueSpacing = 40; const addTextLine = (text, size = 10, style = 'normal', indent = 0) => { const lines = doc.splitTextToSize(text, maxLineWidth - indent); const requiredHeight = lines.length * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(size); doc.setFont('Amiri', style); let xPos = margin + indent; let align = 'left'; doc.text(lines, xPos, currentY, { align: align, maxWidth: maxLineWidth - indent }); currentY += requiredHeight + (lineSpacing/2); }; const addNameValuePair = (labelKey, valueUSD, valueSecondary = null, noteKey = null) => { const label = langData[labelKey] || labelKey; const note = noteKey ? `(${langData[noteKey] || noteKey})` : ''; const fullLabel = `${label} ${note}:`; const valueText = valueSecondary ? `${valueUSD} (${valueSecondary})` : valueUSD; const labelLines = doc.splitTextToSize(fullLabel, maxLineWidth - valueSpacing - 5); const valueLines = doc.splitTextToSize(valueText, valueSpacing); const requiredHeight = Math.max(labelLines.length, valueLines.length) * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(10); doc.setFont('Amiri', 'normal'); doc.text(labelLines, margin, currentY, { align: 'left', maxWidth: maxLineWidth - valueSpacing - 5 }); doc.text(valueLines, pageWidth - margin, currentY, { align: 'right', maxWidth: valueSpacing }); currentY += requiredHeight + (lineSpacing / 3); }; addTextLine(langData.mainTitle, 16, 'bold'); addTextLine(`${langData.labelSecondaryCurrency}: ${currencySymbol} | ${langData.labelExchangeRate}: ${rate}`, 9); currentY += sectionSpacing; addTextLine(langData.pdfInputSummaryTitle || "Inputs", 14, 'bold'); addTextLine(langData.titleTargetAndCurrency, 12, 'bold'); const targetTimelineEl = document.getElementById('targetTimeline'); const targetTimelineText = targetTimelineEl ? targetTimelineEl.options[targetTimelineEl.selectedIndex].text : ''; addNameValuePair('labelTargetProfitUsd', getValue('targetProfit_usd'), getValue('targetProfit_secondary')); addTextLine(`${langData.labelProfitTimeline}: ${targetTimelineText}`, 10); currentY += lineSpacing; addTextLine(langData.titleProductCosts, 12, 'bold'); addNameValuePair('labelSellingPriceUsd', getValue('sellingPrice_usd'), getValue('sellingPrice_secondary')); addNameValuePair('labelCostOfGoodsUsd', getValue('costOfGoods_usd'), getValue('costOfGoods_secondary')); addNameValuePair('labelPackagingCostUsd', getValue('packagingCost_usd'), getValue('packagingCost_secondary'), isChecked('customerPaysPackaging') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelShippingCostUsd', getValue('shippingCost_usd'), getValue('shippingCost_secondary'), isChecked('customerPaysShipping') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelTransactionFee', `${getValue('transactionFee')}%`); currentY += lineSpacing; addTextLine(langData.titleFixedCosts, 12, 'bold'); addNameValuePair('labelDomainCostUsd', getValue('costDomain_usd'), getValue('costDomain_secondary')); addNameValuePair('labelHostingCostUsd', getValue('costHosting_usd'), getValue('costHosting_secondary')); addNameValuePair('labelGatewayCostUsd', getValue('costGateway_usd'), getValue('costGateway_secondary')); addNameValuePair('labelAppsCostUsd', getValue('costApps_usd'), getValue('costApps_secondary')); addNameValuePair('labelExportingCostUsd', getValue('exportingCost_usd'), getValue('exportingCost_secondary'), isChecked('customerPaysExporting') ? 'pdfWaived' : 'pdfIncluded'); currentY += lineSpacing; addTextLine(langData.titleMarketingCosts, 12, 'bold'); addNameValuePair('labelAdGoogleUsd', getValue('adGoogle_usd'), getValue('adGoogle_secondary')); addNameValuePair('labelAdFacebookUsd', getValue('adFacebook_usd'), getValue('adFacebook_secondary')); addNameValuePair('labelAdTikTokUsd', getValue('adTikTok_usd'), getValue('adTikTok_secondary')); addNameValuePair('labelAdTwitterUsd', getValue('adTwitter_usd'), getValue('adTwitter_secondary')); addNameValuePair('labelAdOtherUsd', getValue('adOther_usd'), getValue('adOther_secondary')); currentY += sectionSpacing; addTextLine(langData.titleResults || "Results", 14, 'bold'); addTextLine(langData.resultHeader, 11, 'bold'); addTextLine(`${getText('resultUnits')} ${getText('resultUnitsTimeline')}`, 14, 'bold'); if (getText('resultUnitsAlt1')) addTextLine(getText('resultUnitsAlt1'), 9); if (getText('resultUnitsAlt2')) addTextLine(getText('resultUnitsAlt2'), 9); currentY += sectionSpacing; addTextLine(langData.titleUnitBreakdown, 12, 'bold'); addNameValuePair('labelSellingPrice', getText('breakdownSellingPrice')); addNameValuePair('labelTotalCostPerUnit', getText('breakdownTotalCost')); addNameValuePair('labelProfitPerUnit', getText('profitPerUnit')); currentY += sectionSpacing; addTextLine(langData.titleMonthlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenue', getText('projRevenue'), getText('projRevenueSecondary')); addNameValuePair('labelTotalCogs', getText('projCogs'), getText('projCogsSecondary')); addNameValuePair('labelTotalFixedCosts', getText('projFixed'), getText('projFixedSecondary')); addNameValuePair('labelNetProfit', getText('projProfit'), getText('projProfitSecondary')); currentY += sectionSpacing; addTextLine(langData.titleYearlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenueYear', getText('projRevenueYear'), getText('projRevenueYearSecondary')); addNameValuePair('labelNetProfitYear', getText('projProfitYear'), getText('projProfitYearSecondary')); currentY += sectionSpacing; addTextLine(langData.titleOperationalBudget, 12, 'bold'); addNameValuePair('labelOrderInvestment', getText('projOrderInvestment'), getText('projOrderInvestmentSecondary')); addNameValuePair('labelTotalBudget', getText('projTotalBudget'), getText('projTotalBudgetSecondary')); const filename = `Profitability_Report_${getCurrentDateString()}.pdf`; doc.save(filename); console.log("PDF Saved:", filename); }
         function generateCSV() { console.log("Generating CSV..."); const langData = translations.en; const rate = getFloat('exchangeRate'); const currencySelect = document.getElementById('secondaryCurrency'); const currencySymbol = currencySelect ? currencySelect.options[currencySelect.selectedIndex].value : 'Sec'; const targetTimelineEl = document.getElementById('targetTimeline'); const targetTimelineText = targetTimelineEl ? targetTimelineEl.options[targetTimelineEl.selectedIndex].text : ''; const getCheckNote = (checkId, trueKey, falseKey) => { return isChecked(checkId) ? (langData[trueKey] || trueKey) : (langData[falseKey] || falseKey); }; const data = [ ["Section", "Metric", "USD Value", `Value (${currencySymbol})`, "Notes"], [langData.titleTargetAndCurrency, langData.labelTargetProfitUsd, getValue('targetProfit_usd'), getValue('targetProfit_secondary'), `Timeline: ${targetTimelineText}`], ["", langData.labelProfitTimeline, '', '', targetTimelineText], ["", "Units to Sell (Target Timeline)", getText('resultUnits').replace(/,/g, ''), '', getText('resultUnitsTimeline')], ["", "Units to Sell (Per Month)", (getText('resultUnitsAltMonth') || getText('resultUnitsAlt1') || '').replace(/[^0-9,]/g, ''), '', langData.timelineMonth], ["", "Units to Sell (Per Day)", (getText('resultUnitsAltDay') || getText('resultUnitsAlt2') || '').replace(/[^0-9,]/g, ''), '', langData.timelineDay], ["", "Units to Sell (Per Year)", (getText('resultUnitsAltYear') || getText('resultUnitsAlt2') || '').replace(/[^0-9,]/g, ''), '', langData.timelineYear], [langData.titleProductCosts, langData.labelSellingPriceUsd, getValue('sellingPrice_usd'), getValue('sellingPrice_secondary'), ''], ["", langData.labelCostOfGoodsUsd, getValue('costOfGoods_usd'), getValue('costOfGoods_secondary'), ''], ["", langData.labelPackagingCostUsd, getValue('packagingCost_usd'), getValue('packagingCost_secondary'), getCheckNote('customerPaysPackaging', 'pdfCustomerPays', 'pdfYouPay')], ["", langData.labelShippingCostUsd, getValue('shippingCost_usd'), getValue('shippingCost_secondary'), getCheckNote('customerPaysShipping', 'pdfCustomerPays', 'pdfYouPay')], ["", `${langData.labelTransactionFee} (%)`, getValue('transactionFee'), '', ''], ["Per-Unit Results", langData.labelTotalCostPerUnit, getText('breakdownTotalCost').replace('$', ''), '', langData.csvCalculated || 'Calculated'], ["", langData.labelProfitPerUnit, getText('profitPerUnit').replace('$', ''), '', langData.csvCalculated || 'Calculated'], [langData.titleFixedCosts, langData.labelDomainCostUsd, getValue('costDomain_usd'), getValue('costDomain_secondary'), ''], ["", langData.labelHostingCostUsd, getValue('costHosting_usd'), getValue('costHosting_secondary'), ''], ["", langData.labelGatewayCostUsd, getValue('costGateway_usd'), getValue('costGateway_secondary'), ''], ["", langData.labelAppsCostUsd, getValue('costApps_usd'), getValue('costApps_secondary'), ''], ["", langData.labelExportingCostUsd, getValue('exportingCost_usd'), getValue('exportingCost_secondary'), getCheckNote('customerPaysExporting', 'pdfWaived', 'pdfIncluded')], [langData.titleMarketingCosts, langData.labelAdGoogleUsd, getValue('adGoogle_usd'), getValue('adGoogle_secondary'), ''], ["", langData.labelAdFacebookUsd, getValue('adFacebook_usd'), getValue('adFacebook_secondary'), ''], ["", langData.labelAdTikTokUsd, getValue('adTikTok_usd'), getValue('adTikTok_secondary'), ''], ["", langData.labelAdTwitterUsd, getValue('adTwitter_usd'), getValue('adTwitter_secondary'), ''], ["", langData.labelAdOtherUsd, getValue('adOther_usd'), getValue('adOther_secondary'), ''], [langData.titleMonthlyProjections, langData.labelTotalRevenue, getText('projRevenue').replace('$', ''), getText('projRevenueSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalCogs, getText('projCogs').replace('$', ''), getText('projCogsSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalFixedCosts, getText('projFixed').replace('$', ''), getText('projFixedSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelNetProfit, getText('projProfit').replace('$', ''), getText('projProfitSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], [langData.titleYearlyProjections, langData.labelTotalRevenueYear, getText('projRevenueYear').replace('$', ''), getText('projRevenueYearSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelNetProfitYear, getText('projProfitYear').replace('$', ''), getText('projProfitYearSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], [langData.titleOperationalBudget, langData.labelOrderInvestment, getText('projOrderInvestment').replace('$', ''), getText('projOrderInvestmentSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalBudget, getText('projTotalBudget').replace('$', ''), getText('projTotalBudgetSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''] ]; const escapeCsvField = (field) => { const stringField = String(field ?? ''); if (stringField.includes(',') || stringField.includes('"') || stringField.includes('\n')) { return `"${stringField.replace(/"/g, '""')}"`; } return stringField; }; let csvContent = "\uFEFF"; data.forEach(rowArray => { let row = rowArray.map(escapeCsvField).join(","); csvContent += row + "\r\n"; }); const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement("a"); const url = URL.createObjectURL(blob); link.setAttribute("href", url); const filename = `Profitability_Report_${getCurrentDateString()}.csv`; link.setAttribute("download", filename); link.style.visibility = 'hidden'; document.body.appendChild(link); link.click(); document.body.removeChild(link); console.log("CSV Saved:", filename); }
 
 
         // --- Assign Event Listeners on DOMContentLoaded ---
         document.addEventListener('DOMContentLoaded', () => {
             console.log("DOM fully loaded and parsed");
-
-            // No language toggle button, link handles it.
 
             if(saveApiKeyButton) saveApiKeyButton.addEventListener('click', saveApiKey);
             else console.error("saveApiKeyButton not found");
@@ -1521,6 +1491,10 @@
 
             if(geminiAnalyzeButton) geminiAnalyzeButton.addEventListener('click', handleGeminiAnalysis);
             else console.error("geminiAnalyzeButton not found");
+
+            // Add listener for the new marketing button
+            if(geminiMarketingButton) geminiMarketingButton.addEventListener('click', handleGeminiMarketing);
+            else console.error("geminiMarketingButton not found");
 
             if(closeModalButton) closeModalButton.addEventListener('click', hideModal);
             else console.error("closeModalButton not found");
