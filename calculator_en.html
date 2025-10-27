@@ -1136,23 +1136,23 @@
                 mode = 'sourcing';
                 showLoading(true, 'sourcing');
                 // Construct Sourcing Prompt (ensure it doesn't get cut off)
-                systemPrompt = `You are an AI e-commerce sourcing expert specializing in finding wholesale product options from reliable B2B marketplaces like Alibaba, DHGate, AliExpress (for bulk orders), Made-in-China, and Global Sources. Your goal is to provide actionable sourcing suggestions based on a user's search term.
-    Focus on providing estimated **per-unit Cost of Goods Sold (COGS)** in USD.
+                systemPrompt = `You are an AI e-commerce sourcing expert. Your goal is to provide actionable sourcing suggestions from global B2B marketplaces (like Alibaba, DHGate, Made-in-China, Global Sources, etc.) based on a user's search term.
 
     **Instructions:**
     1.  **Analyze the Search Term:** Understand the product the user is looking for.
-    2.  **Simulate Search:** Use your knowledge and the provided Google Search tool results (if available) to find relevant wholesale listings for products matching the term. Prioritize results from the B2B marketplaces mentioned above.
-    3.  **Extract Key Information:** For each potential product option (aim for 3-5 distinct options if possible):
-        * Identify the product name or a brief description.
-        * Find the estimated **per-unit price in USD**. If a price range is given, provide the lower end or an average. Clearly state the currency as USD.
-        * Include the source website name (e.g., Alibaba, DHGate).
-        * If available from the search results, include a direct link (URL) to the product listing or search results page.
-    4.  **Format the Output:** Present the results as a Markdown list. Each list item should clearly state the product description, the estimated per-unit price in USD (e.g., "$XX.XX USD"), and the source. Include the link if found.
-    5.  **Conciseness:** Be brief and to the point. Focus on delivering the product options and their estimated costs. Do not add introductory or concluding remarks beyond the list itself.
+    2.  **Simulate Search:** Use your knowledge and the provided Google Search tool results to find relevant wholesale listings. You are not restricted by country; search globally for the best matches.
+    3.  **Prioritize Quality & Price:** Focus on finding up to **10 product options** that represent a good balance of **high quality, good reviews, and best price** matching the user's request.
+    4.  **Extract Key Information (CRITICAL):** For each of the (up to) 10 options:
+        * **Product Description:** A brief, clear description of the product.
+        * **Estimated Price (USD):** The estimated **per-unit price in USD**. If a range is given, provide the lower end.
+        * **Source Website:** The name of the website (e.g., Alibaba, DHGate).
+        * **DIRECT Link:** This is mandatory. Provide the **direct URL to the specific product page** or listing, not a general website link.
+    5.  **Format the Output:** Present the results as a Markdown list. Each list item **must** include the product description, the estimated price, the source, and the direct link.
     6.  **Pricing:** VERY IMPORTANT: Only provide the price as a number with USD, like '$12.34 USD'. Do not add quantity qualifiers like '/piece' or '/unit'.
+    7.  **Conciseness:** Be brief. Do not add introductory or concluding remarks. Focus on delivering the product list.
     ${languageInstruction}`;
 
-                userQuery = `Find wholesale product options matching currently available products for: "${productSearchTerm}". Provide a list of 3-5 options with estimated per-unit price in USD and the source (e.g., Alibaba, DHGate), including links if possible. Format as a simple Markdown list. Focus only on the price in USD (e.g., '$XX.XX USD').`;
+                userQuery = `Find up to 10 high-quality, well-reviewed, and best-price wholesale product options matching: "${productSearchTerm}". Search globally from any B2B marketplace. Provide a list. Each item must include: product description, estimated per-unit price in USD (e.g., '$XX.XX USD'), the source website, and a **direct link to the product page**. Format as a simple Markdown list.`;
 
             } else {
                 console.log("Entering Analysis Mode");
@@ -1541,3 +1541,4 @@
 
 </body>
 </html>
+
