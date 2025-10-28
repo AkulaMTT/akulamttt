@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akula MTT - Profitability Calculator (EN)</title> <!-- Updated Title -->
+    <meta name="description" content="Akula MTT - The Ultimate Entrepreneur's Profitability Calculator. A bilingual financial modeling tool for e-commerce, dropshippers, and digital entrepreneurs.">
+
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Scripts for Calculator Page -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet"> <!-- For jsPDF Arabic -->
+
+    <!-- Favicons (Using Placeholders) -->
+    <link rel="icon" type="image/x-icon" href="https://placehold.co/32x32/3b82f6/ffffff?text=Icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://placehold.co/180x180/3b82f6/ffffff?text=Icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/3b82f6/ffffff?text=Icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://placehold.co/16x16/3b82f6/ffffff?text=Icon">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        /* Base font for English */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://www.transparenttextures.com/patterns/subtle-grey.png');
+            background-size: auto;
+            background-attachment: fixed;
+            background-color: #f3f4f6;
+        }
+        /* Specific Arabic styles (will mostly be used on the AR page, but keep for consistency) */
+        html[lang="ar"] body {
+            font-family: 'Cairo', sans-serif;
+        }
+        html[lang="ar"] .back-to-top { /* Example if you add back-to-top */
+            right: auto; left: 1.25rem;
+        }
+        /* Import Amiri for jsPDF */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+        /* Simplified Styles - Using Tailwind classes directly where possible */
+        #geminiResponse h2 { @apply text-xl font-semibold text-blue-700 mb-3; }
+        #geminiResponse h3 { @apply text-lg font-semibold text-gray-800 mt-4 mb-2; }
+        #geminiResponse p { @apply mb-3 text-gray-700; }
+        #geminiResponse ul, #geminiResponse ol { @apply list-disc ltr:pl-6 rtl:pr-6 mb-3 text-gray-700 space-y-2; }
+        #geminiResponse strong { @apply font-semibold text-gray-900; }
+        #geminiResponse a { @apply text-blue-600 hover:underline; }
+        #geminiResponse li { @apply flex justify-between items-center mb-1 pb-1 border-b border-gray-200 last:border-b-0; }
+        #geminiResponse li > span { @apply flex-grow; }
+        #closeModalButton { font-size: 2.5rem; font-weight: 300; line-height: 1; transform: translateY(-2px); }
+        #apiKeyStatus.saved { @apply text-green-700; }
+        #apiKeyStatus.not-saved { @apply text-red-700; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Standard Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <nav class="container mx-auto px-6 py-0 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 rtl:space-x-reverse">
+                <img src="https://akulamtt.com/Akula%20MTT%20Logo.png" alt="Akula MTT Logo" class="w-24 h-24">
+                <div class="flex flex-col items-start rtl:items-end">
+                    <span class="text-2xl font-bold text-gray-800" data-key="appName">Akula MTT</span>
+                    <span class="text-sm text-gray-500" data-key="appTagline">Minds for Metrics, Trends & Targets</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                <a href="index.html#features" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block" data-key="navAbout">About Us</a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 font-medium hidden md:block" data-key="navContact">Contact Us</a>
+                <!-- Link to Arabic Page -->
+                <a href="calculator_ar.html" id="langToggleLink" class="text-sm font-medium text-gray-600 hover:text-blue-600" data-key="navToggleLang">Switch to Arabic</a>
+                <!-- Link back to this page (useful if copied) -->
+                <a href="calculator_en.html" class="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors" data-key="navLaunchApp">
+                    Calculator
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="max-w-6xl mx-auto mt-8"> <!-- Added margin-top -->
+
+        <!-- Page Title Section -->
+        <div class="mb-8 bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow text-center">
+             <h1 class="text-4xl font-bold text-gray-900" data-key="mainTitle">Entrepreneur's Profitability Calculator</h1>
+             <p class="text-lg text-gray-600 mt-2" data-key="mainSubtitle">Plan your e-commerce success by modeling costs, revenue, and profit targets.</p>
+        </div>
+
+        <!-- API Key Input Section -->
+        <div class="bg-gray-50/90 backdrop-blur-sm p-4 rounded-lg border border-gray-200 mb-6 flex flex-wrap items-center gap-4 text-sm">
+            <label for="apiKeyInput" class="font-medium text-gray-700" data-key="labelApiKey">Gemini API Key:</label>
+            <input type="password" id="apiKeyInput" placeholder="Enter your key here" data-key-placeholder="placeholderApiKey" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 min-w-[200px]">
+            <button id="saveApiKeyButton" data-key="buttonSaveApiKey" class="bg-green-600 text-white py-2 px-4 rounded-lg shadow hover:bg-green-700 transition-colors text-sm font-medium">Save Key</button>
+            <div class="flex flex-col items-start">
+                <span id="apiKeyStatus" class="not-saved text-xs font-medium" data-key="statusApiKeyNotSaved">No key saved. AI features require a key outside Canvas.</span>
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" data-key="linkGetApiKey" class="text-blue-600 hover:underline text-xs">Get your free API Key from Google AI Studio</a>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Left Column: Inputs -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Section: Profit Target & Currency -->
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        <span data-key="titleTargetAndCurrency">Profit Target & Currency</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="mb-4">
+                            <label for="secondaryCurrency" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelSecondaryCurrency">Secondary Currency</label>
+                            <select id="secondaryCurrency" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="LYD">Libyan Dinar (LYD)</option>
+                                <option value="TRY">Turkish Lira (TRY)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                                <option value="GBP">British Pound (GBP)</option>
+                                <option value="AED">Emirati Dirham (AED)</option>
+                                <option value="SAR">Saudi Riyal (SAR)</option>
+                                <option value="EGP">Egyptian Pound (EGP)</option>
+                                <option value="JPY">Japanese Yen (JPY)</option>
+                                <option value="CNY">Chinese Yuan (CNY)</option>
+                                <option value="INR">Indian Rupee (INR)</option>
+                                <option value="CAD">Canadian Dollar (CAD)</option>
+                                <option value="AUD">Australian Dollar (AUD)</option>
+                                <option value="CHF">Swiss Franc (CHF)</option>
+                                <option value="BRL">Brazilian Real (BRL)</option>
+                                <option value="ZAR">South African Rand (ZAR)</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="exchangeRate" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelExchangeRate">Exchange Rate (1 USD = ?)</label>
+                            <input type="number" id="exchangeRate" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="7.5" step="0.01">
+                            <p class="text-xs text-gray-500 mt-1" data-key="hintExchangeRate">e.g., if 1 USD = 7.5 LYD, enter 7.5</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         <div class="mb-4">
+                            <label for="targetProfit_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelTargetProfitUsd">Desired Profit Target (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="targetProfit_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="3000">
+                            </div>
+                        </div>
+                         <div class="mb-4">
+                            <label for="targetProfit_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_targetProfit_secondary" data-key="labelTargetProfitSecondary">Desired Profit Target (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_targetProfit_secondary">LYD</span>
+                                <input type="number" id="targetProfit_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="targetTimeline" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelProfitTimeline">Profit Timeline</label>
+                        <select id="targetTimeline" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="day" data-key="timelineDay">Per Day</option>
+                            <option value="month" data-key="timelineMonth" selected>Per Month</option>
+                            <option value="year" data-key="timelineYear">Per Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section: Average Product Costs (COGS) -->
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-md">
+                     <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <span data-key="titleProductCosts">Average Product Costs (per Unit)</span>
+                    </h2>
+                    <p class="text-sm text-gray-500 mb-4" data-key="hintProductCosts">Enter details for your average product. You can enter in USD or your secondary currency.</p>
+
+                    <div class="mb-4 col-span-1 md:col-span-2">
+                        <label for="productSearchInput" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelProductSearch">Product Name or Keyword</label> <!-- Changed Label -->
+                        <input type="text" id="productSearchInput" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 'waterproof bluetooth speaker', 'SKU12345'" data-key-placeholder="hintProductSearch">
+                         <p class="text-xs text-gray-500 mt-1" data-key="hintProductSearchDetail">Used for AI Sourcing, Analysis, and Marketing Ideas.</p> <!-- Added detail hint -->
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <div class="mb-4">
+                            <label for="sellingPrice_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelSellingPriceUsd">Selling Price (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="sellingPrice_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="sellingPrice_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_sellingPrice_secondary" data-key="labelSellingPriceSecondary">Selling Price (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_sellingPrice_secondary">LYD</span>
+                                <input type="number" id="sellingPrice_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costOfGoods_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelCostOfGoodsUsd">Cost of Goods (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="costOfGoods_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costOfGoods_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_costOfGoods_secondary" data-key="labelCostOfGoodsSecondary">Cost of Goods (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_costOfGoods_secondary">LYD</span>
+                                <input type="number" id="costOfGoods_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="packagingCost_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelPackagingCostUsd">Packaging Cost (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="packagingCost_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="packagingCost_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_packagingCost_secondary" data-key="labelPackagingCostSecondary">Packaging Cost (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_packagingCost_secondary">LYD</span>
+                                <input type="number" id="packagingCost_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" value="3.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="shippingCost_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelShippingCostUsd">Shipping Cost (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="shippingCost_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="shippingCost_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_shippingCost_secondary" data-key="labelShippingCostSecondary">Shipping Cost (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_shippingCost_secondary">LYD</span>
+                                <input type="number" id="shippingCost_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" value="15.00" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="mb-4 flex items-center pt-5">
+                            <input type="checkbox" id="customerPaysShipping" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="customerPaysShipping" class="block text-sm text-gray-900 ml-2" data-key="checkCustomerPaysShipping">Customer pays for Shipping</label>
+                        </div>
+                        <div class="mb-4 flex items-center pt-5">
+                            <input type="checkbox" id="customerPaysPackaging" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="customerPaysPackaging" class="block text-sm text-gray-900 ml-2" data-key="checkCustomerPaysPackaging">Customer pays for Packaging</label>
+                        </div>
+                    </div>
+                     <div class="mb-4 mt-4">
+                        <label for="transactionFee" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelTransactionFee">Taxes & Transaction Fees (e.g., VAT, Payment Gateway %)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500">%</span>
+                            <input type="number" id="transactionFee" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" value="0" step="0.1">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1" data-key="hintTransactionFee">Calculated as a percentage of the *selling price*.</p>
+                    </div>
+
+                    <!-- AI Buttons Container -->
+                    <div class="col-span-1 md:col-span-2 mt-6 space-y-3">
+                         <button id="geminiAnalyzeButton" class="w-full bg-gradient-to-r from-purple-500 to-blue-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:from-purple-600 hover:to-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-code"><path d="m9 9-2 2 2 2"/><path d="m13 13 2-2-2-2"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                             <span data-key="buttonGeminiSearch">✨ Search Sourcing Sites & Analyze Pricing</span> <!-- Updated Text -->
+                        </button>
+                         <button id="geminiMarketingButton" class="w-full bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md hover:from-teal-600 hover:to-cyan-700 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                             <span data-key="buttonGeminiMarketing">✨ Generate Marketing Ideas</span> <!-- New Button -->
+                         </button>
+                    </div>
+                </div>
+
+                <!-- Section: Fixed Monthly Business Costs -->
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-md">
+                     <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <span data-key="titleFixedCosts">Fixed Monthly Business Costs</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <div class="mb-4">
+                            <label for="costDomain_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelDomainCostUsd">Website Domain (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="costDomain_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="1.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costDomain_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_costDomain_secondary" data-key="labelDomainCostSecondary">Website Domain (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_costDomain_secondary">LYD</span>
+                                <input type="number" id="costDomain_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costHosting_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelHostingCostUsd">Website Hosting (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="costHosting_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="1.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costHosting_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_costHosting_secondary" data-key="labelHostingCostSecondary">Website Hosting (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_costHosting_secondary">LYD</span>
+                                <input type="number" id="costHosting_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costGateway_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelGatewayCostUsd">Payment Gateway (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="costGateway_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costGateway_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_costGateway_secondary" data-key="labelGatewayCostSecondary">Payment Gateway (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_costGateway_secondary">LYD</span>
+                                <input type="number" id="costGateway_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costApps_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAppsCostUsd">App/Plugin Subscriptions (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="costApps_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="costApps_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_costApps_secondary" data-key="labelAppsCostSecondary">App/Plugin Subscriptions (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_costApps_secondary">LYD</span>
+                                <input type="number" id="costApps_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="exportingCost_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelExportingCostUsd">Monthly Exporting Cost (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="exportingCost_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="10.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="exportingCost_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_exportingCost_secondary" data-key="labelExportingCostSecondary">Monthly Exporting Cost (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_exportingCost_secondary">LYD</span>
+                                <input type="number" id="exportingCost_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                     <div class="mb-4 flex items-center pt-2">
+                        <input type="checkbox" id="customerPaysExporting" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="customerPaysExporting" class="block text-sm text-gray-900 ml-2" data-key="checkCustomerPaysExporting">Waive Monthly Exporting Cost</label>
+                    </div>
+                </div>
+
+                <!-- Section: Monthly Marketing Costs -->
+                <div class="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
+                        <span data-key="titleMarketingCosts">Monthly Marketing Costs</span>
+                    </h2>
+                    <p class="text-sm text-gray-500 mb-4" data-key="hintMarketingCosts">Enter your estimated monthly advertising budget.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+                        <div class="mb-4 md:col-span-1">
+                            <label for="adGoogle_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAdGoogleUsd">Google / YouTube (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="adGoogle_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4 md:col-span-1">
+                             <label for="adGoogle_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_adGoogle_secondary" data-key="labelAdGoogleSecondary">Google / YouTube (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_adGoogle_secondary">LYD</span>
+                                <input type="number" id="adGoogle_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="md:col-span-1"></div> <!-- Spacer -->
+
+                        <div class="mb-4 md:col-span-1">
+                            <label for="adFacebook_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAdFacebookUsd">Facebook / Insta (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="adFacebook_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="20.00" step="0.01">
+                            </div>
+                        </div>
+                         <div class="mb-4 md:col-span-1">
+                             <label for="adFacebook_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_adFacebook_secondary" data-key="labelAdFacebookSecondary">Facebook / Insta (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_adFacebook_secondary">LYD</span>
+                                <input type="number" id="adFacebook_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="md:col-span-1"></div> <!-- Spacer -->
+
+                        <div class="mb-4 md:col-span-1">
+                            <label for="adTikTok_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAdTikTokUsd">TikTok (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="adTikTok_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4 md:col-span-1">
+                             <label for="adTikTok_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_adTikTok_secondary" data-key="labelAdTikTokSecondary">TikTok (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_adTikTok_secondary">LYD</span>
+                                <input type="number" id="adTikTok_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                        <div class="md:col-span-1"></div> <!-- Spacer -->
+
+                         <div class="mb-4 md:col-span-1">
+                            <label for="adTwitter_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAdTwitterUsd">Twitter (X) (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="adTwitter_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4 md:col-span-1">
+                             <label for="adTwitter_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_adTwitter_secondary" data-key="labelAdTwitterSecondary">Twitter (X) (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_adTwitter_secondary">LYD</span>
+                                <input type="number" id="adTwitter_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                         <div class="md:col-span-1"></div> <!-- Spacer -->
+
+                        <div class="mb-4 md:col-span-1">
+                            <label for="adOther_usd" class="block text-sm font-medium text-gray-700 mb-1" data-key="labelAdOtherUsd">Other (USD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">$</span>
+                                <input type="number" id="adOther_usd" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-7" value="0.00" step="0.01">
+                            </div>
+                        </div>
+                        <div class="mb-4 md:col-span-1">
+                             <label for="adOther_secondary" class="block text-sm font-medium text-gray-700 mb-1" id="label_adOther_secondary" data-key="labelAdOtherSecondary">Other (LYD)</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 w-12 text-center" id="symbol_adOther_secondary">LYD</span>
+                                <input type="number" id="adOther_secondary" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pl-14" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Results -->
+            <div class="lg:col-span-1">
+                <div class="lg:sticky top-6">
+                    <div class="bg-white/90 backdrop-blur-sm p-6 rounded-lg shadow-md mb-6"> <!-- Added mb-6 -->
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                             <svg class="w-6 h-6 text-blue-600 mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M18.7 8a2 2 0 0 1 0 2.8l-6 6a2 2 0 0 1-2.8 0l-4-4a2 2 0 0 1 0-2.8l6-6a2 2 0 0 1 2.8 0l4 4z"></path></svg>
+                            <span data-key="titleResults">Results Dashboard</span>
+                        </h2>
+
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <div class="text-center">
+                                <p class="text-base font-medium text-blue-600" data-key="resultHeader">To Reach Your Profit Target, You Must Sell:</p>
+                                <p id="resultUnits" class="text-3xl font-bold text-blue-700">---</p>
+                                <p id="resultUnitsTimeline" class="text-lg font-medium text-blue-700 -mt-1" data-key="resultTimelineMonth">...</p>
+                                <p id="resultUnitsAlt1" class="text-sm font-medium text-gray-600 mt-1 hidden"></p>
+                                <p id="resultUnitsAlt2" class="text-sm font-medium text-gray-600 mt-1 hidden"></p>
+                            </div>
+
+                            <div id="error-message" class="hidden mt-4 bg-red-100 border border-red-300 text-red-800 p-3 rounded-md text-sm" data-key="errorMessage">
+                                Error: Your cost per unit is higher than your selling price. You are not making a profit on any sale.
+                            </div>
+
+                            <!-- Per-Unit Breakdown -->
+                            <div class="mt-6 pt-4 border-t border-blue-200">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4" data-key="titleUnitBreakdown">Per-Unit Profit Breakdown</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="font-medium text-gray-700" data-key="labelProfitPerUnit">Net Profit per Unit</span>
+                                        <span id="profitPerUnit" class="font-bold text-green-600 text-lg">$0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600" data-key="labelSellingPrice">Selling Price</span>
+                                        <span id="breakdownSellingPrice" class="text-gray-800">$0.00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600" data-key="labelTotalCostPerUnit">Total Cost per Unit</span>
+                                        <span id="breakdownTotalCost" class="text-red-600">$0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Monthly Projections -->
+                            <div class="mt-6 pt-4 border-t border-blue-200">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4" data-key="titleMonthlyProjections">Target Monthly Projections</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div class="bg-white p-4 rounded-md border border-gray-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelTotalRevenue">Total Revenue</div>
+                                        <div id="projRevenue" class="text-lg font-semibold text-gray-900">$0.00</div>
+                                        <div id="projRevenueSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                     <div class="bg-white p-4 rounded-md border border-gray-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelTotalCogs">Total COGS</div>
+                                        <div id="projCogs" class="text-lg font-semibold text-gray-900">$0.00</div>
+                                        <div id="projCogsSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-md border border-gray-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelTotalFixedCosts">Total Fixed Costs</div>
+                                        <div id="projFixed" class="text-lg font-semibold text-gray-900">$0.00</div>
+                                        <div id="projFixedSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-md border border-green-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelNetProfit">Net Profit</div>
+                                        <div id="projProfit" class="text-lg font-semibold text-green-700">$0.00</div>
+                                        <div id="projProfitSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Yearly Projections -->
+                             <div class="mt-6 pt-4 border-t border-blue-200">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4" data-key="titleYearlyProjections">Target Yearly Projections</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div class="bg-white p-4 rounded-md border border-gray-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelTotalRevenueYear">Total Revenue</div>
+                                        <div id="projRevenueYear" class="text-lg font-semibold text-gray-900">$0.00</div>
+                                        <div id="projRevenueYearSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                    <div class="bg-green-50 p-4 rounded-md border border-green-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelNetProfitYear">Net Profit</div>
+                                        <div id="projProfitYear" class="text-lg font-semibold text-green-700">$0.00</div>
+                                        <div id="projProfitYearSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Operational Budgeting -->
+                            <div class="mt-6 pt-4 border-t border-blue-200">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4" data-key="titleOperationalBudget">Operational Budgeting</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div class="bg-blue-50 p-4 rounded-md border border-blue-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelOrderInvestment">Monthly Order Investment</div>
+                                        <p class="text-xs text-gray-500 -mt-1 mb-1" data-key="hintOrderInvestment">Cost to acquire target inventory (COGS Only)</p>
+                                        <div id="projOrderInvestment" class="text-lg font-semibold text-blue-800">$0.00</div>
+                                        <div id="projOrderInvestmentSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                    <div class="bg-yellow-50 p-4 rounded-md border border-yellow-200">
+                                        <div class="text-sm font-medium text-gray-600" data-key="labelTotalBudget">Total Monthly Budget</div>
+                                         <p class="text-xs text-gray-500 -mt-1 mb-1" data-key="hintTotalBudget">All product costs + all fixed costs</p>
+                                        <div id="projTotalBudget" class="text-lg font-semibold text-yellow-800">$0.00</div>
+                                        <div id="projTotalBudgetSecondary" class="text-sm font-normal text-gray-500">0.00 LYD</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Download Buttons -->
+                             <div class="mt-6 pt-4 border-t border-blue-200">
+                                <button id="downloadPdfButton" class="mt-2 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-indigo-700 transition-colors text-sm flex items-center justify-center gap-2">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                                    <span data-key="buttonDownloadPdf">Download PDF</span>
+                                </button>
+                                <button id="downloadCsvButton" class="mt-2 w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-indigo-700 transition-colors text-sm flex items-center justify-center gap-2">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                                    <span data-key="buttonDownloadCsv">Download CSV</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gemini AI Modal -->
+    <div id="geminiModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col" id="geminiModalContent">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modalTitleHeader" class="text-xl font-semibold text-gray-800" data-key="modalTitleAnalysis">✨ AI Analysis & Suggestions</h3>
+                <button id="closeModalButton" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <div id="geminiLoading" class="flex flex-col items-center justify-center min-h-[200px] text-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p id="geminiLoadingText" class="text-lg font-medium text-gray-700 mt-4" data-key="modalLoadingAnalysis">Thinking... Please wait a moment.</p>
+                </div>
+                <div id="geminiResponse" class="prose max-w-none hidden">
+                    <!-- Content will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Standard Footer -->
+     <footer class="bg-gray-800 py-8 mt-12"> <!-- Added margin-top -->
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p data-key="footerCopyright">&copy; 2025 Akula MTT. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://www.instagram.com/akulamttt/" target="_blank" class="text-gray-400 hover:text-white" aria-label="Instagram">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2.066M8.61 2.066c-.334 0-.663.013-1.002.04c-1.381.1-2.75.334-4.004.804A5.964 5.964 0 0 0 .804 6.611a5.965 5.965 0 0 0-.764 4.004C.013 11.94 0 12.268 0 12.603s.013.663.04 1.002c.1 1.381.334 2.75.804 4.004a5.965 5.965 0 0 0 3.709 3.709c1.254.47 2.623.704 4.004.804.339.027.668.04 1.002.04s.663-.013 1.002-.04c1.381-.1 2.75-.334 4.004-.804a5.965 5.965 0 0 0 3.709-3.709c.47-1.254.704-2.623.804-4.004.027-.339.04-.668.04-1.002s-.013-.663-.04-1.002c-.1-1.381-.334-2.75-.804-4.004A5.965 5.965 0 0 0 17.39.804C16.136.334 14.767.1 13.386.04 13.047.013 12.718 0 12.383 0h-.768ZM8.04 12.603c0-2.484 2.01-4.494 4.494-4.494s4.494 2.01 4.494 4.494S15.018 17.1 12.534 17.1s-4.494-2.01-4.494-4.497Zm1.124 0c0 1.863 1.507 3.37 3.37 3.37s3.37-1.507 3.37-3.37s-1.507-3.37-3.37-3.37s-3.37 1.507-3.37 3.37ZM17.302 8.167a1.124 1.124 0 1 0 0-2.248 1.124 1.124 0 0 0 0 2.248Z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://x.com/AkulaMTTT" target="_blank" class="text-gray-400 hover:text-white" aria-label="X (formerly Twitter)">
+                   <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25ZM17.072 19.5h1.57l-5.83-7.75L6.908 4.5h-1.57l5.83 7.75L17.072 19.5Z" /></svg>
+                </a>
+                <a href="https://www.facebook.com/akulamttt" target="_blank" class="text-gray-400 hover:text-white" aria-label="Facebook">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://www.youtube.com/@akulamttt" target="_blank" class="text-gray-400 hover:text-white" aria-label="YouTube">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.58 7.19c-.23-.86-.9-1.5-1.76-1.74C18.26 5 12 5 12 5s-6.26 0-7.82.45c-.86.23-1.53.88-1.76 1.74C2 8.85 2 12 2 12s0 3.15.42 4.81c.23.86.9 1.5 1.76 1.74C5.74 19 12 19 12 19s6.26 0 7.82-.45c.86-.23 1.53-.88 1.76-1.74C22 15.15 22 12 22 12s0-3.15-.42-4.81zM9.5 14.5V9.5l4.5 2.5-4.5 2.5z" /></svg>
+                </a>
+                <a href="https://www.tiktok.com/@akulamttt" target="_blank" class="text-gray-400 hover:text-white" aria-label="TikTok">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.13.04-4.27-.61-5.88-2.04-1.81-1.6-2.9-3.9-2.8-6.3.01-2.7.95-5.29 2.84-7.1C5.29 9.01 7.16 8.24 9.08 8.04c.05-1.46.1-2.92.1-4.37 0-1.09.1-2.18.2-3.25A2.73 2.73 0 0111.41.04c.37-.01.74-.02 1.11-.02zM12.14 4.12V12c-1.1.04-2.18.38-3.08.97-1.02.69-1.78 1.7-2.13 2.86-.33 1.12-.3 2.34.1 3.44.45 1.2 1.25 2.21 2.32 2.91 1.81 1.17 4.22 1.19 6.05.04 1.16-.73 2.01-1.78 2.56-3.01.42-.95.55-1.99.39-3.03-.23-1.4-.8-2.75-1.72-3.83-1.13-1.33-2.7-2.11-4.38-2.22-.01-.13-.02-.26-.02-.39z" /></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Translations (English Only) ---
+        const translations = {
+            en: {
+                // Header keys from main site
+                appName: "Akula MTT",
+                appTagline: "Minds for Metrics, Trends & Targets",
+                navAbout: "About Us",
+                navContact: "Contact Us",
+                navToggleLang: "Switch to Arabic", // Link text
+                navLaunchApp: "Calculator", // Changed label
+
+                // Existing calculator keys...
+                pageTitle: "Entrepreneur's Profitability Calculator",
+                mainTitle: "Entrepreneur's Profitability Calculator",
+                mainSubtitle: "Plan your e-commerce success by modeling costs, revenue, and profit targets.",
+                labelApiKey: "Gemini API Key:",
+                placeholderApiKey: "Enter your key here (optional, needed for external use)",
+                buttonSaveApiKey: "Save Key",
+                statusApiKeySaved: "API Key saved in browser.",
+                statusApiKeyNotSaved: "No key saved. AI features require a key outside Canvas.",
+                linkGetApiKey: "Get your free API Key from Google AI Studio",
+                labelProductSearch: "Product Name or Keyword", // Updated label
+                hintProductSearch: "e.g., 'waterproof bluetooth speaker', 'SKU12345'",
+                hintProductSearchDetail: "Used for AI Sourcing, Analysis, and Marketing Ideas.", // New hint
+                buttonGeminiSearch: "✨ Search Sourcing Sites & Analyze Pricing", // Updated text
+                buttonGeminiMarketing: "✨ Generate Marketing Ideas", // New button text
+                titleTargetAndCurrency: "Profit Target & Currency",
+                labelSecondaryCurrency: "Secondary Currency",
+                labelExchangeRate: "Exchange Rate (1 USD = ?)",
+                hintExchangeRate: "e.g., if 1 USD = 7.5 LYD, enter 7.5",
+                labelTargetProfitUsd: "Desired Profit Target (USD)",
+                labelTargetProfitSecondary: "Desired Profit Target", // Symbol added dynamically
+                labelProfitTimeline: "Profit Timeline",
+                timelineDay: "Per Day",
+                timelineMonth: "Per Month",
+                timelineYear: "Per Year",
+                titleProductCosts: "Average Product Costs (per Unit)",
+                hintProductCosts: "Enter details for your average product. You can enter in USD or your secondary currency.",
+                labelSellingPriceUsd: "Selling Price (USD)",
+                labelSellingPriceSecondary: "Selling Price",
+                labelCostOfGoodsUsd: "Cost of Goods (USD)",
+                labelCostOfGoodsSecondary: "Cost of Goods",
+                labelPackagingCostUsd: "Packaging Cost (USD)",
+                labelPackagingCostSecondary: "Packaging Cost",
+                labelShippingCostUsd: "Shipping Cost (USD)",
+                labelShippingCostSecondary: "Shipping Cost",
+                labelExportingCostUsd: "Monthly Exporting Cost (USD)",
+                labelExportingCostSecondary: "Monthly Exporting Cost",
+                checkCustomerPaysShipping: "Customer pays for Shipping",
+                checkCustomerPaysPackaging: "Customer pays for Packaging",
+                checkCustomerPaysExporting: "Waive Monthly Exporting Cost",
+                labelTransactionFee: "Taxes & Transaction Fees (e.g., VAT, Payment Gateway %)",
+                hintTransactionFee: "Calculated as a percentage of the *selling price*.",
+                titleFixedCosts: "Fixed Monthly Business Costs",
+                labelDomainCostUsd: "Website Domain (USD)",
+                labelDomainCostSecondary: "Website Domain",
+                labelHostingCostUsd: "Website Hosting (USD)",
+                labelHostingCostSecondary: "Website Hosting",
+                labelGatewayCostUsd: "Payment Gateway (USD)",
+                labelGatewayCostSecondary: "Payment Gateway",
+                labelAppsCostUsd: "App/Plugin Subscriptions (USD)",
+                labelAppsCostSecondary: "App/Plugin Subscriptions",
+                titleMarketingCosts: "Monthly Marketing Costs",
+                hintMarketingCosts: "Enter your estimated monthly advertising budget.",
+                labelAdGoogleUsd: "Google / YouTube (USD)",
+                labelAdGoogleSecondary: "Google / YouTube",
+                labelAdFacebookUsd: "Facebook / Insta (USD)",
+                labelAdFacebookSecondary: "Facebook / Insta",
+                labelAdTikTokUsd: "TikTok (USD)",
+                labelAdTikTokSecondary: "TikTok",
+                labelAdTwitterUsd: "Twitter (X) (USD)",
+                labelAdTwitterSecondary: "Twitter (X)",
+                labelAdOtherUsd: "Other (USD)",
+                labelAdOtherSecondary: "Other",
+                titleResults: "Results Dashboard",
+                resultHeader: "To Reach Your Profit Target, You Must Sell:",
+                resultTimelineDay: "units per day",
+                resultTimelineMonth: "units per month",
+                resultTimelineYear: "units per year",
+                resultUnitsAltDay: "({num} units per day)",
+                resultUnitsAltMonth: "({num} units per month)",
+                resultUnitsAltYear: "({num} units per year)",
+                errorMessage: "Error: Your cost per unit is higher than your selling price. You are not making a profit on any sale.",
+                modalTitleAnalysis: "✨ AI Pricing Analysis & Description",
+                modalTitleSourcing: "✨ AI Product Sourcing Results",
+                modalTitleMarketing: "✨ AI Marketing Ideas", // New title
+                modalLoadingAnalysis: "Analyzing your pricing... Please wait.",
+                modalLoadingSourcing: "Searching sourcing sites... Please wait.",
+                modalLoadingMarketing: "Generating marketing ideas... Please wait.", // New loading text
+                modalError: "An error occurred. Please try again.",
+                modalInputErrorAnalysis: "Please enter Product Name/Keyword, Selling Price, and Cost of Goods for the analysis.", // Updated error
+                modalInputErrorSourcing: "Please enter a Product Name/Keyword to get sourcing suggestions.", // Updated error
+                modalInputErrorMarketing: "Please enter a Product Name/Keyword to generate marketing ideas.", // New error
+                buttonSelectProduct: "Select",
+                titleUnitBreakdown: "Per-Unit Profit Breakdown",
+                labelProfitPerUnit: "Net Profit per Unit",
+                labelSellingPrice: "Selling Price",
+                labelTotalCostPerUnit: "Total Cost per Unit",
+                titleMonthlyProjections: "Target Monthly Projections",
+                labelTotalRevenue: "Total Revenue",
+                labelTotalCogs: "Total COGS",
+                labelTotalFixedCosts: "Total Fixed Costs",
+                labelNetProfit: "Net Profit",
+                titleYearlyProjections: "Target Yearly Projections",
+                labelTotalRevenueYear: "Total Revenue",
+                labelNetProfitYear: "Net Profit",
+                titleOperationalBudget: "Operational Budgeting",
+                labelOrderInvestment: "Monthly Order Investment",
+                labelTotalBudget: "Total Monthly Budget",
+                hintOrderInvestment: "Cost to acquire target inventory (COGS Only)",
+                hintTotalBudget: "All product costs + all fixed costs",
+                buttonDownloadPdf: "Download PDF",
+                buttonDownloadCsv: "Download CSV",
+                pdfInputSummaryTitle: "Input Summary",
+                pdfCustomerPays: "Customer Pays",
+                pdfYouPay: "You Pay",
+                pdfWaived: "Waived",
+                pdfIncluded: "Included",
+                csvCalculated: "Calculated",
+
+                // Footer keys from main site
+                footerCopyright: "&copy; 2025 Akula MTT. All rights reserved."
+            }
+            // No 'ar' object needed in this file
+        };
+
+        const currentLanguage = 'en'; // Hardcoded for this page
+        const errorMessage = document.getElementById('error-message');
+
+        // --- API Key Elements ---
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const saveApiKeyButton = document.getElementById('saveApiKeyButton');
+        const apiKeyStatus = document.getElementById('apiKeyStatus');
+
+        // --- Gemini Modal Elements ---
+        const geminiModal = document.getElementById('geminiModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const geminiAnalyzeButton = document.getElementById('geminiAnalyzeButton');
+        const geminiMarketingButton = document.getElementById('geminiMarketingButton'); // New Button Element
+        const geminiLoading = document.getElementById('geminiLoading');
+        const geminiLoadingText = document.getElementById('geminiLoadingText');
+        const geminiResponse = document.getElementById('geminiResponse');
+        const modalTitleHeader = document.getElementById('modalTitleHeader');
+
+        // --- Input Elements ---
+        const productSearchInput = document.getElementById('productSearchInput');
+
+        // --- Currency and Rate Inputs ---
+        const currencyFieldBases = [
+            'targetProfit', 'sellingPrice', 'costOfGoods', 'packagingCost', 'shippingCost',
+            'costDomain', 'costHosting', 'costGateway', 'costApps', 'exportingCost',
+            'adGoogle', 'adFacebook', 'adTikTok', 'adTwitter', 'adOther'
+        ];
+        const otherInputs = [
+            'targetTimeline', 'transactionFee', 'customerPaysShipping', 'customerPaysPackaging', 'customerPaysExporting'
+        ];
+        const rateInputs = ['exchangeRate', 'secondaryCurrency'];
+
+        // --- Helper Functions ---
+        function getFloat(id) { const el = document.getElementById(id); if (!el) return 0; const value = el.value; return parseFloat(value) || 0; }
+        function getText(id) { const el = document.getElementById(id); return el ? el.innerText : ''; }
+        function getValue(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+        function isChecked(id) { const el = document.getElementById(id); return el ? el.checked : false; }
+        function isEmpty(id) { const el = document.getElementById(id); if (!el) return true; return el.value.trim() === ''; }
+        function setFloat(id, value) { const el = document.getElementById(id); if(el) { el.value = value.toFixed(2); el.dispatchEvent(new Event('input', { bubbles: true })); } }
+        function formatCurrency(value, rate, symbol) { const numericValue = typeof value === 'number' ? value : 0; const usdValue = numericValue.toFixed(2); const secondaryValue = (numericValue * rate).toFixed(2); return { usd: `$${usdValue}`, secondary: `${secondaryValue} ${symbol}` }; }
+
+        // --- Simplified Initial Setup Function ---
+        function initializePage() {
+            const langData = translations.en; // Only use English data
+            if (!langData) { console.error("English language data missing!"); return; }
+
+            document.documentElement.lang = 'en';
+            document.documentElement.dir = 'ltr';
+            document.title = langData.pageTitle;
+
+            // Apply translations to elements with data-key
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (langData[key] !== undefined) {
+                    if (element.tagName === 'OPTION' && element.parentElement.id === 'targetTimeline') {
+                         element.innerText = langData[key];
+                    } else if (element.id === 'resultUnitsTimeline' && key.startsWith('resultTimeline')) {
+                         // Skip, handled in calculate()
+                    }
+                    else if (key === 'footerCopyright'){
+                        element.innerHTML = langData[key];
+                    }
+                     else {
+                         element.innerText = langData[key];
+                    }
+                }
+            });
+
+            // Apply placeholder translations
+            document.querySelectorAll('[data-key-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-key-placeholder');
+                 if (langData[key] !== undefined) {
+                    element.placeholder = langData[key];
+                }
+            });
+
+            updateApiKeyStatus(); // Set initial API key status text
+            updateCurrencyLabels(); // Set currency labels based on default dropdown
+            handleRateChange(); // Sync default values and perform initial calculation
+        }
+
+        // --- Updates all secondary currency labels and symbols ---
+        function updateCurrencyLabels() {
+            const currencySelect = document.getElementById('secondaryCurrency');
+            if (!currencySelect || currencySelect.options.length === 0) return;
+            const currencySymbol = currencySelect.options[currencySelect.selectedIndex].value;
+            const langData = translations.en; // Use English data
+            if (!langData) return;
+
+            currencyFieldBases.forEach(base => {
+                const labelEl = document.getElementById(`label_${base}_secondary`);
+                const symbolEl = document.getElementById(`symbol_${base}_secondary`);
+                const labelKey = `label${base.charAt(0).toUpperCase() + base.slice(1)}Secondary`;
+
+                if (labelEl && langData[labelKey]) {
+                    labelEl.innerText = `${langData[labelKey]} (${currencySymbol})`;
+                }
+                if (symbolEl) {
+                    symbolEl.innerText = currencySymbol;
+                }
+            });
+
+             // Update existing secondary value labels if they exist
+             const secondaryElements = document.querySelectorAll('.breakdown-value-secondary');
+             secondaryElements.forEach(el => {
+                 const currentValue = el.innerText;
+                 if (/\d/.test(currentValue)) {
+                     const numericPart = currentValue.match(/[\d\.]+/);
+                     if (numericPart) {
+                         el.innerText = `${numericPart[0]} ${currencySymbol}`;
+                     }
+                 }
+             });
+        }
+
+        // --- Main calculation function ---
+        function calculate() {
+            const AVG_DAYS_IN_MONTH = 30.4375;
+            const rate = getFloat('exchangeRate');
+            const currencySelect = document.getElementById('secondaryCurrency');
+             if (!currencySelect || currencySelect.options.length === 0) return;
+            const currencySymbol = currencySelect.options[currencySelect.selectedIndex].value;
+            const langData = translations.en; // Use English data
+            if (!langData) return;
+
+            let targetProfit = getFloat('targetProfit_usd');
+            const targetTimelineSelect = document.getElementById('targetTimeline');
+            const targetTimeline = targetTimelineSelect.value;
+
+            let monthlyTargetProfit;
+            if (targetTimeline === 'year') monthlyTargetProfit = targetProfit / 12;
+            else if (targetTimeline === 'day') monthlyTargetProfit = targetProfit * AVG_DAYS_IN_MONTH;
+            else monthlyTargetProfit = targetProfit;
+
+            const exportingCostMonthly = isChecked('customerPaysExporting') ? 0 : getFloat('exportingCost_usd');
+            const fixedBusinessCosts = getFloat('costDomain_usd') + getFloat('costHosting_usd') + getFloat('costGateway_usd') + getFloat('costApps_usd') + exportingCostMonthly;
+            const fixedMarketingCosts = getFloat('adGoogle_usd') + getFloat('adFacebook_usd') + getFloat('adTikTok_usd') + getFloat('adTwitter_usd') + getFloat('adOther_usd');
+            const totalMonthlyFixedCosts = fixedBusinessCosts + fixedMarketingCosts;
+
+            const sellingPrice = getFloat('sellingPrice_usd');
+            const costOfGoods = getFloat('costOfGoods_usd');
+            const packagingCost = isChecked('customerPaysPackaging') ? 0 : getFloat('packagingCost_usd');
+            const shippingCost = isChecked('customerPaysShipping') ? 0 : getFloat('shippingCost_usd');
+            const transactionFeePercent = getFloat('transactionFee');
+            const transactionFee = (sellingPrice * transactionFeePercent) / 100;
+            const totalCostPerUnit = costOfGoods + packagingCost + shippingCost + transactionFee;
+            const profitPerUnit = sellingPrice > 0 ? sellingPrice - totalCostPerUnit : 0;
+
+            const resultUnitsAlt1 = document.getElementById('resultUnitsAlt1');
+            const resultUnitsAlt2 = document.getElementById('resultUnitsAlt2');
+             const resultUnitsEl = document.getElementById('resultUnits');
+             const resultUnitsTimelineEl = document.getElementById('resultUnitsTimeline');
+
+            if (profitPerUnit <= 0 && sellingPrice > 0 && costOfGoods > 0) {
+                errorMessage.classList.remove('hidden');
+                 resultUnitsEl.innerText = 'N/A';
+                 resultUnitsTimelineEl.innerText = '...';
+                resultUnitsAlt1.innerText = ''; resultUnitsAlt2.innerText = '';
+                 resultUnitsAlt1.classList.add('hidden'); resultUnitsAlt2.classList.add('hidden');
+                document.getElementById('profitPerUnit').innerText = formatCurrency(profitPerUnit, rate, currencySymbol).usd;
+                const fieldsToClear = ['projRevenue', 'projCogs', 'projFixed', 'projProfit','projRevenueYear', 'projProfitYear','projOrderInvestment', 'projTotalBudget'];
+                fieldsToClear.forEach(id => {
+                    const el = document.getElementById(id); const elSec = document.getElementById(id + 'Secondary');
+                    if(el) el.innerText = '$0.00'; if(elSec) elSec.innerText = `0.00 ${currencySymbol}`;
+                });
+                return; // Stop calculation here
+            }
+             errorMessage.classList.add('hidden'); // Ensure error is hidden if calculations are valid
+
+            const totalMonthlyProfitNeeded = monthlyTargetProfit + totalMonthlyFixedCosts;
+            const unitsPerMonth = (profitPerUnit > 0) ? Math.ceil(totalMonthlyProfitNeeded / profitPerUnit) : 0;
+            const unitsPerYear = unitsPerMonth * 12;
+            const unitsPerDay = (profitPerUnit > 0) ? Math.ceil(unitsPerMonth / AVG_DAYS_IN_MONTH) : 0;
+
+            let unitsToSell, unitsTimelineKey;
+            let alt1Num, alt1Key, alt2Num, alt2Key;
+
+            if (targetTimeline === 'year') {
+                unitsToSell = unitsPerYear; unitsTimelineKey = 'resultTimelineYear';
+                alt1Num = unitsPerMonth; alt1Key = 'resultUnitsAltMonth';
+                alt2Num = unitsPerDay; alt2Key = 'resultUnitsAltDay';
+            } else if (targetTimeline === 'day') {
+                unitsToSell = unitsPerDay; unitsTimelineKey = 'resultTimelineDay';
+                alt1Num = unitsPerMonth; alt1Key = 'resultUnitsAltMonth';
+                alt2Num = unitsPerYear; alt2Key = 'resultUnitsAltYear';
+            } else { // 'month'
+                unitsToSell = unitsPerMonth; unitsTimelineKey = 'resultTimelineMonth';
+                alt1Num = unitsPerDay; alt1Key = 'resultUnitsAltDay';
+                alt2Num = unitsPerYear; alt2Key = 'resultUnitsAltYear';
+            }
+
+             // Update alternative unit counts
+             if(langData[alt1Key]) resultUnitsAlt1.innerText = langData[alt1Key].replace('{num}', alt1Num.toLocaleString()); else resultUnitsAlt1.innerText = '';
+             if(langData[alt2Key]) resultUnitsAlt2.innerText = langData[alt2Key].replace('{num}', alt2Num.toLocaleString()); else resultUnitsAlt2.innerText = '';
+
+
+             // Update main result display
+             if (sellingPrice > 0 && costOfGoods > 0 && profitPerUnit > 0) {
+                 resultUnitsEl.innerText = (unitsToSell > 0) ? unitsToSell.toLocaleString() : '0';
+                 // Use the text from the selected option directly for the timeline label
+                 const selectedOptionText = targetTimelineSelect.options[targetTimelineSelect.selectedIndex].text;
+                 resultUnitsTimelineEl.innerText = selectedOptionText; // Show "Per Day", "Per Month", or "Per Year"
+                 // Update data-key attribute for consistency if needed, but innerText is what user sees
+                 const selectedOptionKey = targetTimelineSelect.options[targetTimelineSelect.selectedIndex].getAttribute('data-key');
+                 resultUnitsTimelineEl.setAttribute('data-key', selectedOptionKey);
+
+                 resultUnitsAlt1.classList.remove('hidden'); resultUnitsAlt2.classList.remove('hidden');
+             } else {
+                 resultUnitsEl.innerText = '---'; resultUnitsTimelineEl.innerText = '...';
+                 resultUnitsAlt1.innerText = ''; resultUnitsAlt2.innerText = '';
+                 resultUnitsAlt1.classList.add('hidden'); resultUnitsAlt2.classList.add('hidden');
+             }
+
+
+            // --- Update Breakdown and Projections ---
+            document.getElementById('profitPerUnit').innerText = formatCurrency(profitPerUnit, rate, currencySymbol).usd;
+            document.getElementById('breakdownSellingPrice').innerText = formatCurrency(sellingPrice, rate, currencySymbol).usd;
+            document.getElementById('breakdownTotalCost').innerText = formatCurrency(totalCostPerUnit, rate, currencySymbol).usd;
+
+            const monthlyRevenue = unitsPerMonth * sellingPrice;
+            const monthlyCogs = unitsPerMonth * totalCostPerUnit; // Using total cost per unit
+            const monthlyNetProfit = (unitsPerMonth * profitPerUnit) - totalMonthlyFixedCosts;
+            let formatted;
+
+            formatted = formatCurrency(monthlyRevenue, rate, currencySymbol);
+            document.getElementById('projRevenue').innerText = formatted.usd; document.getElementById('projRevenueSecondary').innerText = formatted.secondary;
+            formatted = formatCurrency(monthlyCogs, rate, currencySymbol);
+            document.getElementById('projCogs').innerText = formatted.usd; document.getElementById('projCogsSecondary').innerText = formatted.secondary;
+            formatted = formatCurrency(totalMonthlyFixedCosts, rate, currencySymbol);
+            document.getElementById('projFixed').innerText = formatted.usd; document.getElementById('projFixedSecondary').innerText = formatted.secondary;
+            formatted = formatCurrency(monthlyNetProfit, rate, currencySymbol);
+            document.getElementById('projProfit').innerText = formatted.usd; document.getElementById('projProfitSecondary').innerText = formatted.secondary;
+
+
+            const yearlyRevenue = monthlyRevenue * 12;
+            const yearlyNetProfit = monthlyNetProfit * 12;
+            formatted = formatCurrency(yearlyRevenue, rate, currencySymbol);
+            document.getElementById('projRevenueYear').innerText = formatted.usd; document.getElementById('projRevenueYearSecondary').innerText = formatted.secondary;
+            formatted = formatCurrency(yearlyNetProfit, rate, currencySymbol);
+            document.getElementById('projProfitYear').innerText = formatted.usd; document.getElementById('projProfitYearSecondary').innerText = formatted.secondary;
+
+            const monthlyOrderInvestment = unitsPerMonth * costOfGoods; // Based on COGS only
+            const totalMonthlyBudget = monthlyCogs + totalMonthlyFixedCosts; // Based on total unit cost + fixed costs
+            formatted = formatCurrency(monthlyOrderInvestment, rate, currencySymbol);
+            const projOrderInvestmentEl = document.getElementById('projOrderInvestment'); const projOrderInvestmentSecondaryEl = document.getElementById('projOrderInvestmentSecondary');
+            if (projOrderInvestmentEl) projOrderInvestmentEl.innerText = formatted.usd; if (projOrderInvestmentSecondaryEl) projOrderInvestmentSecondaryEl.innerText = formatted.secondary;
+            formatted = formatCurrency(totalMonthlyBudget, rate, currencySymbol);
+            const projTotalBudgetEl = document.getElementById('projTotalBudget'); const projTotalBudgetSecondaryEl = document.getElementById('projTotalBudgetSecondary');
+            if (projTotalBudgetEl) projTotalBudgetEl.innerText = formatted.usd; if (projTotalBudgetSecondaryEl) projTotalBudgetSecondaryEl.innerText = formatted.secondary;
+        }
+
+
+        // --- Handles input in EITHER USD or Secondary field ---
+         function handleCurrencyInput(e) {
+            const rate = getFloat('exchangeRate');
+             if (rate === 0) { calculate(); return; }
+
+            const sourceEl = e.target;
+            const sourceId = sourceEl.id;
+            const sourceRawValue = sourceEl.value;
+
+            if (sourceRawValue.trim() === '' || sourceRawValue.endsWith('.')) {
+                const isUsd = sourceId.endsWith('_usd');
+                const base = sourceId.replace('_usd', '').replace('_secondary', '');
+                const targetId = isUsd ? (base + '_secondary') : (base + '_usd');
+                const targetEl = document.getElementById(targetId);
+                 if (targetEl) targetEl.value = '';
+                 calculate();
+                 return;
+            }
+
+            const sourceValue = parseFloat(sourceRawValue) || 0;
+            const isUsd = sourceId.endsWith('_usd');
+            const base = sourceId.replace('_usd', '').replace('_secondary', '');
+            const targetId = isUsd ? (base + '_secondary') : (base + '_usd');
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+
+            let targetValue;
+            if (isUsd) {
+                targetValue = sourceValue * rate;
+            } else {
+                targetValue = sourceValue / rate;
+            }
+
+            targetEl.value = targetValue.toFixed(2);
+            calculate();
+        }
+
+
+        // --- Handles change in Exchange Rate or Currency Dropdown ---
+        function handleRateChange() {
+            updateCurrencyLabels();
+            const rate = getFloat('exchangeRate');
+
+            currencyFieldBases.forEach(base => {
+                const usdEl = document.getElementById(base + '_usd');
+                const secondaryEl = document.getElementById(base + '_secondary');
+                if (!usdEl || !secondaryEl) return;
+
+                const usdRawValue = usdEl.value;
+                const secondaryRawValue = secondaryEl.value;
+
+                if (usdRawValue.trim() !== '' && !usdRawValue.endsWith('.')) {
+                    const usdValue = parseFloat(usdRawValue) || 0;
+                    if (rate === 0) { secondaryEl.value = ''; }
+                    else { secondaryEl.value = (usdValue * rate).toFixed(2); }
+                }
+                else if (usdRawValue.trim() === '' && secondaryRawValue.trim() !== '' && !secondaryRawValue.endsWith('.')) {
+                    if (rate > 0) {
+                         const secondaryValue = parseFloat(secondaryRawValue) || 0;
+                        usdEl.value = (secondaryValue / rate).toFixed(2);
+                    } else { usdEl.value = ''; }
+                }
+                 else if (rate === 0 || usdRawValue.trim() === '' || usdRawValue.endsWith('.')) {
+                    secondaryEl.value = '';
+                }
+            });
+            calculate();
+        }
+
+
+        // --- API Key Management ---
+        function saveApiKey() { const key = apiKeyInput.value.trim(); if (key) localStorage.setItem('geminiApiKey', key); else localStorage.removeItem('geminiApiKey'); apiKeyInput.value = ''; updateApiKeyStatus(); }
+        function updateApiKeyStatus() { const savedKey = localStorage.getItem('geminiApiKey'); const langData = translations.en; if (!langData || !apiKeyStatus) return; if (savedKey) { apiKeyStatus.innerText = langData.statusApiKeySaved; apiKeyStatus.classList.remove('not-saved'); apiKeyStatus.classList.add('saved'); } else { apiKeyStatus.innerText = langData.statusApiKeyNotSaved; apiKeyStatus.classList.remove('saved'); apiKeyStatus.classList.add('not-saved'); } }
+        function getApiKey() { return localStorage.getItem('geminiApiKey') || ""; }
+
+
+        // --- Gemini AI Modal Functions ---
+        function showModal() { if(geminiModal) geminiModal.classList.remove('hidden'); const modalContent = document.getElementById('geminiModalContent'); if(modalContent) modalContent.dir = 'ltr'; /* English only */ }
+        function hideModal() { if(geminiModal) geminiModal.classList.add('hidden'); }
+        function showLoading(isLoading, mode = 'analysis') {
+            const langData = translations.en; // Use English
+            if (!langData || !modalTitleHeader || !geminiLoadingText || !geminiLoading || !geminiResponse) return;
+            if (isLoading) {
+                // Determine title and loading text based on mode
+                let titleKey = 'modalTitleAnalysis';
+                let loadingKey = 'modalLoadingAnalysis';
+                if (mode === 'sourcing') { titleKey = 'modalTitleSourcing'; loadingKey = 'modalLoadingSourcing'; }
+                else if (mode === 'marketing') { titleKey = 'modalTitleMarketing'; loadingKey = 'modalLoadingMarketing'; }
+
+                modalTitleHeader.innerText = langData[titleKey] || langData.modalTitleAnalysis; // Default to analysis
+                geminiLoadingText.innerText = langData[loadingKey] || langData.modalLoadingAnalysis; // Default to analysis
+
+                geminiLoading.classList.remove('hidden');
+                geminiResponse.classList.add('hidden');
+                geminiResponse.innerHTML = '';
+            } else {
+                geminiLoading.classList.add('hidden');
+                geminiResponse.classList.remove('hidden');
+            }
+        }
+        function displayGeminiError(messageKey, titleKey = 'modalError') {
+            const langData = translations.en; // Use English
+            if (!langData || !modalTitleHeader || !geminiResponse) return;
+            modalTitleHeader.innerText = langData[titleKey] || langData.modalError || 'Error'; showLoading(false, 'error'); // Pass 'error' mode
+            const errorMessage = langData[messageKey] || 'An unknown error occurred.'; geminiResponse.innerHTML = marked.parse(`## ${langData.modalError || 'Error'}\n\n${errorMessage}`);
+        }
+
+        // --- Gemini API Call - Sourcing & Analysis ---
+         async function handleGeminiAnalysis() {
+            console.log("handleGeminiAnalysis called"); showModal();
+            const productSearchTerm = productSearchInput.value.trim();
+            const sellingPriceValue = getFloat('sellingPrice_usd');
+            const costOfGoodsValue = getFloat('costOfGoods_usd');
+
+            const sellingPriceIsSet = sellingPriceValue > 0;
+            const costOfGoodsIsSet = costOfGoodsValue > 0;
+
+            // Validation: Must have search term.
+            if (!productSearchTerm) {
+                // Determine error message based on whether it looks like sourcing or analysis attempt
+                const errorKey = (!sellingPriceIsSet || !costOfGoodsIsSet) ? 'modalInputErrorSourcing' : 'modalInputErrorAnalysis';
+                console.error("Validation failed: Product search term is empty.");
+                displayGeminiError(errorKey);
+                return;
+            }
+
+            let mode, systemPrompt, userQuery;
+            let languageInstruction = "Please respond in English."; // Fixed to English
+
+            // Mode determination: If either price or cost is missing, assume sourcing. Otherwise, analysis.
+            if (!sellingPriceIsSet || !costOfGoodsIsSet) {
+                console.log("Entering Sourcing Mode");
+                mode = 'sourcing';
+                showLoading(true, 'sourcing');
+                // Construct Sourcing Prompt (ensure it doesn't get cut off) - UPDATED
+                systemPrompt = `You are an AI e-commerce sourcing expert. Your goal is to provide actionable sourcing suggestions from global B2B marketplaces (like Alibaba, DHGate, Made-in-China, Global Sources, etc.) based on a user's search term.
+
+    **Instructions:**
+    1.  **Analyze the Search Term:** Understand the product the user is looking for.
+    2.  **Simulate Search:** Use your knowledge and the provided Google Search tool results to find relevant wholesale listings. You are not restricted by country; search globally for the best matches.
+    3.  **Prioritize Quality & Price:** Focus on finding up to **10 product options** that represent a good balance of **high quality, good reviews, and best price** matching the user's request.
+    4.  **Extract Key Information (CRITICAL):** For each of the (up to) 10 options:
+        * **Product Description:** A brief, clear description of the product.
+        * **Estimated Price (USD):** The estimated **per-unit price in USD**. If a range is given, provide the lower end.
+        * **Source Website:** The name of the website (e.g., Alibaba, DHGate).
+        * **DIRECT Product Link:** **MANDATORY AND CRITICAL**. Provide the **exact, verified URL** that leads *directly* to the **specific product listing page**. **Do NOT provide links to search results, category pages, or general website homepages.** Double-check that the link goes to the individual product.
+    5.  **Format the Output:** Present the results as a Markdown list. Each list item **must** include the product description, the estimated price, the source, and the direct product link.
+    6.  **Pricing:** VERY IMPORTANT: Only provide the price as a number with USD, like '$12.34 USD'. Do not add quantity qualifiers like '/piece' or '/unit'.
+    7.  **Conciseness:** Be brief. Do not add introductory or concluding remarks. Focus on delivering the product list.
+    8.  **Link Verification (Mental Check):** Before outputting, mentally confirm that each link provided is a direct path to a single product page, not a broader category or search result. Accuracy here is paramount.
+    ${languageInstruction}`;
+
+                userQuery = `Find up to 10 high-quality, well-reviewed, and best-price wholesale product options matching: "${productSearchTerm}". Search globally from any B2B marketplace. Provide a list. Each item must include: product description, estimated per-unit price in USD (e.g., '$XX.XX USD'), the source website, and a **verified, direct link to the specific product page**. Format as a simple Markdown list.`;
+
+            } else {
+                console.log("Entering Analysis Mode");
+                mode = 'analysis';
+                showLoading(true, 'analysis');
+
+                // Recalculate total cost per unit *within the handler* for the prompt context
+                const packagingCostLocal = isChecked('customerPaysPackaging') ? 0 : getFloat('packagingCost_usd');
+                const shippingCostLocal = isChecked('customerPaysShipping') ? 0 : getFloat('shippingCost_usd');
+                const transactionFeePercentLocal = getFloat('transactionFee');
+                const transactionFeeLocal = (sellingPriceValue * transactionFeePercentLocal) / 100;
+                const totalCostPerUnitLocal = costOfGoodsValue + packagingCostLocal + shippingCostLocal + transactionFeeLocal;
+                const profitPerUnitLocal = sellingPriceValue - totalCostPerUnitLocal;
+                const marginLocal = (sellingPriceValue > 0) ? (profitPerUnitLocal / sellingPriceValue) * 100 : 0;
+
+                // Construct Analysis Prompt
+                systemPrompt = `Act as an expert e-commerce consultant and marketing copywriter. Analyze the user's product pricing and provide actionable feedback, alternative pricing strategies, and a compelling product description.
+
+    **Analysis Task:**
+    1.  **Evaluate Profit Margin:** Based on the provided Selling Price and Cost of Goods, calculate and evaluate the health of the profit margin (Profit per unit = Selling Price - Cost of Goods; Margin % = (Profit per unit / Selling Price) * 100). Comment on whether it's generally considered low, healthy, or high for e-commerce, considering potential overheads aren't included in this cost.
+    2.  **Suggest Pricing Strategies:** Offer three distinct, alternative pricing strategies relevant to e-commerce. Examples:
+        * **Bundling:** Suggest combining the product with complementary items.
+        * **Decoy Pricing:** Introduce slightly different versions (e.g., basic, premium) to make the target product seem more appealing.
+        * **Psychological Pricing:** Using prices like $19.99 instead of $20.00.
+        * **Volume Discounting:** Offer lower prices for buying multiple units.
+        * **Value-Based Pricing:** Emphasize unique benefits to justify a higher price.
+        Briefly explain each strategy and why it might apply.
+    3.  **Generate Product Description:** Write a compelling, concise product description (around 50-100 words) suitable for an online store listing. Highlight key features and benefits based *only* on the product search term provided by the user. Use persuasive language.
+
+    **Output Format:**
+    * Use Markdown.
+    * Start with a heading "## Pricing Analysis". Provide the margin commentary here.
+    * Use a heading "## Alternative Pricing Strategies". List the three strategies with brief explanations using bullet points or numbered lists.
+    * Use a heading "## Product Description". Provide the generated description.
+    * Be professional, encouraging, and actionable.
+    ${languageInstruction}`;
+
+                userQuery = `My product is related to: "${productSearchTerm}".
+    My current **Cost of Goods** is **$${costOfGoodsValue.toFixed(2)} USD** per unit.
+    My current **Selling Price** is **$${sellingPriceValue.toFixed(2)} USD** per unit.
+    (Note: This selling price includes potential customer payments for shipping/packaging if selected, and assumes taxes/transaction fees of ${transactionFeePercentLocal.toFixed(1)}%. The calculated **total cost per unit** considering these factors is $${totalCostPerUnitLocal.toFixed(2)}, giving me a **profit of $${profitPerUnitLocal.toFixed(2)}** per unit, which is a **${marginLocal.toFixed(1)}% margin**.)
+
+    Please provide the analysis.`;
+            }
+
+            try {
+                const userApiKey = getApiKey();
+                console.log(`Calling API in ${mode} mode.`);
+                // Make the API call (ensure makeApiCall function exists and handles errors/retries)
+                const generatedText = await makeApiCall(userQuery, systemPrompt, userApiKey, (mode === 'sourcing'));
+
+                if (generatedText) {
+                    console.log("API call successful, parsing response.");
+                    marked.setOptions({ breaks: true, gfm: true }); // Configure marked
+                    const htmlContent = marked.parse(generatedText); // Use marked to convert Markdown to HTML
+                    if(geminiResponse) geminiResponse.innerHTML = htmlContent;
+
+                    // Make links open in new tabs
+                     if(geminiResponse) {
+                        const links = geminiResponse.querySelectorAll('a');
+                        links.forEach(link => {
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer'; // Security best practice
+                        });
+                    }
+
+                    if (mode === 'sourcing') {
+                        addSelectButtonsToResults(); // Add buttons if it was a sourcing call
+                    }
+                    showLoading(false, mode); // Hide loading indicator, pass mode
+                } else {
+                     console.log("makeApiCall returned undefined...");
+                     // Only hide loading if error wasn't already displayed
+                     if (geminiResponse && !geminiResponse.innerHTML) {
+                        showLoading(false, mode);
+                     }
+                }
+            } catch (error) {
+                console.error("Error caught during handleGeminiAnalysis:", error);
+                 const currentLangTranslations = translations.en; // Use English
+                 if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
+                    displayGeminiError('modalError');
+                 } else {
+                    showLoading(false, mode);
+                 }
+            }
+        }
+
+        // --- New Gemini API Call - Marketing Ideas ---
+        async function handleGeminiMarketing() {
+            console.log("handleGeminiMarketing called"); showModal();
+            const productSearchTerm = productSearchInput.value.trim();
+            const mode = 'marketing';
+
+            // Validation: Must have search term.
+            if (!productSearchTerm) {
+                console.error("Validation failed: Product search term is empty for marketing.");
+                displayGeminiError('modalInputErrorMarketing');
+                return;
+            }
+
+            showLoading(true, mode); // Show loading with marketing text
+            let languageInstruction = "Please respond in English."; // Fixed to English
+
+            const systemPrompt = `Act as an expert e-commerce marketing strategist. Based on the user's product, generate actionable marketing ideas suitable for an online store. Focus on:
+1.  **Target Audience:** Briefly describe the ideal customer (e.g., demographics, interests, pain points).
+2.  **Key Selling Points:** List 3-5 unique benefits or features to emphasize.
+3.  **Campaign Ideas:** Suggest 2-3 specific, creative campaign concepts (e.g., social media ad angle, email campaign theme, content marketing topic, influencer collaboration idea).
+
+Keep the response concise and formatted using Markdown headings (##) and bullet points (*). Be professional and actionable.
+${languageInstruction}`;
+
+            const userQuery = `Generate marketing ideas for the product: "${productSearchTerm}". Include target audience, key selling points, and 2-3 specific campaign concepts.`;
+
+            try {
+                const userApiKey = getApiKey();
+                console.log(`Calling API in ${mode} mode.`);
+                // Make the API call (no search grounding needed for this)
+                const generatedText = await makeApiCall(userQuery, systemPrompt, userApiKey, false);
+
+                if (generatedText) {
+                    console.log("API call successful, parsing marketing response.");
+                    marked.setOptions({ breaks: true, gfm: true });
+                    const htmlContent = marked.parse(generatedText);
+                    if(geminiResponse) geminiResponse.innerHTML = htmlContent;
+
+                    // Ensure any links open in new tabs (though less likely here)
+                     if(geminiResponse) {
+                        geminiResponse.querySelectorAll('a').forEach(link => {
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                        });
+                    }
+                    showLoading(false, mode);
+                } else {
+                     console.log("makeApiCall returned undefined for marketing...");
+                     if (geminiResponse && !geminiResponse.innerHTML) {
+                        showLoading(false, mode);
+                     }
+                }
+            } catch (error) {
+                console.error("Error caught during handleGeminiMarketing:", error);
+                 const currentLangTranslations = translations.en;
+                 if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
+                    displayGeminiError('modalError');
+                 } else {
+                    showLoading(false, mode);
+                 }
+            }
+        }
+
+
+        // --- Function to add "Select" buttons to sourcing results ---
+        function addSelectButtonsToResults() {
+            console.log("Adding select buttons...");
+            const langData = translations.en; // Use English
+            if (!langData || !geminiResponse) return;
+            const listItems = geminiResponse.querySelectorAll('li');
+            const priceRegex = /\$(\d{1,3}(?:,\d{3})*(?:\.\d{2}))(?:\s*USD)?/i;
+
+            listItems.forEach((li, index) => {
+                if (li.querySelector('.select-product-button')) return;
+
+                const contentSpan = document.createElement('span');
+                while (li.firstChild) contentSpan.appendChild(li.firstChild);
+                li.appendChild(contentSpan);
+
+                const text = contentSpan.textContent || "";
+                const match = text.match(priceRegex);
+                console.log(`Processing item ${index + 1}: Text = "${text}"`);
+
+                if (match && match[1]) {
+                    const price = parseFloat(match[1].replace(/,/g, ''));
+                    console.log(`  Found price: ${price}`);
+                    if (!isNaN(price)) {
+                        const button = document.createElement('button');
+                        button.textContent = langData.buttonSelectProduct || 'Select';
+                        button.classList.add('select-product-button', 'ml-4', 'bg-green-500', 'text-white', 'text-xs', 'font-medium', 'py-1', 'px-3', 'rounded-md', 'shadow', 'hover:bg-green-600', 'transition-colors', 'flex-shrink-0');
+                        button.dataset.price = price;
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            console.log(`Select clicked, price: ${price}`);
+                            setFloat('costOfGoods_usd', price);
+                            hideModal();
+                        });
+                        li.appendChild(button);
+                        console.log(`  Appended button for ${price}`);
+                    } else { console.warn(`  Could not parse price from match: ${match[1]}`); }
+                } else { console.warn(`  No price found in list item text.`); }
+            });
+        }
+
+
+        // --- Gemini API Call Implementation (makeApiCall) ---
+        async function makeApiCall(userQuery, systemPrompt, apiKey, useSearch = false, retries = 3, delay = 1000) {
+            const effectiveApiKey = apiKey || "";
+            const modelName = 'gemini-2.5-flash-preview-09-2025';
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent${effectiveApiKey ? `?key=${effectiveApiKey}` : ''}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            if (useSearch) payload.tools = [{ "google_search": {} }];
+
+            try {
+                 const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                 });
+                const responseBody = await response.json();
+
+                if (!response.ok) {
+                    console.error("API Error Data:", responseBody);
+                    const currentLangTranslations = translations.en;
+                    if ((response.status === 400 || response.status === 403) && responseBody.error?.message?.toLowerCase().includes("api key not valid")) {
+                        displayGeminiError('statusApiKeyNotSaved'); return;
+                    }
+                    else if (response.status === 429 || response.status >= 500) {
+                        throw new Error(`Retryable error: ${response.status}`);
+                    }
+                     else {
+                         let msg = currentLangTranslations.modalError || "An error occurred.";
+                        if (responseBody.error?.message) msg += `<br><br><small>Details: ${responseBody.error.message}</small>`;
+                        if(geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
+                            geminiResponse.innerHTML = marked.parse(`## ${currentLangTranslations.modalError || 'Error'}\n\n${msg}`);
+                        }
+                        showLoading(false, 'error'); // Pass error mode
+                        return;
+                    }
+                }
+
+                 const candidate = responseBody.candidates?.[0];
+                 const currentLangTranslations = translations.en;
+
+                if (!candidate) {
+                    console.error("No candidate found.", responseBody);
+                    if (responseBody.promptFeedback?.blockReason) displayGeminiError(`Content blocked: ${responseBody.promptFeedback.blockReason}`);
+                    else displayGeminiError('modalError');
+                    return;
+                }
+
+                if (candidate.finishReason && candidate.finishReason !== "STOP") {
+                    console.warn("API finishReason:", candidate.finishReason);
+                    if (candidate.finishReason === 'SAFETY' && candidate.safetyRatings) {
+                        const blocked = candidate.safetyRatings.find(r => r.probability !== 'NEGLIGIBLE');
+                        const reason = blocked ? `due to ${blocked.category}` : 'safety';
+                        displayGeminiError(`Content blocked ${reason}.`); return;
+                    } else if (candidate.finishReason === 'RECITATION' ) {
+                         displayGeminiError('Stopped: recitation.'); return;
+                     }
+                    if (!candidate.content?.parts?.[0]?.text) {
+                         displayGeminiError(`Stopped unexpectedly: ${candidate.finishReason}`); return;
+                     }
+                    console.warn("Proceeding despite finishReason:", candidate.finishReason);
+                }
+
+                if (!candidate.content?.parts?.[0]?.text) {
+                    console.error("No text content.", candidate); displayGeminiError('modalError'); return;
+                }
+
+                let text = candidate.content.parts[0].text;
+
+                if (useSearch && candidate.groundingMetadata?.groundingAttributions) {
+                    const sources = candidate.groundingMetadata.groundingAttributions.map(a => a.web).filter(w => w?.uri && w?.title);
+                    if (sources.length > 0) {
+                        let md = "\n\n### Sources Found:\n";
+                        sources.forEach(s => {
+                            const t = (s.title || 'Source').replace(/\[/g, '\\[').replace(/]/g, '\\]');
+                            md += `- [${t}](${s.uri || '#'}) \n`; // Added space before newline for better Markdown list rendering
+                        });
+                        text += md;
+                    } else { console.log("Search used, but no sources returned."); }
+                }
+                return text;
+
+            } catch (error) {
+                console.error("API fetch/processing error:", error);
+                 const currentLangTranslations = translations.en;
+                if (retries > 0 && error.message.includes("Retryable error")) {
+                    console.warn(`Retrying in ${delay}ms... (${retries} left)`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return makeApiCall(userQuery, systemPrompt, apiKey, useSearch, retries - 1, delay * 2);
+                } else {
+                    console.error("API call failed after retries or non-retryable error:", error);
+                     let msg = currentLangTranslations.modalError || "An error occurred.";
+                     if(error.message && (!geminiResponse?.innerHTML || !geminiResponse.innerHTML.includes("API Key not valid"))) {
+                        msg += `<br><br><small>Details: ${error.message}</small>`;
+                     }
+                    if (geminiResponse && (!geminiResponse.innerHTML || geminiResponse.innerHTML.includes(currentLangTranslations.modalError))) {
+                         geminiResponse.innerHTML = marked.parse(`## ${currentLangTranslations.modalError || 'Error'}\n\n${msg}`);
+                    }
+                    showLoading(false, 'error'); // Pass error mode
+                    return;
+                }
+            }
+        }
+
+
+        // --- Download Functions ---
+        function getCurrentDateString() { const date = new Date(); const year = date.getFullYear(); const month = String(date.getMonth() + 1).padStart(2, '0'); const day = String(date.getDate()).padStart(2, '0'); return `${year}-${month}-${day}`; }
+        async function generatePDF() { console.log("Generating PDF..."); const { jsPDF } = window.jspdf; const doc = new jsPDF(); const langData = translations.en; const rate = getFloat('exchangeRate'); const currencySelect = document.getElementById('secondaryCurrency'); const currencySymbol = currencySelect ? currencySelect.options[currencySelect.selectedIndex].value : 'Sec'; doc.setFont('Helvetica', 'normal'); const pageHeight = doc.internal.pageSize.height; const pageWidth = doc.internal.pageSize.width; const margin = 15; const maxLineWidth = pageWidth - margin * 2; let currentY = margin; const lineSpacing = 6; const sectionSpacing = 10; const valueSpacing = 40; const addTextLine = (text, size = 10, style = 'normal', indent = 0) => { const lines = doc.splitTextToSize(text, maxLineWidth - indent); const requiredHeight = lines.length * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(size); doc.setFont('Helvetica', style); let xPos = margin + indent; let align = 'left'; doc.text(lines, xPos, currentY, { align: align, maxWidth: maxLineWidth - indent }); currentY += requiredHeight + (lineSpacing/2); }; const addNameValuePair = (labelKey, valueUSD, valueSecondary = null, noteKey = null) => { const label = langData[labelKey] || labelKey; const note = noteKey ? `(${langData[noteKey] || noteKey})` : ''; const fullLabel = `${label} ${note}:`; const valueText = valueSecondary ? `${valueUSD} (${valueSecondary})` : valueUSD; const labelLines = doc.splitTextToSize(fullLabel, maxLineWidth - valueSpacing - 5); const valueLines = doc.splitTextToSize(valueText, valueSpacing); const requiredHeight = Math.max(labelLines.length, valueLines.length) * lineSpacing; if (currentY + requiredHeight > pageHeight - margin) { doc.addPage(); currentY = margin; } doc.setFontSize(10); doc.setFont('Helvetica', 'normal'); doc.text(labelLines, margin, currentY, { align: 'left', maxWidth: maxLineWidth - valueSpacing - 5 }); doc.text(valueLines, pageWidth - margin, currentY, { align: 'right', maxWidth: valueSpacing }); currentY += requiredHeight + (lineSpacing / 3); }; addTextLine(langData.mainTitle, 16, 'bold'); addTextLine(`${langData.labelSecondaryCurrency}: ${currencySymbol} | ${langData.labelExchangeRate}: ${rate}`, 9); currentY += sectionSpacing; addTextLine(langData.pdfInputSummaryTitle || "Inputs", 14, 'bold'); addTextLine(langData.titleTargetAndCurrency, 12, 'bold'); const targetTimelineEl = document.getElementById('targetTimeline'); const targetTimelineText = targetTimelineEl ? targetTimelineEl.options[targetTimelineEl.selectedIndex].text : ''; addNameValuePair('labelTargetProfitUsd', getValue('targetProfit_usd'), getValue('targetProfit_secondary')); addTextLine(`${langData.labelProfitTimeline}: ${targetTimelineText}`, 10); currentY += lineSpacing; addTextLine(langData.titleProductCosts, 12, 'bold'); addNameValuePair('labelSellingPriceUsd', getValue('sellingPrice_usd'), getValue('sellingPrice_secondary')); addNameValuePair('labelCostOfGoodsUsd', getValue('costOfGoods_usd'), getValue('costOfGoods_secondary')); addNameValuePair('labelPackagingCostUsd', getValue('packagingCost_usd'), getValue('packagingCost_secondary'), isChecked('customerPaysPackaging') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelShippingCostUsd', getValue('shippingCost_usd'), getValue('shippingCost_secondary'), isChecked('customerPaysShipping') ? 'pdfCustomerPays' : 'pdfYouPay'); addNameValuePair('labelTransactionFee', `${getValue('transactionFee')}%`); currentY += lineSpacing; addTextLine(langData.titleFixedCosts, 12, 'bold'); addNameValuePair('labelDomainCostUsd', getValue('costDomain_usd'), getValue('costDomain_secondary')); addNameValuePair('labelHostingCostUsd', getValue('costHosting_usd'), getValue('costHosting_secondary')); addNameValuePair('labelGatewayCostUsd', getValue('costGateway_usd'), getValue('costGateway_secondary')); addNameValuePair('labelAppsCostUsd', getValue('costApps_usd'), getValue('costApps_secondary')); addNameValuePair('labelExportingCostUsd', getValue('exportingCost_usd'), getValue('exportingCost_secondary'), isChecked('customerPaysExporting') ? 'pdfWaived' : 'pdfIncluded'); currentY += lineSpacing; addTextLine(langData.titleMarketingCosts, 12, 'bold'); addNameValuePair('labelAdGoogleUsd', getValue('adGoogle_usd'), getValue('adGoogle_secondary')); addNameValuePair('labelAdFacebookUsd', getValue('adFacebook_usd'), getValue('adFacebook_secondary')); addNameValuePair('labelAdTikTokUsd', getValue('adTikTok_usd'), getValue('adTikTok_secondary')); addNameValuePair('labelAdTwitterUsd', getValue('adTwitter_usd'), getValue('adTwitter_secondary')); addNameValuePair('labelAdOtherUsd', getValue('adOther_usd'), getValue('adOther_secondary')); currentY += sectionSpacing; addTextLine(langData.titleResults || "Results", 14, 'bold'); addTextLine(langData.resultHeader, 11, 'bold'); addTextLine(`${getText('resultUnits')} ${getText('resultUnitsTimeline')}`, 14, 'bold'); if (getText('resultUnitsAlt1')) addTextLine(getText('resultUnitsAlt1'), 9); if (getText('resultUnitsAlt2')) addTextLine(getText('resultUnitsAlt2'), 9); currentY += sectionSpacing; addTextLine(langData.titleUnitBreakdown, 12, 'bold'); addNameValuePair('labelSellingPrice', getText('breakdownSellingPrice')); addNameValuePair('labelTotalCostPerUnit', getText('breakdownTotalCost')); addNameValuePair('labelProfitPerUnit', getText('profitPerUnit')); currentY += sectionSpacing; addTextLine(langData.titleMonthlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenue', getText('projRevenue'), getText('projRevenueSecondary')); addNameValuePair('labelTotalCogs', getText('projCogs'), getText('projCogsSecondary')); addNameValuePair('labelTotalFixedCosts', getText('projFixed'), getText('projFixedSecondary')); addNameValuePair('labelNetProfit', getText('projProfit'), getText('projProfitSecondary')); currentY += sectionSpacing; addTextLine(langData.titleYearlyProjections, 12, 'bold'); addNameValuePair('labelTotalRevenueYear', getText('projRevenueYear'), getText('projRevenueYearSecondary')); addNameValuePair('labelNetProfitYear', getText('projProfitYear'), getText('projProfitYearSecondary')); currentY += sectionSpacing; addTextLine(langData.titleOperationalBudget, 12, 'bold'); addNameValuePair('labelOrderInvestment', getText('projOrderInvestment'), getText('projOrderInvestmentSecondary')); addNameValuePair('labelTotalBudget', getText('projTotalBudget'), getText('projTotalBudgetSecondary')); const filename = `Profitability_Report_${getCurrentDateString()}.pdf`; doc.save(filename); console.log("PDF Saved:", filename); }
+        function generateCSV() { console.log("Generating CSV..."); const langData = translations.en; const rate = getFloat('exchangeRate'); const currencySelect = document.getElementById('secondaryCurrency'); const currencySymbol = currencySelect ? currencySelect.options[currencySelect.selectedIndex].value : 'Sec'; const targetTimelineEl = document.getElementById('targetTimeline'); const targetTimelineText = targetTimelineEl ? targetTimelineEl.options[targetTimelineEl.selectedIndex].text : ''; const getCheckNote = (checkId, trueKey, falseKey) => { return isChecked(checkId) ? (langData[trueKey] || trueKey) : (langData[falseKey] || falseKey); }; const data = [ ["Section", "Metric", "USD Value", `Value (${currencySymbol})`, "Notes"], [langData.titleTargetAndCurrency, langData.labelTargetProfitUsd, getValue('targetProfit_usd'), getValue('targetProfit_secondary'), `Timeline: ${targetTimelineText}`], ["", langData.labelProfitTimeline, '', '', targetTimelineText], ["", "Units to Sell (Target Timeline)", getText('resultUnits').replace(/,/g, ''), '', getText('resultUnitsTimeline')], ["", "Units to Sell (Per Month)", (getText('resultUnitsAltMonth') || getText('resultUnitsAlt1') || '').replace(/[^0-9,]/g, ''), '', langData.timelineMonth], ["", "Units to Sell (Per Day)", (getText('resultUnitsAltDay') || getText('resultUnitsAlt2') || '').replace(/[^0-9,]/g, ''), '', langData.timelineDay], ["", "Units to Sell (Per Year)", (getText('resultUnitsAltYear') || getText('resultUnitsAlt2') || '').replace(/[^0-9,]/g, ''), '', langData.timelineYear], [langData.titleProductCosts, langData.labelSellingPriceUsd, getValue('sellingPrice_usd'), getValue('sellingPrice_secondary'), ''], ["", langData.labelCostOfGoodsUsd, getValue('costOfGoods_usd'), getValue('costOfGoods_secondary'), ''], ["", langData.labelPackagingCostUsd, getValue('packagingCost_usd'), getValue('packagingCost_secondary'), getCheckNote('customerPaysPackaging', 'pdfCustomerPays', 'pdfYouPay')], ["", langData.labelShippingCostUsd, getValue('shippingCost_usd'), getValue('shippingCost_secondary'), getCheckNote('customerPaysShipping', 'pdfCustomerPays', 'pdfYouPay')], ["", `${langData.labelTransactionFee} (%)`, getValue('transactionFee'), '', ''], ["Per-Unit Results", langData.labelTotalCostPerUnit, getText('breakdownTotalCost').replace('$', ''), '', langData.csvCalculated || 'Calculated'], ["", langData.labelProfitPerUnit, getText('profitPerUnit').replace('$', ''), '', langData.csvCalculated || 'Calculated'], [langData.titleFixedCosts, langData.labelDomainCostUsd, getValue('costDomain_usd'), getValue('costDomain_secondary'), ''], ["", langData.labelHostingCostUsd, getValue('costHosting_usd'), getValue('costHosting_secondary'), ''], ["", langData.labelGatewayCostUsd, getValue('costGateway_usd'), getValue('costGateway_secondary'), ''], ["", langData.labelAppsCostUsd, getValue('costApps_usd'), getValue('costApps_secondary'), ''], ["", langData.labelExportingCostUsd, getValue('exportingCost_usd'), getValue('exportingCost_secondary'), getCheckNote('customerPaysExporting', 'pdfWaived', 'pdfIncluded')], [langData.titleMarketingCosts, langData.labelAdGoogleUsd, getValue('adGoogle_usd'), getValue('adGoogle_secondary'), ''], ["", langData.labelAdFacebookUsd, getValue('adFacebook_usd'), getValue('adFacebook_secondary'), ''], ["", langData.labelAdTikTokUsd, getValue('adTikTok_usd'), getValue('adTikTok_secondary'), ''], ["", langData.labelAdTwitterUsd, getValue('adTwitter_usd'), getValue('adTwitter_secondary'), ''], ["", langData.labelAdOtherUsd, getValue('adOther_usd'), getValue('adOther_secondary'), ''], [langData.titleMonthlyProjections, langData.labelTotalRevenue, getText('projRevenue').replace('$', ''), getText('projRevenueSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalCogs, getText('projCogs').replace('$', ''), getText('projCogsSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalFixedCosts, getText('projFixed').replace('$', ''), getText('projFixedSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelNetProfit, getText('projProfit').replace('$', ''), getText('projProfitSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], [langData.titleYearlyProjections, langData.labelTotalRevenueYear, getText('projRevenueYear').replace('$', ''), getText('projRevenueYearSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelNetProfitYear, getText('projProfitYear').replace('$', ''), getText('projProfitYearSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], [langData.titleOperationalBudget, langData.labelOrderInvestment, getText('projOrderInvestment').replace('$', ''), getText('projOrderInvestmentSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''], ["", langData.labelTotalBudget, getText('projTotalBudget').replace('$', ''), getText('projTotalBudgetSecondary').replace(` ${currencySymbol}`, '').replace(/,/g,''), ''] ]; const escapeCsvField = (field) => { const stringField = String(field ?? ''); if (stringField.includes(',') || stringField.includes('"') || stringField.includes('\n')) { return `"${stringField.replace(/"/g, '""')}"`; } return stringField; }; let csvContent = "\uFEFF"; data.forEach(rowArray => { let row = rowArray.map(escapeCsvField).join(","); csvContent += row + "\r\n"; }); const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement("a"); const url = URL.createObjectURL(blob); link.setAttribute("href", url); const filename = `Profitability_Report_${getCurrentDateString()}.csv`; link.setAttribute("download", filename); link.style.visibility = 'hidden'; document.body.appendChild(link); link.click(); document.body.removeChild(link); console.log("CSV Saved:", filename); }
+
+
+        // --- Assign Event Listeners on DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed");
+
+            if(saveApiKeyButton) saveApiKeyButton.addEventListener('click', saveApiKey);
+            else console.error("saveApiKeyButton not found");
+
+            currencyFieldBases.forEach(base => {
+                const usdEl = document.getElementById(base + '_usd');
+                const secondaryEl = document.getElementById(base + '_secondary');
+                if (usdEl) usdEl.addEventListener('input', handleCurrencyInput);
+                else console.warn(`${base}_usd element not found`);
+                if (secondaryEl) secondaryEl.addEventListener('input', handleCurrencyInput);
+                else console.warn(`${base}_secondary element not found`);
+            });
+
+            otherInputs.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.addEventListener('input', calculate);
+                    if (el.type === 'checkbox' || el.tagName === 'SELECT') {
+                        el.addEventListener('change', calculate);
+                    }
+                } else console.warn(`${id} element not found`);
+            });
+
+            rateInputs.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.addEventListener('input', handleRateChange);
+                     if (el.tagName === 'SELECT') {
+                        el.addEventListener('change', handleRateChange);
+                    }
+                } else console.warn(`${id} element not found`);
+            });
+
+            if(geminiAnalyzeButton) geminiAnalyzeButton.addEventListener('click', handleGeminiAnalysis);
+            else console.error("geminiAnalyzeButton not found");
+
+            // Add listener for the new marketing button
+            if(geminiMarketingButton) geminiMarketingButton.addEventListener('click', handleGeminiMarketing);
+            else console.error("geminiMarketingButton not found");
+
+            if(closeModalButton) closeModalButton.addEventListener('click', hideModal);
+            else console.error("closeModalButton not found");
+
+            const downloadPdfBtn = document.getElementById('downloadPdfButton');
+            const downloadCsvBtn = document.getElementById('downloadCsvButton');
+            if (downloadPdfBtn) downloadPdfBtn.addEventListener('click', generatePDF);
+            else console.error("downloadPdfButton not found");
+            if (downloadCsvBtn) downloadCsvBtn.addEventListener('click', generateCSV);
+            else console.error("downloadCsvButton not found");
+
+            console.log("Running initial setup...");
+            initializePage(); // Set initial language texts, API status, and perform first calculation
+            console.log("Initial setup complete.");
+        });
+
+    </script>
+
+</body>
+</html>
+"
+
+Can you edit this code, I want you to make the font size in the page title larger, for example, 35
+
+
