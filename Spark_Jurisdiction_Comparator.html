@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- SECURITY GUARD SCRIPT (ACTIVE) -->
+    <script>
+        (function() {
+            // The secret key expecting from Command Center
+            const REQUIRED_TOKEN = "spark-secure-v1-authorized";
+            
+            // Check URL for the token
+            const urlParams = new URLSearchParams(window.location.search);
+            const userToken = urlParams.get('token');
+
+            // If token is missing or wrong, LOCK DOWN
+            if (userToken !== REQUIRED_TOKEN) {
+                document.write(`
+                    <body style="background-color:#020617; color:#ef4444; font-family:sans-serif; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0;">
+                        <div style="font-size:60px;">🛑</div>
+                        <h1 style="margin:20px 0;">ACCESS DENIED</h1>
+                        <p style="color:#94a3b8;">Direct access prohibited. Initialize via Command Center.</p>
+                        <a href="https://akulamtt.com/Spark_Command_Center.html" style="margin-top:20px; color:#fff; text-decoration:underline;">Return to Login</a>
+                    </body>
+                `);
+                window.stop();
+                throw new Error("Security Halt");
+            }
+        })();
+    </script>
+    <!-- END SECURITY GUARD -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spark Global: Jurisdiction Battle Matrix</title>
@@ -8,17 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- 
-    CHOSEN PALETTE: "International Ledger"
-    - Background: Slate 950 (Deep Professional Dark)
-    - Accents: Teal (Growth), Rose (Cost), Amber (Caution)
-    - Typography: Space Grotesk (Headers), Inter (Body)
-    
-    STRUCTURE:
-    - Dashboard: Radar Chart comparing the 4 regions.
-    - Deep Dives: Individual tabs for Switzerland, Dubai, Singapore, Cayman.
-    - Ranking Table: Direct cost comparison.
-    -->
+    <!-- Chosen Palette: "International Ledger" -->
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; }
@@ -28,320 +45,119 @@
         .tab-active { background: #0f172a; border-left: 4px solid #14b8a6; color: white; }
         .tab-inactive { color: #94a3b8; border-left: 4px solid transparent; }
         .tab-inactive:hover { background: #1e293b; color: #cbd5e1; }
-        .bar-container { background: #1e293b; border-radius: 4px; height: 8px; width: 100%; overflow: hidden; }
-        .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease-in-out; }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
 
+    <!-- BACK BUTTON OVERLAY -->
+    <a href="https://akulamtt.com/Spark_Command_Center.html" class="fixed bottom-6 left-6 z-50 flex items-center gap-2 bg-slate-800 hover:bg-teal-600 text-white px-4 py-2 rounded-lg shadow-lg border border-slate-700 transition-all group">
+        <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        <span class="text-xs font-bold">RETURN TO HQ</span>
+    </a>
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col flex-shrink-0">
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col flex-shrink-0 z-20">
         <div class="p-6 border-b border-slate-800">
             <h1 class="text-xl font-bold tracking-tight text-white">JURISDICTION<br><span class="text-teal-500">COMPARATOR</span></h1>
             <p class="text-xs text-slate-500 mt-2">For Spark Co. Issuer Entity</p>
         </div>
-        
         <nav class="flex-1 py-4 space-y-1">
-            <button onclick="showSection('overview')" id="btn-overview" class="tab-active w-full text-left px-6 py-3 text-sm font-medium transition-all">
-                Global Overview
-            </button>
+            <button onclick="showSection('overview')" id="btn-overview" class="tab-active w-full text-left px-6 py-3 text-sm font-medium transition-all">Global Overview</button>
             <div class="px-6 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider mt-4">Deep Dives</div>
-            <button onclick="showSection('dubai')" id="btn-dubai" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">
-                🇦🇪 Dubai (VARA)
-            </button>
-            <button onclick="showSection('swiss')" id="btn-swiss" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">
-                🇨🇭 Switzerland (FINMA)
-            </button>
-            <button onclick="showSection('singapore')" id="btn-singapore" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">
-                🇸🇬 Singapore (MAS)
-            </button>
-            <button onclick="showSection('cayman')" id="btn-cayman" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">
-                🇰🇾 Cayman/BVI (Classic)
-            </button>
+            <button onclick="showSection('dubai')" id="btn-dubai" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">🇦🇪 Dubai (VARA)</button>
+            <button onclick="showSection('swiss')" id="btn-swiss" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">🇨🇭 Switzerland (FINMA)</button>
+            <button onclick="showSection('singapore')" id="btn-singapore" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">🇸🇬 Singapore (MAS)</button>
+            <button onclick="showSection('cayman')" id="btn-cayman" class="tab-inactive w-full text-left px-6 py-3 text-sm font-medium transition-all">🇰🇾 Cayman/BVI (Classic)</button>
         </nav>
-
         <div class="p-4 border-t border-slate-800">
-            <div class="glass p-3 rounded text-center">
-                <p class="text-xs text-slate-400 mb-1">Current Best Choice</p>
-                <p class="text-sm font-bold text-teal-400">Cayman (Asset) + Dubai (Ops)</p>
-            </div>
+            <div class="glass p-3 rounded text-center"><p class="text-xs text-slate-400 mb-1">Current Best Choice</p><p class="text-sm font-bold text-teal-400">Cayman (Asset) + Dubai (Ops)</p></div>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto relative">
-        
         <!-- Overview Section -->
         <section id="overview" class="p-8 md:p-12 max-w-7xl mx-auto">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <h2 class="text-3xl font-bold text-white">Global Battle Matrix</h2>
-                    <p class="text-slate-400 mt-2">Comparing regulations for a "Real World Asset" (RWA) Token Issuer.</p>
-                </div>
-            </div>
-
-            <!-- Radar Chart & Summary -->
+            <div class="flex justify-between items-end mb-8"><div><h2 class="text-3xl font-bold text-white">Global Battle Matrix</h2><p class="text-slate-400 mt-2">Comparing regulations for a "Real World Asset" (RWA) Token Issuer.</p></div></div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <div class="glass p-6 rounded-xl flex flex-col items-center justify-center relative h-[400px]">
-                    <h3 class="absolute top-6 left-6 text-sm font-bold text-slate-400">Performance Radar</h3>
-                    <canvas id="radarChart"></canvas>
-                </div>
-                
+                <div class="glass p-6 rounded-xl flex flex-col items-center justify-center relative h-[400px]"><h3 class="absolute top-6 left-6 text-sm font-bold text-slate-400">Performance Radar</h3><canvas id="radarChart"></canvas></div>
                 <div class="space-y-4">
-                    <div class="glass p-6 rounded-xl border-l-4 border-teal-500">
-                        <h3 class="text-lg font-bold text-white">The "Goldilocks" Zone: Dubai 🇦🇪</h3>
-                        <p class="text-sm text-slate-300 mt-2">
-                            Dubai has specific Virtual Asset laws (VARA). It offers the best balance of "High Reputation" and "Clear Rules." Unlike the US, they <em>want</em> crypto businesses. Unlike Cayman, they have real banking infrastructure.
-                        </p>
-                    </div>
-                    <div class="glass p-6 rounded-xl border-l-4 border-rose-500">
-                        <h3 class="text-lg font-bold text-white">The "Cost Trap": Switzerland 🇨🇭</h3>
-                        <p class="text-sm text-slate-300 mt-2">
-                            Highest prestige, but you will burn $200k+ in legal fees before launching. Requires a "Swiss Resident Director" (expensive) and joining an SRO (Self Regulatory Organization).
-                        </p>
-                    </div>
-                    <div class="glass p-6 rounded-xl border-l-4 border-amber-500">
-                        <h3 class="text-lg font-bold text-white">The "Hard Pass": Singapore 🇸🇬</h3>
-                        <p class="text-sm text-slate-300 mt-2">
-                            The MAS (Monetary Authority) is extremely hostile to retail-facing token projects. Getting a Capital Markets Services (CMS) license takes 18+ months.
-                        </p>
-                    </div>
+                    <div class="glass p-6 rounded-xl border-l-4 border-teal-500"><h3 class="text-lg font-bold text-white">The "Goldilocks" Zone: Dubai 🇦🇪</h3><p class="text-sm text-slate-300 mt-2">Dubai has specific Virtual Asset laws (VARA). It offers the best balance of "High Reputation" and "Clear Rules." Unlike the US, they <em>want</em> crypto businesses. Unlike Cayman, they have real banking infrastructure.</p></div>
+                    <div class="glass p-6 rounded-xl border-l-4 border-rose-500"><h3 class="text-lg font-bold text-white">The "Cost Trap": Switzerland 🇨🇭</h3><p class="text-sm text-slate-300 mt-2">Highest prestige, but you will burn $200k+ in legal fees before launching. Requires a "Swiss Resident Director" (expensive) and joining an SRO (Self Regulatory Organization).</p></div>
+                    <div class="glass p-6 rounded-xl border-l-4 border-amber-500"><h3 class="text-lg font-bold text-white">The "Hard Pass": Singapore 🇸🇬</h3><p class="text-sm text-slate-300 mt-2">The MAS (Monetary Authority) is extremely hostile to retail-facing token projects. Getting a Capital Markets Services (CMS) license takes 18+ months.</p></div>
                 </div>
             </div>
-
-            <!-- Comparison Table -->
             <div class="glass overflow-hidden rounded-xl">
                 <table class="w-full text-sm text-left text-slate-300">
-                    <thead class="text-xs text-slate-400 uppercase bg-slate-900">
-                        <tr>
-                            <th class="px-6 py-4">Jurisdiction</th>
-                            <th class="px-6 py-4">Est. Setup Cost</th>
-                            <th class="px-6 py-4">Time to License</th>
-                            <th class="px-6 py-4">Crypto Tax</th>
-                            <th class="px-6 py-4 text-right">Verdict</th>
-                        </tr>
-                    </thead>
+                    <thead class="text-xs text-slate-400 uppercase bg-slate-900"><tr><th class="px-6 py-4">Jurisdiction</th><th class="px-6 py-4">Est. Setup Cost</th><th class="px-6 py-4">Time to License</th><th class="px-6 py-4">Crypto Tax</th><th class="px-6 py-4 text-right">Verdict</th></tr></thead>
                     <tbody class="divide-y divide-slate-800">
-                        <tr>
-                            <td class="px-6 py-4 font-bold text-white">🇦🇪 Dubai (VARA)</td>
-                            <td class="px-6 py-4 text-teal-400">$90,000</td>
-                            <td class="px-6 py-4">4-6 Months</td>
-                            <td class="px-6 py-4">0% (Free Zone)</td>
-                            <td class="px-6 py-4 text-right font-bold text-teal-500">WINNER</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 font-bold text-white">🇰🇾 Cayman (CIMA)</td>
-                            <td class="px-6 py-4 text-teal-400">$65,000</td>
-                            <td class="px-6 py-4">2-3 Months</td>
-                            <td class="px-6 py-4">0%</td>
-                            <td class="px-6 py-4 text-right font-bold text-blue-400">Runner Up</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 font-bold text-white">🇨🇭 Switzerland</td>
-                            <td class="px-6 py-4 text-rose-400">$210,000</td>
-                            <td class="px-6 py-4">6-9 Months</td>
-                            <td class="px-6 py-4">Low (Canton specific)</td>
-                            <td class="px-6 py-4 text-right text-slate-500">Too Expensive</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 font-bold text-white">🇸🇬 Singapore</td>
-                            <td class="px-6 py-4 text-rose-400">$150,000+</td>
-                            <td class="px-6 py-4">12-18 Months</td>
-                            <td class="px-6 py-4">0% (Capital Gains)</td>
-                            <td class="px-6 py-4 text-right text-rose-500">Avoid</td>
-                        </tr>
+                        <tr><td class="px-6 py-4 font-bold text-white">🇦🇪 Dubai (VARA)</td><td class="px-6 py-4 text-teal-400">$90,000</td><td class="px-6 py-4">4-6 Months</td><td class="px-6 py-4">0% (Free Zone)</td><td class="px-6 py-4 text-right font-bold text-teal-500">WINNER</td></tr>
+                        <tr><td class="px-6 py-4 font-bold text-white">🇰🇾 Cayman (CIMA)</td><td class="px-6 py-4 text-teal-400">$65,000</td><td class="px-6 py-4">2-3 Months</td><td class="px-6 py-4">0%</td><td class="px-6 py-4 text-right font-bold text-blue-400">Runner Up</td></tr>
+                        <tr><td class="px-6 py-4 font-bold text-white">🇨🇭 Switzerland</td><td class="px-6 py-4 text-rose-400">$210,000</td><td class="px-6 py-4">6-9 Months</td><td class="px-6 py-4">Low (Canton specific)</td><td class="px-6 py-4 text-right text-slate-500">Too Expensive</td></tr>
+                        <tr><td class="px-6 py-4 font-bold text-white">🇸🇬 Singapore</td><td class="px-6 py-4 text-rose-400">$150,000+</td><td class="px-6 py-4">12-18 Months</td><td class="px-6 py-4">0% (Capital Gains)</td><td class="px-6 py-4 text-right text-rose-500">Avoid</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- Dubai Deep Dive -->
+        <!-- Deep Dives -->
         <section id="dubai" class="hidden p-8 md:p-12 max-w-7xl mx-auto">
-            <header class="mb-8 border-b border-slate-800 pb-6">
-                <h2 class="text-3xl font-bold text-white">Dubai (UAE) Analysis</h2>
-                <p class="text-teal-400 font-mono mt-1">License: VARA "Virtual Asset Service Provider"</p>
-            </header>
-
+            <header class="mb-8 border-b border-slate-800 pb-6"><h2 class="text-3xl font-bold text-white">Dubai (UAE) Analysis</h2><p class="text-teal-400 font-mono mt-1">License: VARA "Virtual Asset Service Provider"</p></header>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">Why here?</h3>
-                    <p class="text-sm text-slate-300">Dubai offers a specific "Rulebook" for tokenization. It is clear, modern, and offers 0% corporate tax in Free Zones (DMCC or DIFC).</p>
-                </div>
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">The Catch</h3>
-                    <p class="text-sm text-slate-300">You must have a <strong>physical office</strong> and physical employees in Dubai. You cannot be purely virtual. Rent costs ~$20k/year.</p>
-                </div>
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">Bankability</h3>
-                    <div class="flex items-center gap-2 mb-1">
-                        <div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-teal-500 h-2 rounded-full" style="width: 80%"></div></div>
-                        <span class="text-xs font-bold">8/10</span>
-                    </div>
-                    <p class="text-xs text-slate-400">Local banks (Emirates NBD) are warming up to VARA licensed firms.</p>
-                </div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">Why here?</h3><p class="text-sm text-slate-300">Dubai offers a specific "Rulebook" for tokenization. It is clear, modern, and offers 0% corporate tax in Free Zones (DMCC or DIFC).</p></div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">The Catch</h3><p class="text-sm text-slate-300">You must have a <strong>physical office</strong> and physical employees in Dubai. You cannot be purely virtual. Rent costs ~$20k/year.</p></div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">Bankability</h3><div class="flex items-center gap-2 mb-1"><div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-teal-500 h-2 rounded-full" style="width: 80%"></div></div><span class="text-xs font-bold">8/10</span></div><p class="text-xs text-slate-400">Local banks (Emirates NBD) are warming up to VARA licensed firms.</p></div>
             </div>
-
             <h3 class="text-xl font-bold text-white mb-4">Specific Setup Requirements</h3>
             <ul class="space-y-3">
-                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800">
-                    <span class="text-teal-500 font-bold">1.</span>
-                    <span class="text-sm text-slate-300">Register in a Free Zone (e.g., DMCC Crypto Centre).</span>
-                </li>
-                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800">
-                    <span class="text-teal-500 font-bold">2.</span>
-                    <span class="text-sm text-slate-300">Apply for Initial Approval from VARA (Virtual Assets Regulatory Authority).</span>
-                </li>
-                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800">
-                    <span class="text-teal-500 font-bold">3.</span>
-                    <span class="text-sm text-slate-300">Hire a local MLRO (Money Laundering Reporting Officer).</span>
-                </li>
+                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800"><span class="text-teal-500 font-bold">1.</span><span class="text-sm text-slate-300">Register in a Free Zone (e.g., DMCC Crypto Centre).</span></li>
+                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800"><span class="text-teal-500 font-bold">2.</span><span class="text-sm text-slate-300">Apply for Initial Approval from VARA (Virtual Assets Regulatory Authority).</span></li>
+                <li class="flex items-start gap-3 bg-slate-900 p-4 rounded border border-slate-800"><span class="text-teal-500 font-bold">3.</span><span class="text-sm text-slate-300">Hire a local MLRO (Money Laundering Reporting Officer).</span></li>
             </ul>
         </section>
 
-        <!-- Swiss Deep Dive -->
         <section id="swiss" class="hidden p-8 md:p-12 max-w-7xl mx-auto">
-            <header class="mb-8 border-b border-slate-800 pb-6">
-                <h2 class="text-3xl font-bold text-white">Switzerland Analysis</h2>
-                <p class="text-rose-400 font-mono mt-1">Regulator: FINMA (Financial Market Supervisory Authority)</p>
-            </header>
-
+            <header class="mb-8 border-b border-slate-800 pb-6"><h2 class="text-3xl font-bold text-white">Switzerland Analysis</h2><p class="text-rose-400 font-mono mt-1">Regulator: FINMA (Financial Market Supervisory Authority)</p></header>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">Why here?</h3>
-                    <p class="text-sm text-slate-300">The "Crypto Valley" (Zug) is the most prestigious address in the world. High trust from investors.</p>
-                </div>
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">The Catch</h3>
-                    <p class="text-sm text-slate-300"><strong>Extremely Expensive.</strong> You need ~100,000 CHF paid-up capital just to incorporate. Legal fees for a "No Action Letter" are massive.</p>
-                </div>
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xs uppercase text-slate-500 mb-2">Bankability</h3>
-                    <div class="flex items-center gap-2 mb-1">
-                        <div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-teal-500 h-2 rounded-full" style="width: 95%"></div></div>
-                        <span class="text-xs font-bold">9.5/10</span>
-                    </div>
-                    <p class="text-xs text-slate-400">Sygnum and SEBA banks are world-class crypto banks.</p>
-                </div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">Why here?</h3><p class="text-sm text-slate-300">The "Crypto Valley" (Zug) is the most prestigious address in the world. High trust from investors.</p></div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">The Catch</h3><p class="text-sm text-slate-300"><strong>Extremely Expensive.</strong> You need ~100,000 CHF paid-up capital just to incorporate. Legal fees for a "No Action Letter" are massive.</p></div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xs uppercase text-slate-500 mb-2">Bankability</h3><div class="flex items-center gap-2 mb-1"><div class="w-full bg-slate-800 rounded-full h-2"><div class="bg-teal-500 h-2 rounded-full" style="width: 95%"></div></div><span class="text-xs font-bold">9.5/10</span></div><p class="text-xs text-slate-400">Sygnum and SEBA banks are world-class crypto banks.</p></div>
             </div>
         </section>
 
-         <!-- Singapore Deep Dive -->
-         <section id="singapore" class="hidden p-8 md:p-12 max-w-7xl mx-auto">
-            <header class="mb-8 border-b border-slate-800 pb-6">
-                <h2 class="text-3xl font-bold text-white">Singapore Analysis</h2>
-                <p class="text-amber-400 font-mono mt-1">License: Major Payment Institution (MPI) / CMS</p>
-            </header>
-
-            <div class="bg-amber-900/20 border border-amber-500/50 p-6 rounded-xl mb-8">
-                <h3 class="text-amber-500 font-bold flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    Regulatory Warning
-                </h3>
-                <p class="text-sm text-amber-200 mt-2">
-                    Singapore has recently tightened rules on "Digital Payment Token" (DPT) providers. They actively discourage retail speculation. Unless you are targeting <em>only</em> institutional accredited investors, obtaining a license here is currently considered the hardest path.
-                </p>
-            </div>
+        <section id="singapore" class="hidden p-8 md:p-12 max-w-7xl mx-auto">
+            <header class="mb-8 border-b border-slate-800 pb-6"><h2 class="text-3xl font-bold text-white">Singapore Analysis</h2><p class="text-amber-400 font-mono mt-1">License: Major Payment Institution (MPI) / CMS</p></header>
+            <div class="bg-amber-900/20 border border-amber-500/50 p-6 rounded-xl mb-8"><h3 class="text-amber-500 font-bold flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>Regulatory Warning</h3><p class="text-sm text-amber-200 mt-2">Singapore has recently tightened rules on "Digital Payment Token" (DPT) providers. They actively discourage retail speculation. Unless you are targeting <em>only</em> institutional accredited investors, obtaining a license here is currently considered the hardest path.</p></div>
         </section>
 
-        <!-- Cayman Deep Dive -->
         <section id="cayman" class="hidden p-8 md:p-12 max-w-7xl mx-auto">
-            <header class="mb-8 border-b border-slate-800 pb-6">
-                <h2 class="text-3xl font-bold text-white">Cayman / BVI Analysis</h2>
-                <p class="text-blue-400 font-mono mt-1">License: VASP + Mutual Fund (Private)</p>
-            </header>
-
+            <header class="mb-8 border-b border-slate-800 pb-6"><h2 class="text-3xl font-bold text-white">Cayman / BVI Analysis</h2><p class="text-blue-400 font-mono mt-1">License: VASP + Mutual Fund (Private)</p></header>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xl font-bold text-white mb-4">The "Standard" Model</h3>
-                    <p class="text-sm text-slate-300 mb-4">
-                        This is what 80% of crypto hedge funds use. It is a legal "Pass Through."
-                    </p>
-                    <ul class="space-y-2 text-sm text-slate-400">
-                        <li class="flex items-center gap-2"><span class="text-green-500">✓</span> No corporate tax.</li>
-                        <li class="flex items-center gap-2"><span class="text-green-500">✓</span> US Lawyers understand it perfectly.</li>
-                        <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Flexible Investment Manager rules.</li>
-                    </ul>
-                </div>
-                <div class="glass p-6 rounded-xl">
-                    <h3 class="text-xl font-bold text-white mb-4">The Structure</h3>
-                    <div class="text-xs font-mono bg-slate-900 p-4 rounded border border-slate-800">
-                        1. Spark Cayman SPC (Holds Assets)<br>
-                        2. Spark BVI Ltd (Issues Token)<br>
-                        3. Spark US Inc (Builds Tech)<br>
-                        --------------------------------<br>
-                        *Britannia Forge (UK) can act as payment processor.*
-                    </div>
-                </div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xl font-bold text-white mb-4">The "Standard" Model</h3><p class="text-sm text-slate-300 mb-4">This is what 80% of crypto hedge funds use. It is a legal "Pass Through."</p><ul class="space-y-2 text-sm text-slate-400"><li class="flex items-center gap-2"><span class="text-green-500">✓</span> No corporate tax.</li><li class="flex items-center gap-2"><span class="text-green-500">✓</span> US Lawyers understand it perfectly.</li><li class="flex items-center gap-2"><span class="text-green-500">✓</span> Flexible Investment Manager rules.</li></ul></div>
+                <div class="glass p-6 rounded-xl"><h3 class="text-xl font-bold text-white mb-4">The Structure</h3><div class="text-xs font-mono bg-slate-900 p-4 rounded border border-slate-800">1. Spark Cayman SPC (Holds Assets)<br>2. Spark BVI Ltd (Issues Token)<br>3. Spark US Inc (Builds Tech)<br>--------------------------------<br>*Britannia Forge (UK) can act as payment processor.*</div></div>
             </div>
         </section>
-
     </main>
 
     <script>
-        // Navigation Logic
         function showSection(id) {
-            // Hide all sections
-            ['overview', 'dubai', 'swiss', 'singapore', 'cayman'].forEach(section => {
-                document.getElementById(section).classList.add('hidden');
-            });
-            // Reset tabs
-            ['btn-overview', 'btn-dubai', 'btn-swiss', 'btn-singapore', 'btn-cayman'].forEach(btn => {
-                let el = document.getElementById(btn);
-                el.classList.remove('tab-active');
-                el.classList.add('tab-inactive');
-            });
-
-            // Activate target
+            ['overview', 'dubai', 'swiss', 'singapore', 'cayman'].forEach(section => document.getElementById(section).classList.add('hidden'));
+            ['btn-overview', 'btn-dubai', 'btn-swiss', 'btn-singapore', 'btn-cayman'].forEach(btn => { document.getElementById(btn).classList.remove('tab-active'); document.getElementById(btn).classList.add('tab-inactive'); });
             document.getElementById(id).classList.remove('hidden');
             let activeBtn = document.getElementById('btn-' + id);
             activeBtn.classList.remove('tab-inactive');
             activeBtn.classList.add('tab-active');
         }
 
-        // Radar Chart
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('radarChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
                 data: {
                     labels: ['Setup Cost (Low=Best)', 'Speed', 'Reputation', 'Crypto-Friendly', 'Banking Ease'],
-                    datasets: [{
-                        label: 'Dubai (VARA)',
-                        data: [7, 8, 7, 9, 7],
-                        fill: true,
-                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
-                        borderColor: '#14b8a6',
-                        pointBackgroundColor: '#14b8a6'
-                    }, {
-                        label: 'Switzerland',
-                        data: [2, 5, 10, 8, 9],
-                        fill: true,
-                        backgroundColor: 'rgba(244, 63, 94, 0.2)',
-                        borderColor: '#f43f5e',
-                        pointBackgroundColor: '#f43f5e'
-                    }, {
-                        label: 'Cayman',
-                        data: [9, 9, 6, 8, 5],
-                        fill: true,
-                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                        borderColor: '#3b82f6',
-                        pointBackgroundColor: '#3b82f6'
-                    }]
+                    datasets: [{ label: 'Dubai (VARA)', data: [7, 8, 7, 9, 7], fill: true, backgroundColor: 'rgba(20, 184, 166, 0.2)', borderColor: '#14b8a6', pointBackgroundColor: '#14b8a6' }, { label: 'Switzerland', data: [2, 5, 10, 8, 9], fill: true, backgroundColor: 'rgba(244, 63, 94, 0.2)', borderColor: '#f43f5e', pointBackgroundColor: '#f43f5e' }, { label: 'Cayman', data: [9, 9, 6, 8, 5], fill: true, backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#3b82f6' }]
                 },
-                options: {
-                    elements: { line: { borderWidth: 2 } },
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            pointLabels: { color: '#94a3b8', font: { size: 12 } },
-                            ticks: { display: false, max: 10 }
-                        }
-                    },
-                    plugins: {
-                        legend: { labels: { color: '#cbd5e1' } }
-                    }
-                }
+                options: { elements: { line: { borderWidth: 2 } }, scales: { r: { angleLines: { color: 'rgba(255, 255, 255, 0.1)' }, grid: { color: 'rgba(255, 255, 255, 0.1)' }, pointLabels: { color: '#94a3b8', font: { size: 12 } }, ticks: { display: false, max: 10 } } }, plugins: { legend: { labels: { color: '#cbd5e1' } } } }
             });
         });
     </script>
