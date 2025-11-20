@@ -7,256 +7,121 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- 
-    THEME: "Executive Portal"
-    - Security: Simple JS Password Gate (Updated)
-    - Design: Dark Mode, Glassmorphism, Orange Accents.
-    -->
-
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
-        h1, h2, h3, .header-font { font-family: 'Space Grotesk', sans-serif; }
-        
-        /* Glass Panel */
-        .glass { 
-            background: rgba(30, 41, 59, 0.4); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.3s ease;
-        }
-        .glass:hover {
-            border-color: rgba(249, 115, 22, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Login Screen */
-        #login-screen {
-            position: fixed;
-            inset: 0;
-            background-color: #020617;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-        .hidden-screen {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Button Glow */
-        .btn-glow {
-            box-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
-            transition: all 0.3s ease;
-        }
-        .btn-glow:hover {
-            box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
-        }
-
-        /* Status Dot Pulse */
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            animation: pulse-green 2s infinite;
-        }
-        @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .glass:hover { border-color: rgba(249, 115, 22, 0.3); transform: translateY(-2px); }
+        #login-screen { position: fixed; inset: 0; background-color: #020617; z-index: 50; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
+        .hidden-screen { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <!-- ==================== LOGIN GATE ==================== -->
+    <!-- LOGIN SCREEN -->
     <div id="login-screen">
-        <div class="w-full max-w-md p-8 glass rounded-2xl text-center relative overflow-hidden">
-            <!-- Decorative background element -->
+        <div class="w-full max-w-md p-8 glass rounded-2xl text-center relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
-            
-            <div class="mb-6">
-                <div class="w-16 h-16 bg-slate-900 border border-slate-700 rounded-xl mx-auto flex items-center justify-center mb-4">
-                    <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                </div>
-                <h1 class="text-2xl font-bold text-white tracking-tight">SPARK INDUSTRIES</h1>
-                <p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Authorized Personnel Only</p>
-            </div>
-
+            <h1 class="text-2xl font-bold text-white tracking-tight mb-6">SPARK INDUSTRIES</h1>
             <div class="space-y-4">
-                <input type="password" id="password-input" placeholder="Enter Access Code" class="w-full bg-slate-900 border border-slate-700 text-white text-center px-4 py-3 rounded-lg focus:outline-none focus:border-orange-500 transition-colors font-mono placeholder-slate-600">
-                <button onclick="checkPassword()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-lg btn-glow transition-all">
-                    AUTHENTICATE
-                </button>
+                <input type="password" id="password-input" placeholder="Enter Access Code" class="w-full bg-slate-900 border border-slate-700 text-white text-center px-4 py-3 rounded-lg focus:outline-none focus:border-orange-500 font-mono">
+                <button onclick="checkPassword()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-lg transition-all">AUTHENTICATE</button>
                 <p id="error-msg" class="text-red-500 text-xs h-4"></p>
-            </div>
-            
-            <div class="mt-6 pt-6 border-t border-slate-800 text-[10px] text-slate-600">
-                SECURE CONNECTION ESTABLISHED v2.4
             </div>
         </div>
     </div>
 
-    <!-- ==================== MAIN DASHBOARD ==================== -->
+    <!-- MAIN DASHBOARD -->
     <div id="main-content" class="min-h-screen flex flex-col filter blur-sm transition-all duration-500">
-        
-        <!-- Navbar -->
         <nav class="border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-20">
             <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-6 h-6 bg-orange-500 rounded flex items-center justify-center text-[10px] font-bold text-black">S</div>
                     <span class="font-bold text-white tracking-tight">SPARK <span class="text-slate-500">COMMAND CENTER</span></span>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2 px-3 py-1 bg-slate-900 rounded-full border border-slate-800">
-                        <div class="pulse-dot"></div>
-                        <span class="text-xs text-slate-400">System Online</span>
-                    </div>
-                    <button onclick="location.reload()" class="text-xs text-slate-500 hover:text-white transition-colors">LOGOUT</button>
+                <div class="flex items-center gap-2 px-3 py-1 bg-slate-900 rounded-full border border-slate-800">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-xs text-slate-400">Secure Uplink Active</span>
                 </div>
             </div>
         </nav>
 
-        <!-- Hero Section -->
         <header class="py-12 px-6">
             <div class="max-w-7xl mx-auto">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Project Master Plan</h1>
-                <p class="text-slate-400 max-w-2xl text-lg">
-                    Centralized access to corporate structuring, jurisdictional analysis, and execution protocols for the Pre-IPO Tokenization Platform.
-                </p>
+                <p class="text-slate-400 max-w-2xl text-lg">Secure Gateway to Corporate Strategy Files.</p>
             </div>
         </header>
 
-        <!-- Quick Stats Row -->
-        <section class="px-6 mb-12">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                    <div class="text-xs text-slate-500 uppercase mb-1">Est. Launch Cost</div>
-                    <div class="text-xl font-mono text-white font-bold">$875,000</div>
-                </div>
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                    <div class="text-xs text-slate-500 uppercase mb-1">Primary HQ</div>
-                    <div class="text-xl font-mono text-white font-bold">Dubai / Cayman</div>
-                </div>
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                    <div class="text-xs text-slate-500 uppercase mb-1">Tech Stack</div>
-                    <div class="text-xl font-mono text-white font-bold">ERC-3643</div>
-                </div>
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                    <div class="text-xs text-slate-500 uppercase mb-1">Timeline</div>
-                    <div class="text-xl font-mono text-white font-bold">9 Months</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Modules Grid -->
         <main class="px-6 pb-20 flex-1">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <!-- Module 1: Structure & Budget -->
-                <div class="glass p-8 rounded-2xl flex flex-col relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center mb-6 border border-blue-500/30">
-                        <span class="text-xl font-bold">01</span>
-                    </div>
+                <!-- MODULE 1 -->
+                <div class="glass p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center mb-6 border border-blue-500/30"><span class="text-xl font-bold">01</span></div>
                     <h3 class="text-2xl font-bold text-white mb-2">Corporate Blueprint</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-1 leading-relaxed">
-                        The "Tri-Entity" Structure breakdown. Includes the OpCo/PropCo separation, full CAPEX budget line items, hiring plan, and the Master Roadmap.
-                    </p>
-                    <a href="file:///Users/oj23/Desktop/Spark_Detailed_Master_Plan.html" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-blue-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-blue-500 flex items-center justify-center gap-2 group-hover:shadow-lg">
-                        LAUNCH MODULE
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
+                    <p class="text-slate-400 text-sm mb-8 flex-1">Tri-Entity Structure, Budget, & Roadmap.</p>
+                    <!-- LINK TARGET -->
+                    <a id="link-blueprint" href="#" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-blue-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-blue-500">LAUNCH MODULE</a>
                 </div>
 
-                <!-- Module 2: Jurisdiction -->
-                <div class="glass p-8 rounded-2xl flex flex-col relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 18z" clip-rule="evenodd"></path></svg>
-                    </div>
-                    <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-6 border border-teal-500/30">
-                        <span class="text-xl font-bold">02</span>
-                    </div>
+                <!-- MODULE 2 -->
+                <div class="glass p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 bg-teal-500/20 text-teal-400 rounded-lg flex items-center justify-center mb-6 border border-teal-500/30"><span class="text-xl font-bold">02</span></div>
                     <h3 class="text-2xl font-bold text-white mb-2">Jurisdiction Analysis</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-1 leading-relaxed">
-                        Comparative analysis of Dubai (VARA), Switzerland, Singapore, and Cayman/BVI. Includes cost metrics, bankability scores, and regulatory risk factors.
-                    </p>
-                    <a href="file:///Users/oj23/Desktop/Spark_Jurisdiction_Comparator.html" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-teal-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-teal-500 flex items-center justify-center gap-2 group-hover:shadow-lg">
-                        LAUNCH MODULE
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
+                    <p class="text-slate-400 text-sm mb-8 flex-1">Dubai vs Cayman vs Switzerland.</p>
+                    <!-- LINK TARGET -->
+                    <a id="link-jurisdiction" href="#" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-teal-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-teal-500">LAUNCH MODULE</a>
                 </div>
 
-                <!-- Module 3: Execution -->
-                <div class="glass p-8 rounded-2xl flex flex-col relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
-                    </div>
-                    <div class="w-12 h-12 bg-orange-500/20 text-orange-400 rounded-lg flex items-center justify-center mb-6 border border-orange-500/30">
-                        <span class="text-xl font-bold">03</span>
-                    </div>
+                <!-- MODULE 3 -->
+                <div class="glass p-8 rounded-2xl flex flex-col">
+                    <div class="w-12 h-12 bg-orange-500/20 text-orange-400 rounded-lg flex items-center justify-center mb-6 border border-orange-500/30"><span class="text-xl font-bold">03</span></div>
                     <h3 class="text-2xl font-bold text-white mb-2">Execution Protocol</h3>
-                    <p class="text-slate-400 text-sm mb-8 flex-1 leading-relaxed">
-                        Step-by-step operational manual. Covers Capital Collection (Escrow), Share Acquisition, Token Minting, and Secondary Trading setup. Includes Crowd vs. Inventory modes.
-                    </p>
-                    <a href="file:///Users/oj23/Desktop/spark_execution_protocol.html" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-orange-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-orange-500 flex items-center justify-center gap-2 group-hover:shadow-lg">
-                        LAUNCH MODULE
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    </a>
+                    <p class="text-slate-400 text-sm mb-8 flex-1">Step-by-step Tokenization Manual.</p>
+                    <!-- LINK TARGET -->
+                    <a id="link-execution" href="#" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-orange-600 text-white text-center rounded-lg font-bold transition-colors border border-slate-700 hover:border-orange-500">LAUNCH MODULE</a>
                 </div>
 
             </div>
         </main>
-
-        <footer class="border-t border-slate-800 py-6 bg-slate-950">
-            <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-500">
-                <div>SPARK INDUSTRIES &copy; 2025</div>
-                <div class="font-mono">SYSTEM_STATUS: NORMAL</div>
-            </div>
-        </footer>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // UPDATED PASSWORD
+        // CONFIGURATION
         const ACCESS_CODE = "spark2025@UsA";
-        
-        const loginScreen = document.getElementById('login-screen');
-        const mainContent = document.getElementById('main-content');
-        const passwordInput = document.getElementById('password-input');
-        const errorMsg = document.getElementById('error-msg');
+        const SECURITY_TOKEN = "spark-secure-v1-authorized"; // The "Handshake" Key
+
+        // YOUR LOCAL FILE PATHS (Ensure these are exact)
+        const FILE_PATHS = {
+            blueprint: "file:///Users/oj23/Desktop/Spark_Detailed_Master_Plan.html",
+            jurisdiction: "file:///Users/oj23/Desktop/Spark_Jurisdiction_Comparator.html",
+            execution: "file:///Users/oj23/Desktop/spark_execution_protocol.html"
+        };
 
         function checkPassword() {
-            if (passwordInput.value === ACCESS_CODE) {
-                // Success
-                loginScreen.classList.add('hidden-screen');
-                mainContent.classList.remove('blur-sm');
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                }, 500);
+            const input = document.getElementById('password-input');
+            const errorMsg = document.getElementById('error-msg');
+
+            if (input.value === ACCESS_CODE) {
+                // 1. Hide Login
+                document.getElementById('login-screen').classList.add('hidden-screen');
+                document.getElementById('main-content').classList.remove('blur-sm');
+                setTimeout(() => { document.getElementById('login-screen').style.display = 'none'; }, 500);
+
+                // 2. GENERATE SECURE LINKS (Append the token)
+                document.getElementById('link-blueprint').href = FILE_PATHS.blueprint + "?token=" + SECURITY_TOKEN;
+                document.getElementById('link-jurisdiction').href = FILE_PATHS.jurisdiction + "?token=" + SECURITY_TOKEN;
+                document.getElementById('link-execution').href = FILE_PATHS.execution + "?token=" + SECURITY_TOKEN;
+
             } else {
-                // Fail
-                errorMsg.textContent = "ACCESS DENIED: INVALID CREDENTIALS";
-                passwordInput.classList.add('border-red-500');
-                setTimeout(() => {
-                    passwordInput.classList.remove('border-red-500');
-                    errorMsg.textContent = "";
-                }, 2000);
+                errorMsg.textContent = "ACCESS DENIED";
+                input.classList.add('border-red-500');
+                setTimeout(() => { input.classList.remove('border-red-500'); errorMsg.textContent = ""; }, 2000);
             }
         }
 
-        // Allow Enter key to submit
-        passwordInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
+        document.getElementById('password-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkPassword(); });
     </script>
 </body>
 </html>
