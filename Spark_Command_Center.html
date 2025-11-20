@@ -10,14 +10,46 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
         h1, h2, h3, .header-font { font-family: 'Space Grotesk', sans-serif; }
-        .glass { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
-        .glass:hover { border-color: rgba(249, 115, 22, 0.3); transform: translateY(-2px); }
-        #login-screen { position: fixed; inset: 0; background-color: #020617; z-index: 50; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
-        .hidden-screen { opacity: 0; pointer-events: none; }
+        
+        .glass { 
+            background: rgba(30, 41, 59, 0.4); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.3s ease;
+        }
+        .glass:hover {
+            border-color: rgba(249, 115, 22, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #020617;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+        .hidden-screen {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .btn-glow { box-shadow: 0 0 10px rgba(249, 115, 22, 0.2); transition: all 0.3s ease; }
         .btn-glow:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.5); }
-        .pulse-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite; }
-        @keyframes pulse-green { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+        
+        .pulse-dot {
+            width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
     </style>
 </head>
 <body>
@@ -40,15 +72,11 @@
                 <button onclick="attemptLogin()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-3 rounded-lg btn-glow transition-all">
                     AUTHENTICATE
                 </button>
-                
-                <!-- DIAGNOSTIC LOG -->
-                <div id="debug-log" class="text-[10px] text-slate-500 font-mono mt-4 border-t border-slate-800 pt-2 text-left hidden">
-                    System Ready.
-                </div>
+                <p id="error-msg" class="text-red-500 text-xs h-4 font-mono"></p>
             </div>
             
             <div class="mt-6 pt-6 border-t border-slate-800 text-[10px] text-slate-600">
-                SECURE CONNECTION ESTABLISHED v3.1 (Debug Active)
+                SECURE CONNECTION ESTABLISHED v3.5 (Patch Applied)
             </div>
         </div>
     </div>
@@ -81,6 +109,15 @@
             </div>
         </header>
 
+        <section class="px-6 mb-12">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg"><div class="text-xs text-slate-500 uppercase mb-1">Est. Launch Cost</div><div class="text-xl font-mono text-white font-bold">$875,000</div></div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg"><div class="text-xs text-slate-500 uppercase mb-1">Primary HQ</div><div class="text-xl font-mono text-white font-bold">Dubai / Cayman</div></div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg"><div class="text-xs text-slate-500 uppercase mb-1">Tech Stack</div><div class="text-xl font-mono text-white font-bold">ERC-3643</div></div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg"><div class="text-xs text-slate-500 uppercase mb-1">Timeline</div><div class="text-xl font-mono text-white font-bold">9 Months</div></div>
+            </div>
+        </section>
+
         <main class="px-6 pb-20 flex-1">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
@@ -110,14 +147,20 @@
 
             </div>
         </main>
+
+        <footer class="border-t border-slate-800 py-6 bg-slate-950">
+            <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-500">
+                <div>SPARK INDUSTRIES &copy; 2025</div>
+                <div class="font-mono">SYSTEM_STATUS: NORMAL</div>
+            </div>
+        </footer>
     </div>
 
     <script>
         // SECURITY CONFIG
         const SECURITY_TOKEN = "spark-secure-v1-authorized";
-        
-        // HASH FOR: spark2025@UsA
-        const TARGET_HASH = "7df797903813172ce76ec56473221c7793841d5665b092e65d34904179052807";
+        // UPDATED HASH FOR 'spark2025@UsA' (9772...)
+        const TARGET_HASH = "9772ade7e38501b59b6fea13cbb6281167c10735e8249f5f539bb36645c1b37a";
 
         // IMPORTANT: THESE LINKS MUST MATCH YOUR WEBSITE EXACTLY
         const FILE_PATHS = {
@@ -149,24 +192,24 @@
         // 3. Login Attempt
         async function attemptLogin() {
             const input = document.getElementById('password-input');
-            const debugLog = document.getElementById('debug-log');
+            const errorMsg = document.getElementById('error-msg');
             
             // TRIM INPUT to remove accidental spaces
             const cleanPassword = input.value.trim();
             const inputHash = await sha256(cleanPassword);
 
-            debugLog.classList.remove('hidden');
-            debugLog.innerHTML = `Input Length: ${cleanPassword.length}<br>Hash Generated: <br><span class="text-orange-500 break-all">${inputHash}</span>`;
+            // DEBUG (Optional - view in console if needed)
+            console.log("Input:", cleanPassword.length, "chars");
+            console.log("Hash:", inputHash);
 
             if (inputHash === TARGET_HASH) {
                 // Save login state to Session Storage (survives refresh)
                 sessionStorage.setItem('spark_auth', 'true');
-                debugLog.innerHTML += `<br><span class="text-green-500">MATCH CONFIRMED. UNLOCKING...</span>`;
-                setTimeout(unlockInterface, 500); // Short delay to see success message
+                unlockInterface();
             } else {
-                debugLog.innerHTML += `<br><span class="text-red-500">HASH MISMATCH. CHECK CONSOLE.</span>`;
+                errorMsg.textContent = "ACCESS DENIED: INVALID CREDENTIALS";
                 input.classList.add('border-red-500');
-                setTimeout(() => { input.classList.remove('border-red-500'); }, 2000);
+                setTimeout(() => { input.classList.remove('border-red-500'); errorMsg.textContent = ""; }, 2000);
             }
         }
 
