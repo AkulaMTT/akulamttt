@@ -1,29 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- SECURITY GUARD SCRIPT (ACTIVE) -->
+    <!-- ADVANCED SECURITY GUARD v5.0 (HEARTBEAT LINKED) -->
     <script>
         (function() {
-            // The secret key expecting from Command Center
             const REQUIRED_TOKEN = "spark-secure-v1-authorized";
-            
-            // Check URL for the token
+            const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 Minutes
+
+            // 1. CHECK URL TOKEN
             const urlParams = new URLSearchParams(window.location.search);
             const userToken = urlParams.get('token');
 
-            // If token is missing or wrong, LOCK DOWN
-            if (userToken !== REQUIRED_TOKEN) {
+            function killSession() {
                 document.write(`
                     <body style="background-color:#020617; color:#ef4444; font-family:sans-serif; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; margin:0;">
                         <div style="font-size:60px;">🛑</div>
                         <h1 style="margin:20px 0;">ACCESS DENIED</h1>
-                        <p style="color:#94a3b8;">Direct access prohibited. Initialize via Command Center.</p>
+                        <p style="color:#94a3b8;">Session Expired or Invalid. Please Re-Authenticate.</p>
                         <a href="https://akulamtt.com/Spark_Command_Center.html" style="margin-top:20px; color:#fff; text-decoration:underline;">Return to Login</a>
                     </body>
                 `);
                 window.stop();
-                throw new Error("Security Halt");
             }
+
+            // 2. CHECK SHARED SESSION STORAGE
+            function checkHeartbeat() {
+                const sessionRaw = localStorage.getItem('spark_session');
+                if (!sessionRaw) return killSession(); // Logged out in another tab
+
+                const session = JSON.parse(sessionRaw);
+                const now = Date.now();
+
+                // If timer exceeded 5 minutes
+                if (now - session.timestamp > SESSION_TIMEOUT) {
+                    localStorage.removeItem('spark_session');
+                    return killSession(); 
+                }
+            }
+
+            // 3. UPDATE TIMER ON ACTIVITY (Keeps all tabs alive)
+            function keepAlive() {
+                const sessionRaw = localStorage.getItem('spark_session');
+                if (sessionRaw) {
+                    const session = JSON.parse(sessionRaw);
+                    session.timestamp = Date.now();
+                    localStorage.setItem('spark_session', JSON.stringify(session));
+                }
+            }
+
+            // INITIAL CHECKS
+            if (userToken !== REQUIRED_TOKEN) killSession();
+            checkHeartbeat();
+
+            // START MONITORS
+            setInterval(checkHeartbeat, 2000); // Check status every 2s
+            document.addEventListener('mousemove', keepAlive);
+            document.addEventListener('keydown', keepAlive);
         })();
     </script>
     <!-- END SECURITY GUARD -->
