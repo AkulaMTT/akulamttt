@@ -76,7 +76,7 @@
             </div>
             
             <div class="mt-6 pt-6 border-t border-slate-800 text-[10px] text-slate-600">
-                SECURE CONNECTION ESTABLISHED v5.1 (Stable)
+                SECURE CONNECTION ESTABLISHED v6.0 (Loop Fixed)
             </div>
         </div>
     </div>
@@ -162,7 +162,7 @@
         const TARGET_HASH = "9772ade7e38501b59b6fea13cbb6281167c10735e8249f5f539bb36645c1b37a";
         const SESSION_TIMEOUT = 5 * 60 * 1000; // 5 Minutes
 
-        // FILE LINKS
+        // IMPORTANT: THESE LINKS MUST MATCH YOUR WEBSITE EXACTLY
         const FILE_PATHS = {
             blueprint: "https://akulamtt.com/Spark_Detailed_Master_Plan.html",
             jurisdiction: "https://akulamtt.com/Spark_Jurisdiction_Comparator.html",
@@ -177,7 +177,17 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // 2. Unlock UI & Generate Links
+        // 2. UPDATE ACTIVITY TIMESTAMP
+        function updateActivity() {
+            const sessionRaw = localStorage.getItem('spark_session');
+            if(sessionRaw) {
+                const session = JSON.parse(sessionRaw);
+                session.timestamp = Date.now();
+                localStorage.setItem('spark_session', JSON.stringify(session));
+            }
+        }
+
+        // 3. Unlock UI & Generate Links
         function unlockInterface() {
             document.getElementById('login-screen').classList.add('hidden-screen');
             document.getElementById('main-content').classList.remove('blur-sm');
@@ -195,27 +205,21 @@
             setInterval(checkSessionHealth, 2000);
         }
 
-        // 3. UPDATE ACTIVITY TIMESTAMP
-        function updateActivity() {
-            const sessionRaw = localStorage.getItem('spark_session');
-            if(sessionRaw) {
-                const session = JSON.parse(sessionRaw);
-                session.timestamp = Date.now();
-                localStorage.setItem('spark_session', JSON.stringify(session));
-            }
-        }
-
-        // 4. CHECK SESSION HEALTH (Fixed: No auto-reload on login screen)
+        // 4. CHECK SESSION HEALTH
         function checkSessionHealth() {
             const sessionRaw = localStorage.getItem('spark_session');
-            if (sessionRaw) {
-                const session = JSON.parse(sessionRaw);
-                if (Date.now() - session.timestamp > SESSION_TIMEOUT) {
-                    logout(); // Expired
+            if (!sessionRaw) { 
+                // If I am logged out, show login screen
+                if (document.getElementById('login-screen').style.display === 'none') {
+                     location.reload(); 
                 }
+                return;
             }
-            // NOTE: We removed the "else { reload }" logic here to prevent the loop.
-            // If session is missing on this page, we just stay on the login screen.
+
+            const session = JSON.parse(sessionRaw);
+            if (Date.now() - session.timestamp > SESSION_TIMEOUT) {
+                logout(); // Expired
+            }
         }
 
         // 5. Login Attempt
@@ -223,6 +227,7 @@
             const input = document.getElementById('password-input');
             const errorMsg = document.getElementById('error-msg');
             
+            // TRIM INPUT to remove accidental spaces
             const cleanPassword = input.value.trim();
             const inputHash = await sha256(cleanPassword);
 
@@ -255,6 +260,8 @@
                      logout(); // Clean up old session
                  }
             }
+            // NOTE: checkSessionHealth() is NOT called here anymore to prevent loops.
+            // It is only called inside unlockInterface() or by interval.
         });
 
         document.getElementById('password-input').addEventListener('keypress', (e) => { 
