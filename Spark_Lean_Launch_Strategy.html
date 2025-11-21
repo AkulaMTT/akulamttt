@@ -143,14 +143,29 @@
         <!-- 2. The Budget Breakdown -->
         <section>
             <h2 class="text-3xl font-bold text-white mb-6">2. Financial Breakdown (Where the money goes)</h2>
+            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Chart -->
                 <div class="lg:col-span-1 card p-6 rounded-2xl flex flex-col items-center justify-center">
-                    <div class="w-full h-64"><canvas id="budgetChart"></canvas></div>
-                    <div class="mt-6 text-center"><p class="text-3xl font-bold text-white">$135,000</p><p class="text-xs text-slate-500 uppercase">Total Seed Requirement</p></div>
+                    <div class="w-full h-64">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-3xl font-bold text-white">$135,000</p>
+                        <p class="text-xs text-slate-500 uppercase">Total Seed Requirement</p>
+                    </div>
                 </div>
+
+                <!-- Line Items -->
                 <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Legal -->
                     <div class="card p-5 rounded-xl">
-                        <div class="flex justify-between items-center mb-2"><h3 class="text-lg font-bold text-orange-400">A. Legal & Structure</h3><span class="font-mono font-bold text-white">$55,000</span></div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-bold text-orange-400">A. Legal & Structure</h3>
+                            <span class="font-mono font-bold text-white">$55,000</span>
+                        </div>
                         <div class="space-y-2 text-sm text-slate-400 border-t border-slate-700/50 pt-3">
                             <div class="flex justify-between"><span>BVI Business Company Setup</span> <span>$10,000</span></div>
                             <div class="flex justify-between"><span>US OpCo Formation (Delaware)</span> <span>$2,000</span></div>
@@ -159,22 +174,33 @@
                             <div class="flex justify-between"><span>KYC Initial Credits (SumSub)</span> <span>$3,000</span></div>
                         </div>
                     </div>
+
+                    <!-- Tech -->
                     <div class="card p-5 rounded-xl">
-                        <div class="flex justify-between items-center mb-2"><h3 class="text-lg font-bold text-blue-400">B. Technology (MVP)</h3><span class="font-mono font-bold text-white">$35,000</span></div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-bold text-blue-400">B. Technology (MVP)</h3>
+                            <span class="font-mono font-bold text-white">$35,000</span>
+                        </div>
                         <div class="space-y-2 text-sm text-slate-400 border-t border-slate-700/50 pt-3">
                             <div class="flex justify-between"><span>Smart Contract Fork/Deploy (ERC-3643)</span> <span>$15,000</span></div>
                             <div class="flex justify-between"><span>Web Dashboard (React/Next.js)</span> <span>$10,000</span></div>
                             <div class="flex justify-between"><span>Security Audit (Boutique Firm)</span> <span>$10,000</span></div>
                         </div>
                     </div>
+
+                    <!-- Ops -->
                     <div class="card p-5 rounded-xl">
-                        <div class="flex justify-between items-center mb-2"><h3 class="text-lg font-bold text-emerald-400">C. Operations & Marketing</h3><span class="font-mono font-bold text-white">$45,000</span></div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-bold text-emerald-400">C. Operations & Marketing</h3>
+                            <span class="font-mono font-bold text-white">$45,000</span>
+                        </div>
                         <div class="space-y-2 text-sm text-slate-400 border-t border-slate-700/50 pt-3">
                             <div class="flex justify-between"><span>Marketing (KOLs / Alpha Groups)</span> <span>$20,000</span></div>
                             <div class="flex justify-between"><span>Server Costs (12 Months)</span> <span>$5,000</span></div>
                             <div class="flex justify-between"><span>Emergency Contingency</span> <span>$20,000</span></div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -183,16 +209,18 @@
         <section>
             <h2 class="text-3xl font-bold text-white mb-6">3. Execution Timeline</h2>
             <div class="relative border-l-2 border-slate-700 ml-6 space-y-12 pb-12">
+                
                 <div class="relative pl-8">
                     <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-900 border-2 border-orange-500 rounded-full"></div>
                     <h3 class="text-xl font-bold text-white mb-2">Month 1: The Setup (Stealth Mode)</h3>
                     <ul class="list-disc list-inside text-slate-400 space-y-1 text-sm">
                         <li>Incorporate Delaware OpCo ($2k).</li>
                         <li>Build high-end "Waitlist" Landing Page.</li>
-                        <li>Source the "Deal" (Get a Term Sheet for $1M SpaceX allocation).</li>
+                        <li>Source the "Deal" (Get a Term Sheet for $1M SpaceX allocation via Hiive/Forge).</li>
                         <li><strong>Cost:</strong> ~$5,000</li>
                     </ul>
                 </div>
+
                 <div class="relative pl-8">
                     <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-900 border-2 border-blue-500 rounded-full"></div>
                     <h3 class="text-xl font-bold text-white mb-2">Month 2-3: The Capital Call</h3>
@@ -202,6 +230,7 @@
                         <li><strong>Goal:</strong> Secure $1M+ in commitments before spending the big legal money.</li>
                     </ul>
                 </div>
+
                 <div class="relative pl-8">
                     <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-900 border-2 border-emerald-500 rounded-full"></div>
                     <h3 class="text-xl font-bold text-white mb-2">Month 4: The Trigger</h3>
@@ -213,6 +242,7 @@
                         <li><strong>Revenue Event:</strong> Collect 5% Fee ($50,000) to refill company treasury.</li>
                     </ul>
                 </div>
+
             </div>
         </section>
 
@@ -228,23 +258,36 @@
                             The Founder's professional licenses are the "Secret Weapon" that mitigate the risk of a low-budget launch. 
                             <span class="text-amber-400 font-bold">Possessing these specific certificates moves the probability from 60% to 80%.</span>
                         </p>
+                        
+                        <!-- Certificate Checklist -->
                         <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
                             <h4 class="text-xs uppercase tracking-widest text-slate-500 mb-4">REQUIRED CERTIFICATES FOR MAX SUCCESS RATE</h4>
+                            
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div><span class="font-bold text-white">Series 65 / 66</span></div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div>
+                                        <span class="font-bold text-white">Series 65 / 66</span>
+                                    </div>
                                     <span class="text-sm text-slate-400">Investment Advisor Law (Allows Fee Model)</span>
                                 </div>
                                 <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div><span class="font-bold text-white">Series 7</span></div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div>
+                                        <span class="font-bold text-white">Series 7</span>
+                                    </div>
                                     <span class="text-sm text-slate-400">General Securities (Credibility with HNW)</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div><span class="font-bold text-white">Clean U4 / CRD</span></div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">✓</div>
+                                        <span class="font-bold text-white">Clean U4 / CRD</span>
+                                    </div>
                                     <span class="text-sm text-slate-400">No Disciplinary History (Trust Factor)</span>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -261,34 +304,46 @@
                         <canvas id="riskChart"></canvas>
                     </div>
                     <div class="mt-6 text-center">
-                        <p class="text-sm text-slate-400">Impact of Strategy & Capital</p>
+                        <p class="text-sm text-slate-400">Comparison: Lean Models vs. Institutional Standard</p>
                     </div>
                 </div>
 
                 <!-- Risk Text -->
                 <div class="space-y-4">
                     <div class="card p-4 rounded-xl border-l-4 border-red-500">
-                        <h3 class="text-md font-bold text-white">A: Tech First ($135k)</h3>
-                        <div class="flex items-center gap-3"><span class="text-2xl font-bold text-red-500">20%</span><span class="text-xs text-slate-500">Success Rate</span></div>
+                        <h3 class="text-md font-bold text-white">A: Lean Tech First ($135k)</h3>
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl font-bold text-red-500">20%</span>
+                            <span class="text-xs text-slate-500">Success Rate</span>
+                        </div>
                         <p class="text-xs text-slate-400 mt-1">High Burn, Low Trust. Likely Failure.</p>
                     </div>
 
                     <div class="card p-4 rounded-xl border-l-4 border-blue-500">
-                        <h3 class="text-md font-bold text-white">B: Syndicate Model ($135k)</h3>
-                        <div class="flex items-center gap-3"><span class="text-2xl font-bold text-blue-500">60%</span><span class="text-xs text-slate-500">Success Rate</span></div>
+                        <h3 class="text-md font-bold text-white">B: Lean Syndicate ($135k)</h3>
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl font-bold text-blue-500">60%</span>
+                            <span class="text-xs text-slate-500">Success Rate</span>
+                        </div>
                         <p class="text-xs text-slate-400 mt-1">Validates demand first. Standard Risk.</p>
                     </div>
 
                     <div class="card p-4 rounded-xl border-l-4 border-amber-500 bg-amber-900/20">
-                        <h3 class="text-md font-bold text-white">C: Advisor-Led ($135k)</h3>
-                        <div class="flex items-center gap-3"><span class="text-3xl font-bold text-amber-500">80%</span><span class="text-xs text-slate-500">Success Rate</span></div>
+                        <h3 class="text-md font-bold text-white">C: Advisor-Led Syndicate ($135k)</h3>
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl font-bold text-amber-500">80%</span>
+                            <span class="text-xs text-slate-500">Success Rate</span>
+                        </div>
                         <p class="text-xs text-slate-400 mt-1">High Trust + Regulatory Safety Net.</p>
                     </div>
 
                     <!-- ADDED: Institutional Benchmark -->
                     <div class="card p-4 rounded-xl border-l-4 border-purple-500 bg-purple-900/10">
-                        <h3 class="text-md font-bold text-white">D: Institutional ($2.5M+)</h3>
-                        <div class="flex items-center gap-3"><span class="text-2xl font-bold text-purple-500">95%</span><span class="text-xs text-slate-500">Success Rate</span></div>
+                        <h3 class="text-md font-bold text-white">D: Institutional Standard ($2.5M+)</h3>
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl font-bold text-purple-500">95%</span>
+                            <span class="text-xs text-slate-500">Success Rate</span>
+                        </div>
                         <p class="text-xs text-slate-400 mt-1">Fully Funded Inventory & Tech. The "Safe" Way.</p>
                     </div>
                 </div>
@@ -319,7 +374,12 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 12 } } } },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#94a3b8', font: { size: 12 } }
+                    }
+                },
                 cutout: '70%'
             }
         });
